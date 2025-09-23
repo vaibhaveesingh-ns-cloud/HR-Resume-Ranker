@@ -9,10 +9,11 @@ import * as pdfjsLib from 'pdfjs-dist';
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://aistudiocdn.com/pdfjs-dist@^4.4.168/build/pdf.worker.min.mjs';
 
 
-const API_KEY = process.env.API_KEY;
+// Prefer Vite-style env first, then fall back to process.env definitions injected by Vite define
+const API_KEY = (import.meta as any).env?.VITE_GEMINI_API_KEY || (process as any).env?.GEMINI_API_KEY || (process as any).env?.API_KEY;
 
 if (!API_KEY) {
-  throw new Error("API_KEY environment variable not set");
+  throw new Error("API_KEY environment variable not set. Define VITE_GEMINI_API_KEY (preferred) or GEMINI_API_KEY/API_KEY in your .env, then restart Vite.");
 }
 
 const ai = new GoogleGenAI({ apiKey: API_KEY });
