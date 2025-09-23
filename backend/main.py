@@ -8,7 +8,6 @@ from typing import List, Dict, Any
 import asyncio
 from dotenv import load_dotenv
 
-from services.gemini_service import GeminiService
 from services.openai_service import ChatGPTService
 from models.schemas import RankingResponse, Candidate, RejectedCandidate
 
@@ -17,7 +16,7 @@ load_dotenv()
 
 app = FastAPI(
     title="HR Resume Ranker API",
-    description="AI-powered resume ranking system using Gemini API",
+    description="AI-powered resume ranking system using ChatGPT",
     version="1.0.0"
 )
 
@@ -30,12 +29,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize LLM provider service based on env
-provider = os.getenv("PROVIDER", "gemini").lower()
-if provider == "openai":
-    llm_service = ChatGPTService()
-else:
-    llm_service = GeminiService()
+# Initialize LLM provider service (ChatGPT)
+llm_service = ChatGPTService()
 
 @app.get("/")
 async def root():
@@ -65,7 +60,7 @@ async def rank_resumes(
             temp_file_path = temp_file.name
         
         try:
-            # Process resumes using Gemini service
+            # Process resumes using ChatGPT service
             result = await llm_service.rank_resumes(job_description, temp_file_path)
             
             return RankingResponse(

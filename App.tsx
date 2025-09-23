@@ -5,7 +5,7 @@ import JobDescriptionInput from './components/JobDescriptionInput';
 import ResumeUploader from './components/ResumeUploader';
 import ResultsDisplay from './components/ResultsDisplay';
 import Loader from './components/Loader';
-import { rankResumes } from './services/geminiService';
+import { rankResumes } from './services/chatgptService';
 import type { Candidate, RejectedCandidate } from './types';
 
 export default function App() {
@@ -103,7 +103,7 @@ export default function App() {
         )}
       </main>
       <footer className="text-center py-6 text-slate-500 text-sm">
-        <p>Powered by Gemini API</p>
+        <p>Powered by OpenAI ChatGPT</p>
       </footer>
     </div>
   );

@@ -10,12 +10,12 @@ An AI-powered resume ranking system that helps HR professionals evaluate and ran
 
 - **Backend**: FastAPI with Python for AI processing and API endpoints
 - **Frontend**: React with TypeScript and Tailwind CSS for the user interface
-- **AI Engine**: Google Gemini API for resume analysis and ranking
+- **AI Engine**: OpenAI ChatGPT API for resume analysis and ranking
 
 ## Features
 
 - Upload multiple resumes in ZIP format
-- AI-powered candidate evaluation using Gemini API
+- AI-powered candidate evaluation using ChatGPT
 - Automatic GitHub profile detection and validation
 - Skill-based ranking and categorization (Python, AI libraries, ML exposure, AI projects)
 - Modern, responsive web interface
@@ -32,7 +32,7 @@ HR-Resume-Ranker/
 │   ├── models/
 │   │   └── schemas.py      # Pydantic models
 │   ├── services/
-│   │   └── gemini_service.py # AI processing service
+│   │   └── openai_service.py # AI processing service
 │   └── .env.example        # Environment variables template
 ├── frontend/               # React frontend
 │   ├── src/
@@ -68,7 +68,7 @@ HR-Resume-Ranker/
 4. Set up environment variables:
    ```bash
    cp .env.example .env
-   # Edit .env and add your Gemini API key
+   # Edit .env and add your OpenAI API key
    ```
 
 5. Start the FastAPI server:
@@ -102,13 +102,25 @@ HR-Resume-Ranker/
 Create a `.env` file in the backend directory with the following:
 
 ```
-GEMINI_API_KEY=your_gemini_api_key_here
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_MODEL=gpt-4o-mini
 ```
 
-To get a Gemini API key:
-1. Visit [Google AI Studio](https://aistudio.google.com/)
-2. Create a new API key
+To get an OpenAI API key:
+1. Visit [platform.openai.com](https://platform.openai.com/)
+2. Create a new API key with access to the Chat Completions API
 3. Copy the key to your `.env` file
+
+### Frontend Environment Variables
+
+For the standalone React client in the project root, create a `.env` file alongside `package.json` with:
+
+```
+VITE_OPENAI_API_KEY=your_openai_api_key_here
+VITE_OPENAI_MODEL=gpt-4o-mini
+```
+
+Restart the Vite development server after updating these values.
 
 ## Usage
 
@@ -129,7 +141,7 @@ To get a Gemini API key:
 
 ### Backend Development
 - The backend uses FastAPI with automatic API documentation at `http://localhost:8000/docs`
-- Rate limiting is implemented for the Gemini API
+- Rate limiting is implemented for the ChatGPT API
 - PDF processing is handled server-side
 
 ### Frontend Development

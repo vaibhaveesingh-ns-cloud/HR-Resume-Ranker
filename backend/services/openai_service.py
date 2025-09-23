@@ -84,7 +84,7 @@ class ChatGPTService:
         return text
 
     def extract_github_links(self, text: str) -> List[str]:
-        """Re-use the same robust patterns as in GeminiService"""
+        """Extract GitHub links using robust pattern matching"""
         github_links = []
         text_clean = text.replace('\n', ' ').replace('\t', ' ')
         url_patterns = [
@@ -300,10 +300,11 @@ Return your analysis in the following JSON format:
                     if 'rate limit' in msg.lower() or '429' in msg:
                         # Backoff and retry
                         sleep_for = backoff * (1.5 ** attempt)
-                        logging.warning(f"Rate limited on attempt {attempt+1}/{max_retries}. Backing off for {sleep_for:.1f}s")
-                        asyncio.sleep(0)  # yield control
-                        import time
-                        time.sleep(sleep_for)
+                        logging.warning(
+                            f"Rate limited on attempt {attempt+1}/{max_retries}. Backing off for {sleep_for:.1f}s"
+                        )
+                        await asyncio.sleep(0)
+                        await asyncio.sleep(sleep_for)
                         continue
                     else:
                         raise

@@ -21,10 +21,10 @@ pip install -r requirements.txt
 
 # Check if .env file exists
 if [ ! -f ".env" ]; then
-    echo "Warning: .env file not found. Please copy .env.example to .env and add your Gemini API key."
+    echo "Warning: .env file not found. Please copy .env.example to .env and add your OpenAI API key."
     echo "Creating .env from .env.example..."
     cp .env.example .env
-    echo "Please edit .env and add your GEMINI_API_KEY before running the server."
+    echo "Please edit .env and add your OPENAI_API_KEY before running the server."
     exit 1
 fi
 

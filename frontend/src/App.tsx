@@ -117,7 +117,7 @@ export default function App() {
         )}
       </main>
       <footer className="text-center py-6 text-slate-500 text-sm">
-        <p>Powered by Gemini API</p>
+        <p>Powered by OpenAI ChatGPT</p>
       </footer>
     </div>
   );

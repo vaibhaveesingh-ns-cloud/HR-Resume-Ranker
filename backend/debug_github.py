@@ -8,13 +8,13 @@ import os
 import re
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from services.gemini_service import GeminiService
+from services.openai_service import ChatGPTService
 
 def debug_specific_cases():
     """Debug the failing test cases"""
     
-    os.environ['GEMINI_API_KEY'] = 'dummy-key-for-testing'
-    service = GeminiService()
+    os.environ['OPENAI_API_KEY'] = 'dummy-key-for-testing'
+    service = ChatGPTService()
     
     failing_cases = [
         {

@@ -7,13 +7,14 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from services.gemini_service import GeminiService
+from services.openai_service import ChatGPTService
 
 def test_github_detection():
     """Test various GitHub link patterns in resume text"""
     
     # Initialize the service
-    service = GeminiService()
+    os.environ.setdefault('OPENAI_API_KEY', 'dummy-key-for-testing')
+    service = ChatGPTService()
     
     # Test cases with different GitHub link formats
     test_cases = [
@@ -139,7 +140,8 @@ def test_url_validation():
     print("\n🔍 Testing GitHub URL Validation")
     print("=" * 50)
     
-    service = GeminiService()
+    os.environ.setdefault('OPENAI_API_KEY', 'dummy-key-for-testing')
+    service = ChatGPTService()
     
     validation_tests = [
         ("https://github.com/validuser", True),
@@ -175,8 +177,8 @@ def test_url_validation():
 if __name__ == "__main__":
     print("🚀 Starting GitHub Detection Tests")
     
-    # Set a dummy API key for testing (we won't actually call Gemini)
-    os.environ['GEMINI_API_KEY'] = 'dummy-key-for-testing'
+    # Set a dummy API key for testing (we won't actually call the API)
+    os.environ['OPENAI_API_KEY'] = 'dummy-key-for-testing'
     
     try:
         detection_passed = test_github_detection()
