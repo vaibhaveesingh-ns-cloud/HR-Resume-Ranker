@@ -9,6 +9,7 @@ import asyncio
 from dotenv import load_dotenv
 
 from services.gemini_service import GeminiService
+from services.openai_service import ChatGPTService
 from models.schemas import RankingResponse, Candidate, RejectedCandidate
 
 # Load environment variables
@@ -29,8 +30,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize Gemini service
-gemini_service = GeminiService()
+# Initialize LLM provider service based on env
+provider = os.getenv("PROVIDER", "gemini").lower()
+if provider == "openai":
+    llm_service = ChatGPTService()
+else:
+    llm_service = GeminiService()
 
 @app.get("/")
 async def root():
@@ -61,7 +66,7 @@ async def rank_resumes(
         
         try:
             # Process resumes using Gemini service
-            result = await gemini_service.rank_resumes(job_description, temp_file_path)
+            result = await llm_service.rank_resumes(job_description, temp_file_path)
             
             return RankingResponse(
                 ranked_candidates=result["ranked"],

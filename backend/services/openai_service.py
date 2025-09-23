@@ -3,8 +3,8 @@ import zipfile
 import tempfile
 import json
 import asyncio
-from typing import Dict, List, Any, Optional
-import google.generativeai as genai
+from typing import Dict, List, Any
+from openai import OpenAI
 from PyPDF2 import PdfReader
 import re
 from datetime import datetime
@@ -12,33 +12,30 @@ import logging
 
 from models.schemas import Candidate, RejectedCandidate
 
-class GeminiService:
+class ChatGPTService:
     def __init__(self):
-        self.api_key = os.getenv("GEMINI_API_KEY")
+        self.api_key = os.getenv("OPENAI_API_KEY")
         if not self.api_key:
-            raise ValueError("GEMINI_API_KEY environment variable not set")
+            raise ValueError("OPENAI_API_KEY environment variable not set")
         
-        genai.configure(api_key=self.api_key)
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.client = OpenAI(api_key=self.api_key)
+        self.model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
         
         # Rate limiting
         self.last_request_time = 0
         self.request_count = 0
         self.window_start = datetime.now().timestamp()
         self.window_duration = 60  # 1 minute
-        self.max_requests_per_window = 8
-        self.base_delay = 3.0  # 3 seconds between requests
+        # OpenAI free/org default can be RPM=3. Allow env overrides.
+        self.max_requests_per_window = int(os.getenv("OPENAI_MAX_RPM", "3"))
+        # For RPM=3, safest base delay is ~21 seconds.
+        self.base_delay = float(os.getenv("OPENAI_BASE_DELAY", "21"))
 
     async def _rate_limit(self):
-        """Implement rate limiting for Gemini API"""
         now = datetime.now().timestamp()
-        
-        # Reset window if needed
         if now - self.window_start >= self.window_duration:
             self.request_count = 0
             self.window_start = now
-        
-        # If at limit, wait for window reset
         if self.request_count >= self.max_requests_per_window:
             wait_time = self.window_duration - (now - self.window_start)
             if wait_time > 0:
@@ -46,42 +43,34 @@ class GeminiService:
                 await asyncio.sleep(wait_time)
                 self.request_count = 0
                 self.window_start = datetime.now().timestamp()
-        
-        # Ensure minimum delay between requests
         time_since_last = now - self.last_request_time
         if time_since_last < self.base_delay:
             wait_time = self.base_delay - time_since_last
             await asyncio.sleep(wait_time)
-        
         self.request_count += 1
         self.last_request_time = datetime.now().timestamp()
 
     def extract_text_from_pdf(self, pdf_path: str) -> str:
-        """Extract text from PDF file"""
+        """Extract text from PDF with PyPDF2 and pdfminer fallback"""
         text = ""
-        # First attempt: PyPDF2/PyPDF extraction (handles most digital PDFs)
         try:
             with open(pdf_path, 'rb') as file:
                 reader = PdfReader(file)
-                # Decrypt if encrypted with empty password (common for resumes)
                 try:
                     if getattr(reader, 'is_encrypted', False):
                         reader.decrypt("")
                         logging.info(f"PDF was encrypted, attempted empty-password decrypt: {os.path.basename(pdf_path)}")
                 except Exception as e:
                     logging.warning(f"Failed to decrypt PDF {os.path.basename(pdf_path)}: {e}")
-
                 for page in reader.pages:
                     try:
-                        piece = page.extract_text()  # May return None
+                        piece = page.extract_text()
                         if piece:
                             text += piece + "\n"
                     except Exception as pe:
                         logging.warning(f"Failed to extract text from a page in {os.path.basename(pdf_path)}: {pe}")
         except Exception as e:
             logging.warning(f"PyPDF2 failed for {os.path.basename(pdf_path)}: {e}")
-
-        # If text is still too short, try pdfminer.six as a fallback (better for some PDFs)
         if len(text.strip()) < 20:
             try:
                 from pdfminer.high_level import extract_text as pdfminer_extract_text
@@ -89,261 +78,184 @@ class GeminiService:
                 if len(text2.strip()) > len(text.strip()):
                     logging.info(f"Used pdfminer fallback for {os.path.basename(pdf_path)}")
                     text = text2
-            except ImportError:
-                logging.warning("pdfminer.six not installed; skipping fallback. Add 'pdfminer.six' to requirements if needed.")
             except Exception as e:
                 logging.warning(f"pdfminer fallback failed for {os.path.basename(pdf_path)}: {e}")
-
-        # Normalize whitespace
         text = re.sub(r"\s+", " ", text or "").strip()
         return text
 
     def extract_github_links(self, text: str) -> List[str]:
-        """Extract GitHub links from resume text with comprehensive pattern matching"""
+        """Re-use the same robust patterns as in GeminiService"""
         github_links = []
-        
-        # Clean text for better matching
         text_clean = text.replace('\n', ' ').replace('\t', ' ')
-        
-        # Pattern 1: Full HTTPS/HTTP URLs (most common)
         url_patterns = [
             r'https?://github\.com/[a-zA-Z0-9._-]+(?:/[a-zA-Z0-9._/-]*)?',
             r'https?://www\.github\.com/[a-zA-Z0-9._-]+(?:/[a-zA-Z0-9._/-]*)?'
         ]
-        
         for pattern in url_patterns:
-            matches = re.findall(pattern, text_clean, re.IGNORECASE)
-            github_links.extend(matches)
-        
-        # Pattern 2: github.com without protocol
+            github_links.extend(re.findall(pattern, text_clean, re.IGNORECASE))
         domain_patterns = [
             r'(?:www\.)?github\.com/[a-zA-Z0-9._-]+(?:/[a-zA-Z0-9._/-]*)?',
             r'(?:^|\s)github\.com/[a-zA-Z0-9._-]+(?:/[a-zA-Z0-9._/-]*)?(?:\s|$)'
         ]
-        
         for pattern in domain_patterns:
             matches = re.findall(pattern, text_clean, re.IGNORECASE)
             for match in matches:
                 clean_match = match.strip()
                 if not clean_match.startswith(('http://', 'https://')):
                     github_links.append(f"https://{clean_match}")
-        
-        # Pattern 3: GitHub username patterns with various formats
         username_patterns = [
-            # "GitHub: username" or "Github: username"
             r'github\s*:\s*([a-zA-Z0-9._-]+)',
-            # "@username on GitHub" or "@username (GitHub)"
             r'@([a-zA-Z0-9._-]+)\s*(?:\(?\s*(?:on\s+)?github\s*\)?)',
-            # "GitHub @username" or "Github @username"
             r'github\s+@([a-zA-Z0-9._-]+)',
-            # "GitHub Profile: username" or similar
             r'github\s+(?:profile|account|handle)\s*:\s*([a-zA-Z0-9._-]+)',
-            # "username on GitHub" (without @) - more specific to avoid false positives
             r'(?:^|\s)([a-zA-Z0-9._-]{3,})\s+on\s+github(?:\s|$)',
-            # "GitHub username: xyz" or "Github ID: xyz"
             r'github\s+(?:username|id|handle)\s*:\s*([a-zA-Z0-9._-]+)',
-            # "Git: username" (sometimes people abbreviate) - more specific
             r'(?:^|\s)git\s*:\s*([a-zA-Z0-9._-]{3,})(?:\s|$)',
         ]
-        
         for pattern in username_patterns:
-            matches = re.findall(pattern, text_clean, re.IGNORECASE)
-            for username in matches:
+            for username in re.findall(pattern, text_clean, re.IGNORECASE):
                 username = username.strip()
-                if username and len(username) > 2 and not username.lower() in ['hub', 'com', 'www']:
+                if username and len(username) > 2 and username.lower() not in ['hub', 'com', 'www']:
                     github_links.append(f"https://github.com/{username}")
-        
-        # Pattern 4: Email-like patterns (github usernames in email format)
         email_pattern = r'([a-zA-Z0-9._-]+)@github\.com'
-        email_matches = re.findall(email_pattern, text_clean, re.IGNORECASE)
-        for username in email_matches:
+        for username in re.findall(email_pattern, text_clean, re.IGNORECASE):
             if username and len(username) > 2:
                 github_links.append(f"https://github.com/{username}")
-        
-        # Pattern 5: Contact section patterns
         contact_patterns = [
-            # In bullet points or lists
             r'[•·▪▫-]\s*github\s*[:\-]?\s*([a-zA-Z0-9._-]+)',
-            # "Source Code:" or "Code:" followed by GitHub link
             r'(?:source\s+code|code|repository|repo)\s*:\s*(?:https?://)?(?:www\.)?github\.com/([a-zA-Z0-9._-]+)',
         ]
-        
         for pattern in contact_patterns:
-            matches = re.findall(pattern, text_clean, re.IGNORECASE)
-            for username in matches:
+            for username in re.findall(pattern, text_clean, re.IGNORECASE):
                 username = username.strip()
-                if username and len(username) > 2 and not username.lower() in ['hub', 'com', 'www', 'profile', 'account']:
+                if username and len(username) > 2 and username.lower() not in ['hub', 'com', 'www', 'profile', 'account']:
                     github_links.append(f"https://github.com/{username}")
-        
-        # Clean and normalize all found links
         normalized_links = []
         for link in github_links:
             normalized = self._normalize_github_url(link)
             if normalized and self.is_valid_github_url(normalized):
                 normalized_links.append(normalized)
-        
-        # Remove duplicates while preserving order and prioritizing profile URLs
         seen_usernames = set()
         unique_links = []
-        
-        # First pass: collect profile URLs (no additional path)
         for link in normalized_links:
             username = link.replace('https://github.com/', '').split('/')[0]
-            if username not in seen_usernames:
-                # Check if this is a profile URL (no additional path)
-                if link.count('/') == 3:  # https://github.com/username
-                    seen_usernames.add(username)
-                    unique_links.append(link)
-        
-        # Second pass: add repository URLs for usernames we haven't seen
+            if username not in seen_usernames and link.count('/') == 3:
+                seen_usernames.add(username)
+                unique_links.append(link)
         for link in normalized_links:
             username = link.replace('https://github.com/', '').split('/')[0]
             if username not in seen_usernames:
                 seen_usernames.add(username)
                 unique_links.append(link)
-        
         return unique_links
-    
+
     def _normalize_github_url(self, url: str) -> str:
-        """Normalize GitHub URL to standard format"""
         if not url:
             return ""
-        
-        # Remove trailing slashes and clean up
         url = url.strip().rstrip('/')
-        
-        # Ensure https protocol
         if not url.startswith(('http://', 'https://')):
             url = f"https://{url}"
-        
-        # Convert http to https
         if url.startswith('http://'):
             url = url.replace('http://', 'https://', 1)
-        
-        # Remove www. if present
         url = url.replace('https://www.github.com/', 'https://github.com/')
-        
-        # Validate basic structure
         if 'github.com/' not in url:
             return ""
-        
         return url
 
     def is_valid_github_url(self, url: str) -> bool:
-        """Validate GitHub URL with comprehensive checks"""
         if not url or not isinstance(url, str):
             return False
-        
         try:
             from urllib.parse import urlparse
             parsed = urlparse(url)
-            
-            # Check basic URL structure
             if parsed.scheme != 'https' or parsed.hostname != 'github.com':
                 return False
-            
-            # Check path structure
             path = parsed.path.strip('/')
             if not path:
                 return False
-            
-            # Split path into components
-            path_parts = path.split('/')
-            
-            # Must have at least username
-            if len(path_parts) < 1:
+            parts = path.split('/')
+            username = parts[0]
+            reserved = { 'about','account','admin','api','apps','assets','blog','business','contact','dashboard','developer','docs','enterprise','explore','features','gist','help','home','join','login','logout','marketplace','new','notifications','organizations','pricing','privacy','search','security','settings','site','support','team','terms','topics','trending','users','www' }
+            if username.lower() in reserved:
                 return False
-            
-            # Validate username (first path component)
-            username = path_parts[0]
-            if not username or len(username) < 1:
-                return False
-            
-            # Username should not be GitHub reserved paths
-            reserved_paths = {
-                'about', 'account', 'admin', 'api', 'apps', 'assets', 'blog', 
-                'business', 'contact', 'dashboard', 'developer', 'docs', 'enterprise',
-                'explore', 'features', 'gist', 'help', 'home', 'join', 'login',
-                'logout', 'marketplace', 'new', 'notifications', 'organizations',
-                'pricing', 'privacy', 'search', 'security', 'settings', 'site',
-                'support', 'team', 'terms', 'topics', 'trending', 'users', 'www'
-            }
-            
-            if username.lower() in reserved_paths:
-                return False
-            
-            # Validate username format (GitHub username rules)
             import string
             valid_chars = string.ascii_letters + string.digits + '-'
             if not all(c in valid_chars for c in username):
                 return False
-            
-            # Username cannot start or end with hyphen
             if username.startswith('-') or username.endswith('-'):
                 return False
-            
-            # Username cannot have consecutive hyphens
             if '--' in username:
                 return False
-            
             return True
-            
         except Exception as e:
-            print(f"Error validating GitHub URL {url}: {e}")
+            logging.warning(f"Error validating GitHub URL {url}: {e}")
             return False
 
     async def analyze_resume(self, job_description: str, resume_text: str, github_links: List[str], file_name: str) -> Dict[str, Any]:
-        """Analyze a single resume using Gemini API"""
         await self._rate_limit()
-        
         github_links_text = f"\n\n**DETECTED GITHUB LINKS:** {', '.join(github_links)}" if github_links else ""
-        
-        prompt = f"""
+
+        # To avoid hitting TPM limits, truncate very long inputs.
+        def _truncate_text(text: str, max_chars: int) -> str:
+            if not text:
+                return ""
+            text = text.strip()
+            if len(text) <= max_chars:
+                return text
+            return text[:max_chars] + "\n...[truncated]"
+
+        # Reasonable bounds (adjustable via env if needed)
+        max_resume_chars = int(os.getenv("OPENAI_MAX_RESUME_CHARS", "6000"))
+        max_jd_chars = int(os.getenv("OPENAI_MAX_JD_CHARS", "4000"))
+        resume_text = _truncate_text(resume_text, max_resume_chars)
+        job_description = _truncate_text(job_description, max_jd_chars)
+        system_prompt = "You are an expert Talent Acquisition specialist. Return only valid JSON."
+        user_prompt = f"""
 You are an expert Talent Acquisition specialist analyzing resumes for AI Engineer (Intern) positions. Your task is to categorize candidates into three groups based on specific criteria.
 
-**Job Description:**
+Job Description:
 ---
 {job_description}
 ---
 
-**Candidate Resume:**
+Candidate Resume:
 ---
 {resume_text}
 ---{github_links_text}
 
-**CLASSIFICATION GROUPS:**
-- **Group 1: High potential (shortlist)** - Score: 80-100
-- **Group 2: Silver medalist (Batch 2)** - Score: 60-79  
-- **Group 3: Rejected (not suitable)** - Score: 0-59
+CLASSIFICATION GROUPS:
+- Group 1: High potential (shortlist) - Score: 80-100
+- Group 2: Silver medalist (Batch 2) - Score: 60-79  
+- Group 3: Rejected (not suitable) - Score: 0-59
 
-**MANDATORY CRITERIA (Automatic rejection if not met):**
-1. **GitHub link is mandatory** - Absence leads to automatic Group 3 rejection
+MANDATORY CRITERIA (Automatic rejection if not met):
+1. GitHub link is mandatory - Absence leads to automatic Group 3 rejection
 
-**GITHUB LINK DETECTION INSTRUCTIONS:**
+GITHUB LINK DETECTION INSTRUCTIONS:
 - Look for GitHub URLs in various formats: https://github.com/username, github.com/username
 - Check for embedded references like "GitHub: username", "@username on GitHub", or "github.com/username"
 - Accept GitHub profile links, repository links, or any valid GitHub URL
 - If multiple GitHub links are found, use the most appropriate profile URL
 - Convert incomplete GitHub references to full URLs (e.g., "github.com/user" → "https://github.com/user")
 
-**PRIMARY EVALUATION CRITERIA:**
-2. **Strong Python proficiency** - Demonstrated through resume projects
-3. **AI Library experience** - TensorFlow, PyTorch, NumPy, Pandas, Scikit-learn, Matplotlib, etc.
-4. **ML Model exposure** - Especially LLMs. Neural Networks or Diffusion models are bonus points
-5. **AI Fundamentals understanding** - Generative AI, Machine Learning, Deep Learning
-6. **AI Project evidence** - Projects that validate AI domain proficiency
+PRIMARY EVALUATION CRITERIA:
+2. Strong Python proficiency
+3. AI Library experience
+4. ML Model exposure (LLMs, NN, Diffusion bonus)
+5. AI Fundamentals understanding
+6. AI Project evidence
 
-**CLASSIFICATION LOGIC:**
-- **Group 3**: No GitHub link OR lacks basic Python/AI requirements
-- **Group 2**: Has GitHub + meets 3-4 primary criteria with decent AI exposure
-- **Group 1**: Has GitHub + meets 5-6 primary criteria with strong AI project evidence
+CLASSIFICATION LOGIC:
+- Group 3: No GitHub link OR lacks basic Python/AI requirements
+- Group 2: Has GitHub + meets 3-4 primary criteria
+- Group 1: Has GitHub + meets 5-6 primary criteria
 
-**INSTRUCTIONS:**
-1. Thoroughly search for GitHub links in ALL formats (URLs, embedded references, usernames)
+INSTRUCTIONS:
+1. Thoroughly search for GitHub links in ALL formats
 2. If any GitHub reference is found, extract and format it as a complete URL
 3. Evaluate each primary criteria (pythonProficiency, aiLibraryExperience, mlExposure, aiProjectEvidence)
 4. Assign appropriate group based on criteria met
-5. Provide detailed justification explaining the classification and GitHub link detection
+5. Provide detailed justification
 6. Extract candidate name or use 'Unknown Candidate'
 
 Return your analysis in the following JSON format:
@@ -361,21 +273,42 @@ Return your analysis in the following JSON format:
     "rejectionReason": "string"
 }}
 """
-
         try:
-            response = self.model.generate_content(prompt)
-            result_text = response.text
-            
-            # Clean up the response text to extract JSON
-            if "```json" in result_text:
-                result_text = result_text.split("```json")[1].split("```")[0]
-            elif "```" in result_text:
-                result_text = result_text.split("```")[1].split("```")[0]
-            
-            result = json.loads(result_text.strip())
-            result['fileName'] = file_name
-            return result
-            
+            # Simple retry/backoff for 429
+            max_retries = 5
+            backoff = 10.0  # seconds
+            for attempt in range(max_retries):
+                try:
+                    resp = self.client.chat.completions.create(
+                        model=self.model,
+                        messages=[
+                            {"role": "system", "content": system_prompt},
+                            {"role": "user", "content": user_prompt},
+                        ],
+                        temperature=0.2,
+                    )
+                    result_text = resp.choices[0].message.content
+                    if "```json" in result_text:
+                        result_text = result_text.split("```json")[1].split("```")[0]
+                    elif "```" in result_text:
+                        result_text = result_text.split("```")[1].split("```")[0]
+                    result = json.loads(result_text.strip())
+                    result['fileName'] = file_name
+                    return result
+                except Exception as api_err:
+                    msg = str(api_err)
+                    if 'rate limit' in msg.lower() or '429' in msg:
+                        # Backoff and retry
+                        sleep_for = backoff * (1.5 ** attempt)
+                        logging.warning(f"Rate limited on attempt {attempt+1}/{max_retries}. Backing off for {sleep_for:.1f}s")
+                        asyncio.sleep(0)  # yield control
+                        import time
+                        time.sleep(sleep_for)
+                        continue
+                    else:
+                        raise
+            # If we exit loop without return, treat as failure
+            raise RuntimeError("Exceeded retries due to rate limiting")
         except Exception as e:
             print(f"Error analyzing resume {file_name}: {e}")
             return {
@@ -394,34 +327,27 @@ Return your analysis in the following JSON format:
             }
 
     async def rank_resumes(self, job_description: str, zip_file_path: str) -> Dict[str, List]:
-        """Process ZIP file and rank all resumes"""
         ranked_candidates = []
         rejected_candidates = []
-        
+
         def _is_valid_pdf_file(path: str) -> bool:
-            """Quickly validate that file looks like a real PDF (checks magic header)"""
+            """Quick validation that the file looks like a real PDF by checking magic header"""
             try:
                 if not os.path.isfile(path):
                     return False
-                # Skip tiny files which are very likely resource forks or junk
-                if os.path.getsize(path) < 16:
+                if os.path.getsize(path) < 16:  # too small to be a real PDF
                     return False
                 with open(path, 'rb') as f:
-                    header = f.read(5)
-                    return header == b'%PDF-'
+                    return f.read(5) == b'%PDF-'
             except Exception:
                 return False
-
-        # Extract ZIP file
         with tempfile.TemporaryDirectory() as temp_dir:
             with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
                 zip_ref.extractall(temp_dir)
-            
-            # Find all PDF files
             pdf_files = []
             for root, dirs, files in os.walk(temp_dir):
                 for file in files:
-                    # Skip macOS resource fork files and hidden/system entries
+                    # Skip hidden and macOS AppleDouble resource fork files
                     if file.startswith('._') or file.startswith('.'):
                         continue
                     if root.find('__MACOSX') != -1:
@@ -430,15 +356,10 @@ Return your analysis in the following JSON format:
                         full_path = os.path.join(root, file)
                         if _is_valid_pdf_file(full_path):
                             pdf_files.append(full_path)
-            
             print(f"Found {len(pdf_files)} PDF files to process")
-            
-            # Process each PDF
             for i, pdf_path in enumerate(pdf_files):
                 file_name = os.path.basename(pdf_path)
                 print(f"Processing {i+1}/{len(pdf_files)}: {file_name}")
-                
-                # Extract text from PDF
                 resume_text = self.extract_text_from_pdf(pdf_path)
                 if not resume_text.strip():
                     rejected_candidates.append(RejectedCandidate(
@@ -448,20 +369,21 @@ Return your analysis in the following JSON format:
                         file_name=file_name
                     ))
                     continue
-                
-                # Extract GitHub links
                 github_links = self.extract_github_links(resume_text)
-                
-                # Analyze resume
+                # Early reject to save API calls and tokens if no GitHub link found
+                if not github_links:
+                    rejected_candidates.append(RejectedCandidate(
+                        id=f"{file_name}-{datetime.now().timestamp()}",
+                        name="Unknown Candidate",
+                        reason="No valid GitHub profile found.",
+                        file_name=file_name
+                    ))
+                    continue
                 result = await self.analyze_resume(job_description, resume_text, github_links, file_name)
-                
-                # Process result
                 candidate_id = f"{file_name}-{datetime.now().timestamp()}"
                 is_url_valid = self.is_valid_github_url(result['githubUrl'])
-                
                 if (result['isQualified'] and is_url_valid and 
                     result['group'] in ['Group 1: High potential', 'Group 2: Silver medalist']):
-                    
                     ranked_candidates.append(Candidate(
                         id=candidate_id,
                         name=result['candidateName'],
@@ -481,18 +403,11 @@ Return your analysis in the following JSON format:
                         reason = 'Invalid or malformed GitHub URL found.'
                     elif not reason:
                         reason = 'No valid GitHub profile found.'
-                    
                     rejected_candidates.append(RejectedCandidate(
                         id=candidate_id,
                         name=result['candidateName'],
                         reason=reason,
                         file_name=file_name
                     ))
-        
-        # Sort ranked candidates by score
         ranked_candidates.sort(key=lambda x: x.score, reverse=True)
-        
-        return {
-            "ranked": ranked_candidates,
-            "rejected": rejected_candidates
-        }
+        return {"ranked": ranked_candidates, "rejected": rejected_candidates}
