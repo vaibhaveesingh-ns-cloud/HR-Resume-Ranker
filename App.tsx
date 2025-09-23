@@ -14,6 +14,7 @@ export default function App() {
   const [rankedCandidates, setRankedCandidates] = useState<Candidate[]>([]);
   const [rejectedCandidates, setRejectedCandidates] = useState<RejectedCandidate[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [progress, setProgress] = useState({ current: 0, total: 0 });
   const [error, setError] = useState<string | null>(null);
 
   const handleRankClick = useCallback(async () => {
@@ -24,11 +25,14 @@ export default function App() {
 
     setIsLoading(true);
     setError(null);
+    setProgress({ current: 0, total: 0 });
     setRankedCandidates([]);
     setRejectedCandidates([]);
 
     try {
-      const { ranked, rejected } = await rankResumes(jobDescription, resumeFiles);
+      const { ranked, rejected } = await rankResumes(jobDescription, resumeFiles, (current, total) => {
+        setProgress({ current, total });
+      });
       setRankedCandidates(ranked);
       setRejectedCandidates(rejected);
     } catch (err) {
@@ -68,8 +72,24 @@ export default function App() {
               disabled={isButtonDisabled}
               className="w-full md:w-auto px-12 py-4 bg-indigo-600 text-white font-bold text-lg rounded-xl shadow-md hover:bg-indigo-700 disabled:bg-slate-300 disabled:cursor-not-allowed transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              {isLoading ? 'Analyzing...' : 'Rank Candidates'}
+              {isLoading ? `Analyzing... (${progress.current}/${progress.total})` : 'Rank Candidates'}
             </button>
+            {isLoading && progress.total > 0 && (
+              <div className="mt-4 w-full md:w-96">
+                <div className="bg-slate-200 rounded-full h-2">
+                  <div 
+                    className="bg-indigo-600 h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${(progress.current / progress.total) * 100}%` }}
+                  ></div>
+                </div>
+                <p className="text-sm text-slate-600 mt-2 text-center">
+                  Processing resume {progress.current} of {progress.total}
+                  {progress.current > 1 && (
+                    <span className="text-slate-500"> • ~{Math.ceil((progress.total - progress.current) * 4 / 60)} min remaining</span>
+                  )}
+                </p>
+              </div>
+            )}
             {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
           </div>
         </div>
