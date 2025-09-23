@@ -2,19 +2,162 @@
 <img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 </div>
 
-# Run and deploy your AI Studio app
+# HR Resume Ranker
 
-This contains everything you need to run your app locally.
+An AI-powered resume ranking system that helps HR professionals evaluate and rank candidates based on job descriptions. The application is now split into a FastAPI backend and React frontend for better scalability and maintainability.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1NQH-K2yiaXt25ckCgQjJZPw-qd1dIrtf
+## Architecture
 
-## Run Locally
+- **Backend**: FastAPI with Python for AI processing and API endpoints
+- **Frontend**: React with TypeScript and Tailwind CSS for the user interface
+- **AI Engine**: Google Gemini API for resume analysis and ranking
 
-**Prerequisites:**  Node.js
+## Features
 
+- Upload multiple resumes in ZIP format
+- AI-powered candidate evaluation using Gemini API
+- Automatic GitHub profile detection and validation
+- Skill-based ranking and categorization (Python, AI libraries, ML exposure, AI projects)
+- Modern, responsive web interface
+- Real-time progress tracking
+- RESTful API architecture
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Project Structure
+
+```
+HR-Resume-Ranker/
+├── backend/                 # FastAPI backend
+│   ├── main.py             # Main FastAPI application
+│   ├── requirements.txt    # Python dependencies
+│   ├── models/
+│   │   └── schemas.py      # Pydantic models
+│   ├── services/
+│   │   └── gemini_service.py # AI processing service
+│   └── .env.example        # Environment variables template
+├── frontend/               # React frontend
+│   ├── src/
+│   │   ├── components/     # React components
+│   │   ├── services/       # API service layer
+│   │   ├── types/          # TypeScript type definitions
+│   │   └── App.tsx         # Main React application
+│   ├── package.json        # Node.js dependencies
+│   └── vite.config.ts      # Vite configuration
+└── README.md               # This file
+```
+
+## Setup Instructions
+
+### Backend Setup
+
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+
+2. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. Install Python dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Set up environment variables:
+   ```bash
+   cp .env.example .env
+   # Edit .env and add your Gemini API key
+   ```
+
+5. Start the FastAPI server:
+   ```bash
+   python main.py
+   ```
+   
+   The backend will be available at `http://localhost:8000`
+
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
+2. Install Node.js dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+   
+   The frontend will be available at `http://localhost:3000`
+
+## Environment Variables
+
+Create a `.env` file in the backend directory with the following:
+
+```
+GEMINI_API_KEY=your_gemini_api_key_here
+```
+
+To get a Gemini API key:
+1. Visit [Google AI Studio](https://aistudio.google.com/)
+2. Create a new API key
+3. Copy the key to your `.env` file
+
+## Usage
+
+1. Start both the backend and frontend servers
+2. Open your browser to `http://localhost:3000`
+3. Provide a detailed job description
+4. Upload a ZIP file containing candidate resumes (PDF format)
+5. Click "Rank Candidates" to start the AI analysis
+6. Review the ranked results and candidate insights
+
+## API Endpoints
+
+- `GET /` - Root endpoint
+- `GET /health` - Health check
+- `POST /api/rank-resumes` - Main resume ranking endpoint
+
+## Development
+
+### Backend Development
+- The backend uses FastAPI with automatic API documentation at `http://localhost:8000/docs`
+- Rate limiting is implemented for the Gemini API
+- PDF processing is handled server-side
+
+### Frontend Development
+- Built with React 18 and TypeScript
+- Styled with Tailwind CSS
+- Uses Axios for API communication
+- Vite for fast development and building
+
+## Production Deployment
+
+### Backend
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn main:app --host 0.0.0.0 --port 8000
+```
+
+### Frontend
+```bash
+cd frontend
+npm run build
+# Serve the dist/ directory with your preferred web server
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test both backend and frontend
+5. Submit a pull request
