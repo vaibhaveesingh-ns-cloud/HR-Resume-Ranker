@@ -8,6 +8,8 @@ import httpx
 from dotenv import load_dotenv
 from pdfminer.high_level import extract_text as pdf_extract_text
 from docx import Document as DocxDocument
+from io import BytesIO
+from pypdf import PdfReader
 
 
 def load_env():
@@ -53,3 +55,195 @@ def call_openai_json(model: str, prompt: str, api_key: str) -> str:
     r = httpx.post(url, headers=headers, json=body, timeout=120)
     r.raise_for_status()
     return r.json()["choices"][0]["message"]["content"]
+
+
+def extract_github_links(text: str) -> List[str]:
+    """Extract GitHub profile links from free text.
+    - Supports http/https, optional www
+    - Handles trailing punctuation ),.;:
+    - Extracts username from repo/profile links and returns canonical profile URLs
+    Returns a de-duplicated list of profile URLs like https://github.com/<username>
+    """
+    if not text:
+        return []
+
+    usernames: set[str] = set()
+    # Common reserved GitHub path segments that are not user accounts
+    reserved = {
+        'features','topics','collections','trending','marketplace','about','pricing','sponsors','apps','login','join',
+        'settings','organizations','orgs','enterprise','security','readme','explore','contact','blog','search',
+        'customer-stories','events','sponsors','site','issues','pulls'
+    }
+
+    def _clean(segment: str) -> str:
+        # strip trailing punctuation commonly stuck to URLs
+        return segment.rstrip(').,;:\'\"')
+
+    # 1) Full urls with protocol (http/https) and optional www
+    for m in re.findall(r"https?://(?:www\.)?github\.com/([A-Za-z0-9._-]+)(?:/|\b)", text, flags=re.IGNORECASE):
+        m = _clean(m)
+        if len(m) > 2 and m.lower() not in reserved:
+            usernames.add(m)
+
+    # 2) Domain without protocol (with optional www)
+    for m in re.findall(r"\b(?:www\.)?github\.com/([A-Za-z0-9._-]+)(?:/|\b)", text, flags=re.IGNORECASE):
+        m = _clean(m)
+        if len(m) > 2 and m.lower() not in reserved:
+            usernames.add(m)
+
+    # 3) Username mention patterns (avoid generic @mentions)
+    # Explicit "github: username"
+    for m in re.findall(r"github:\s*([A-Za-z0-9._-]+)", text, flags=re.IGNORECASE):
+        m = _clean(m)
+        if len(m) > 2 and m.lower() not in reserved:
+            usernames.add(m)
+    # Explicit "@username on github" or "@username github"
+    for m in re.findall(r"@([A-Za-z0-9._-]+)\s+(?:on\s+)?github\b", text, flags=re.IGNORECASE):
+        m = _clean(m)
+        if len(m) > 2 and m.lower() not in reserved:
+            usernames.add(m)
+
+    # Build canonical profile URLs
+    out: List[str] = []
+    for u in usernames:
+        url = f"https://github.com/{u}"
+        out.append(url)
+    return sorted(list(set(out)))
+
+
+def extract_pdf_links_from_bytes(data: bytes) -> List[str]:
+    """Extract URLs from PDF link annotations.
+    Returns a list of raw URLs as found in annotations.
+    """
+    try:
+        reader = PdfReader(BytesIO(data))
+        links: List[str] = []
+        for page in reader.pages:
+            annots = page.get("/Annots", [])
+            for a in annots or []:
+                try:
+                    obj = a.get_object()
+                    if obj.get("/Subtype") == "/Link":
+                        action = obj.get("/A")
+                        if action and action.get("/S") == "/URI":
+                            uri = action.get("/URI")
+                            if isinstance(uri, str):
+                                links.append(uri.strip())
+                except Exception:
+                    continue
+        return list(dict.fromkeys(links))
+    except Exception:
+        return []
+
+
+def fetch_github_stats(github_url: str) -> dict:
+    """Fetch GitHub user statistics for ranking.
+    Returns dict with stats or empty dict if failed.
+    """
+    if not github_url or not github_url.startswith('https://github.com/'):
+        return {}
+    
+    try:
+        # Extract username from URL
+        parts = github_url.replace('https://github.com/', '').split('/')
+        if not parts or not parts[0]:
+            return {}
+        username = parts[0]
+        
+        # GitHub API call (no auth needed for public data)
+        import httpx
+        headers = {}
+        # Optional: use GITHUB_TOKEN to increase rate limit
+        token = os.getenv('GITHUB_TOKEN', '').strip()
+        if token:
+            headers["Authorization"] = f"Bearer {token}"
+            headers["Accept"] = "application/vnd.github+json"
+
+        with httpx.Client(timeout=15, headers=headers) as client:
+            # Get user info
+            user_resp = client.get(f"https://api.github.com/users/{username}")
+            if user_resp.status_code != 200:
+                return {}
+            
+            user_data = user_resp.json()
+            
+            # Get user repos (first page only for performance)
+            repos_resp = client.get(f"https://api.github.com/users/{username}/repos?per_page=100&sort=updated")
+            repos_data = repos_resp.json() if repos_resp.status_code == 200 else []
+            
+            # Calculate stats
+            total_stars = sum(repo.get('stargazers_count', 0) for repo in repos_data)
+            total_forks = sum(repo.get('forks_count', 0) for repo in repos_data)
+            public_repos = user_data.get('public_repos', 0)
+            followers = user_data.get('followers', 0)
+            following = user_data.get('following', 0)
+            
+            # Recent activity score (repos updated in last year)
+            from datetime import datetime, timedelta
+            cutoff = datetime.now() - timedelta(days=365)
+            recent_repos = 0
+            for repo in repos_data:
+                if repo.get('updated_at'):
+                    try:
+                        updated = datetime.fromisoformat(repo['updated_at'].replace('Z', '+00:00'))
+                        if updated > cutoff:
+                            recent_repos += 1
+                    except:
+                        continue
+            
+            return {
+                'username': username,
+                'public_repos': public_repos,
+                'followers': followers,
+                'following': following,
+                'total_stars': total_stars,
+                'total_forks': total_forks,
+                'recent_activity': recent_repos,
+                'profile_created': user_data.get('created_at', ''),
+                'bio': user_data.get('bio', ''),
+                'company': user_data.get('company', ''),
+                'location': user_data.get('location', ''),
+                'blog': user_data.get('blog', ''),
+            }
+    except Exception as e:
+        print(f"Error fetching GitHub stats for {github_url}: {e}")
+        return {}
+
+
+def calculate_github_score(stats: dict) -> float:
+    """Calculate a GitHub activity score from 0-100 based on various metrics."""
+    if not stats:
+        return 0.0
+    
+    score = 0.0
+    
+    # Repository count (0-20 points)
+    repos = min(stats.get('public_repos', 0), 50)
+    score += (repos / 50) * 20
+    
+    # Stars received (0-25 points)
+    stars = min(stats.get('total_stars', 0), 500)
+    score += (stars / 500) * 25
+    
+    # Followers (0-15 points)
+    followers = min(stats.get('followers', 0), 100)
+    score += (followers / 100) * 15
+    
+    # Recent activity (0-20 points)
+    recent = min(stats.get('recent_activity', 0), 20)
+    score += (recent / 20) * 20
+    
+    # Forks (0-10 points)
+    forks = min(stats.get('total_forks', 0), 100)
+    score += (forks / 100) * 10
+    
+    # Profile completeness (0-10 points)
+    completeness = 0
+    if stats.get('bio'): completeness += 2
+    if stats.get('company'): completeness += 2
+    if stats.get('location'): completeness += 2
+    if stats.get('blog'): completeness += 2
+    if stats.get('public_repos', 0) > 0: completeness += 2
+    score += completeness
+    
+    return min(round(score, 1), 100.0)

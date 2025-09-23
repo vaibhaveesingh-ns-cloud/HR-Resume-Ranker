@@ -9,7 +9,15 @@ from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
 
 from models import QuestionsDoc
-from utils import load_env, call_openai_json, extract_text_from_upload
+from utils import (
+    load_env,
+    call_openai_json,
+    extract_text_from_upload,
+    extract_github_links,
+    extract_pdf_links_from_bytes,
+    fetch_github_stats,
+    calculate_github_score,
+)
 
 # Ensure env and data dir
 load_env()
@@ -28,6 +36,20 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# Debug helper to test GitHub extraction
+class ExtractGithubBody(BaseModel):
+    text: str
+
+
+@app.post("/debug/extract_github")
+def debug_extract_github(body: ExtractGithubBody) -> Dict[str, Any]:
+    try:
+        links = extract_github_links(body.text or "")
+        return {"links": links}
+    except Exception as e:
+        return {"error": str(e)}
 
 
 PROMPT_CRITERIA = """You will design {n} evaluation criteria (Yes/No questions) to assess resumes for THIS role.
@@ -114,6 +136,7 @@ async def analyze(
     hr: str = Form(""),
     criteria_json: str = Form(...),
     resumes: List[UploadFile] = File(...),
+    require_github: bool = Form(True),
 ) -> Dict[str, Any]:
     if not OPENAI_API_KEY:
         return {"error": "OPENAI_API_KEY not set"}
@@ -127,13 +150,18 @@ async def analyze(
 
     # Prepare resumes
     resumes_payload: List[Dict[str, str]] = []
+    resume_text_lookup: Dict[str, str] = {}
+    resume_bytes_lookup: Dict[str, bytes] = {}
     for f in resumes:
         content = await f.read()
         try:
             text = extract_text_from_upload(f.filename, content)
         except Exception:
             text = content.decode("utf-8", errors="ignore")
-        resumes_payload.append({"id": f.filename, "text": text[:20000]})
+        text_limited = text[:20000]
+        resumes_payload.append({"id": f.filename, "text": text_limited})
+        resume_text_lookup[f.filename] = text_limited
+        resume_bytes_lookup[f.filename] = content
 
     # Call OpenAI for matching
     # Build prompt same as Streamlit's OpenAIResumeMatcher
@@ -194,7 +222,85 @@ JSON SCHEMA TO OUTPUT
     except Exception:
         pass
 
-    return {"results": out.get("results", []), "timestamp": ts}
+    # Compute grouping and GitHub detection per requirements
+    results_out: List[Dict[str, Any]] = []
+    total_q = len(questions_payload)
+    for r in out.get("results", []):
+        rid = r.get("resume_id")
+        answers = r.get("answers", [])
+        yes_count = sum(1 for a in answers if str(a.get("answer", "")).lower() == "yes")
+        no_count = total_q - yes_count
+        text_src = resume_text_lookup.get(rid, "")
+        # Detect links from visible text
+        gh_text_links = extract_github_links(text_src)
+        # Detect links from embedded PDF hyperlinks if applicable
+        pdf_links: List[str] = []
+        try:
+            if isinstance(rid, str) and rid.lower().endswith('.pdf'):
+                raw_bytes = resume_bytes_lookup.get(rid, b"")
+                if raw_bytes:
+                    pdf_links = extract_pdf_links_from_bytes(raw_bytes)
+        except Exception:
+            pdf_links = []
+        gh_pdf_links = extract_github_links("\n".join(pdf_links)) if pdf_links else []
+        # Union candidates while preserving order preference (text first)
+        seen = set()
+        gh_links: List[str] = []
+        for url in gh_text_links + gh_pdf_links:
+            if url not in seen:
+                seen.add(url)
+                gh_links.append(url)
+        has_github = len(gh_links) > 0
+        github_url = gh_links[0] if has_github else ""
+
+        # Fetch GitHub stats if available
+        github_stats = {}
+        github_score = 0.0
+        if has_github:
+            try:
+                github_stats = fetch_github_stats(github_url)
+                github_score = calculate_github_score(github_stats)
+            except Exception as e:
+                print(f"Error fetching GitHub stats for {github_url}: {e}")
+        # If stats could not be fetched (404 or invalid), treat as no valid GitHub
+        if has_github and not github_stats:
+            has_github = False
+            github_url = ""
+            github_score = 0.0
+
+        # Grouping logic
+        from math import ceil
+        if require_github and not has_github:
+            group = "rejected"
+            group_reason = "Rejected: GitHub missing and GitHub is required."
+        elif yes_count == 0:
+            group = "rejected"
+            group_reason = "Rejected: none of the criteria were met."
+        elif yes_count == total_q:
+            group = "strongly_consider"
+            group_reason = "Strongly consider: all criteria were met."
+        elif yes_count >= ceil(total_q / 2):
+            group = "potential_fit"
+            group_reason = "Potential fit: majority of criteria were met."
+        else:
+            group = "rejected"
+            group_reason = "Rejected: fewer than half of the criteria were met."
+
+        results_out.append({
+            "resume_id": rid,
+            "answers": answers,
+            "yes_count": yes_count,
+            "no_count": no_count,
+            "has_github": has_github,
+            "github_url": github_url,
+            "github_candidates": gh_links,
+            "github_stats": github_stats,
+            "github_score": github_score,
+            "group": group,
+            "group_reason": group_reason,
+        })
+
+    return {"results": results_out, "timestamp": ts}
 
 
 @app.get("/artifacts/results")

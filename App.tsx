@@ -3,22 +3,25 @@ import React, { useState, useCallback, useMemo } from 'react';
 import Header from './components/Header';
 import JobDescriptionInput from './components/JobDescriptionInput';
 import ResumeUploader from './components/ResumeUploader';
-import ResultsDisplay from './components/ResultsDisplay';
 import Loader from './components/Loader';
-import { rankResumes } from './services/geminiService';
-import type { Candidate, RejectedCandidate } from './types';
+import type { QuestionsDoc } from './services/backendService';
+import { generateCriteria, analyzeResumes, type AnalyzeResponse } from './services/backendService';
 import CriteriaBuilder, { type CriteriaBuilderState } from './components/CriteriaBuilder';
 import MultiResumeUploader from './components/MultiResumeUploader';
 import { generateCriteria, analyzeResumes, type QuestionsDoc } from './services/backendService';
 
 export default function App() {
   const [jobDescription, setJobDescription] = useState('');
+  const [hrNotes, setHrNotes] = useState('');
   const [resumeFiles, setResumeFiles] = useState<File[]>([]);
-  const [rankedCandidates, setRankedCandidates] = useState<Candidate[]>([]);
-  const [rejectedCandidates, setRejectedCandidates] = useState<RejectedCandidate[]>([]);
+  const [criteriaDoc, setCriteriaDoc] = useState<QuestionsDoc | null>(null);
+  const [seniority, setSeniority] = useState<QuestionsDoc['seniority']>('intern');
+  const [criteriaCount, setCriteriaCount] = useState<number>(8);
+  const [requireGithub, setRequireGithub] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [progress, setProgress] = useState({ current: 0, total: 0 });
   const [error, setError] = useState<string | null>(null);
+  const [analysis, setAnalysis] = useState<AnalyzeResponse | null>(null);
+  const [expandedResumeId, setExpandedResumeId] = useState<string | null>(null);
 
   // Tab state: "gemini" preserves existing flow; "criteria" adds Streamlit-like features
   const [activeTab, setActiveTab] = useState<'gemini'|'criteria'>('gemini');
@@ -44,37 +47,52 @@ export default function App() {
     strictMode ? { strong: 0.85, potential: 0.6 } : { strong: 0.75, potential: 0.5 }
   ), [strictMode]);
 
-  const handleRankClick = useCallback(async () => {
-    if (!jobDescription.trim() || resumeFiles.length === 0) {
-      setError('Please provide a job description and a zip file with resumes.');
+  const handleGenerateCriteria = useCallback(async () => {
+    if (!jobDescription.trim()) {
+      setError('Please provide a job description before generating criteria.');
       return;
     }
-
-    setIsLoading(true);
     setError(null);
-    setProgress({ current: 0, total: 0 });
-    setRankedCandidates([]);
-    setRejectedCandidates([]);
-
+    setIsLoading(true);
     try {
-      const { ranked, rejected } = await rankResumes(jobDescription, resumeFiles, (current, total) => {
-        setProgress({ current, total });
-      });
-      setRankedCandidates(ranked);
-      setRejectedCandidates(rejected);
+      const doc = await generateCriteria({ jd: jobDescription, hr: hrNotes, n: criteriaCount, seniority });
+      // Drop weights/metrics importance as per requirement; keep structure but ignore in UI
+      setCriteriaDoc(doc);
     } catch (err) {
       console.error(err);
-      setError(err instanceof Error ? err.message : 'An unknown error occurred during analysis.');
+      setError(err instanceof Error ? err.message : 'Failed to generate criteria');
     } finally {
       setIsLoading(false);
     }
-  }, [jobDescription, resumeFiles]);
+  }, [jobDescription, hrNotes, criteriaCount, seniority]);
 
-  const isButtonDisabled = useMemo(() => {
-    return isLoading || !jobDescription.trim() || resumeFiles.length === 0;
-  }, [isLoading, jobDescription, resumeFiles.length]);
-  
-  const hasResults = useMemo(() => rankedCandidates.length > 0 || rejectedCandidates.length > 0, [rankedCandidates, rejectedCandidates]);
+  const handleAnalyze = useCallback(async () => {
+    if (!jobDescription.trim() || resumeFiles.length === 0) {
+      setError('Please provide a job description and upload resumes (PDF/DOCX/TXT).');
+      return;
+    }
+    if (!criteriaDoc) {
+      setError('Please generate or provide criteria first.');
+      return;
+    }
+    setIsLoading(true);
+    setError(null);
+    setAnalysis(null);
+    setExpandedResumeId(null);
+    try {
+      const resp = await analyzeResumes({ jd: jobDescription, hr: hrNotes, criteriaDoc, files: resumeFiles, requireGithub });
+      setAnalysis(resp);
+    } catch (err) {
+      console.error(err);
+      setError(err instanceof Error ? err.message : 'Failed to analyze resumes');
+    } finally {
+      setIsLoading(false);
+    }
+  }, [jobDescription, hrNotes, criteriaDoc, resumeFiles, requireGithub]);
+
+  const isAnalyzeDisabled = useMemo(() => {
+    return isLoading || !jobDescription.trim() || resumeFiles.length === 0 || !criteriaDoc;
+  }, [isLoading, jobDescription, resumeFiles.length, criteriaDoc]);
 
   // ---------- Criteria-based Flow Handlers ----------
   const onGenerateCriteria = useCallback(async () => {
@@ -207,64 +225,110 @@ export default function App() {
             <button
               onClick={() => setActiveTab('criteria')}
               className={`px-4 py-2 rounded-lg border ${activeTab==='criteria' ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-700 border-slate-300'}`}
-            >
-              Criteria-based (Streamlit features)
-            </button>
+          </div>
+          <div>
+            <h3 className="font-semibold text-slate-700 mb-2">HR Notes</h3>
+            <textarea
+              value={hrNotes}
+              onChange={(e) => setHrNotes(e.target.value)}
+              disabled={isLoading}
+              placeholder="Any preferences, culture fits, must-haves or nice-to-haves, etc."
+              className="w-full h-48 p-4 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 ease-in-out disabled:bg-slate-100"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="p-8 bg-white rounded-2xl shadow-lg border border-slate-200">
+        <h2 className="text-2xl font-bold text-slate-700 mb-1">Step 2: Criteria & Resume Upload</h2>
+        <p className="text-slate-500 mb-6">Generate criteria, review/edit checklist, then upload resumes (multiple PDF/DOCX/TXT). GitHub requirement can be toggled for non-tech roles.</p>
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-wrap items-end gap-4">
+            <div>
+              <label className="block text-sm text-slate-600 mb-1">Seniority</label>
+              <select className="border rounded px-3 py-2" value={seniority} onChange={(e) => setSeniority(e.target.value as any)} disabled={isLoading}>
+                <option value="intern">Intern</option>
+                <option value="junior">Junior</option>
+                <option value="mid">Mid</option>
+                <option value="senior">Senior</option>
+                <option value="lead">Lead</option>
+                <option value="principal">Principal</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm text-slate-600 mb-1"># Criteria</label>
+              <input type="number" min={3} max={15} className="border rounded px-3 py-2 w-28" value={criteriaCount} onChange={(e) => setCriteriaCount(Number(e.target.value))} disabled={isLoading} />
+            </div>
+            <button onClick={handleGenerateCriteria} disabled={isLoading || !jobDescription.trim()} className="px-4 py-2 bg-indigo-600 text-white rounded shadow hover:bg-indigo-700 disabled:bg-slate-300">Generate Criteria</button>
+            <label className="inline-flex items-center gap-2 ml-auto select-none">
+              <input type="checkbox" className="w-4 h-4" checked={requireGithub} onChange={(e) => setRequireGithub(e.target.checked)} disabled={isLoading} />
+              <span className="text-sm text-slate-700">Require GitHub (toggle off for non-tech)</span>
+            </label>
           </div>
 
-          {activeTab === 'gemini' && (
-            <>
-              <div className="p-8 bg-white rounded-2xl shadow-lg border border-slate-200">
-                <h2 className="text-2xl font-bold text-slate-700 mb-1">Step 1: Provide Job Description</h2>
-                <p className="text-slate-500 mb-6">Paste the full job description below.</p>
-                <JobDescriptionInput value={jobDescription} onChange={setJobDescription} disabled={isLoading} />
+          {criteriaDoc && (
+            <div className="border rounded-xl p-4 bg-slate-50">
+              <div className="flex items-center justify-between">
+                <h3 className="font-semibold text-slate-700">Criteria Checklist</h3>
+                <span className="text-xs text-slate-500">Edit questions directly. Weights are ignored.</span>
               </div>
-
-              <div className="p-8 bg-white rounded-2xl shadow-lg border border-slate-200">
-                <h2 className="text-2xl font-bold text-slate-700 mb-1">Step 2: Upload Resumes</h2>
-                <p className="text-slate-500 mb-6">Upload a single <code className="bg-slate-100 text-slate-600 px-1 py-0.5 rounded">.zip</code> file containing all candidate resumes in PDF format.</p>
-                <ResumeUploader onFilesChange={setResumeFiles} disabled={isLoading} />
-              </div>
-
-              <div className="flex flex-col items-center">
-                <button
-                  onClick={handleRankClick}
-                  disabled={isButtonDisabled}
-                  className="w-full md:w-auto px-12 py-4 bg-indigo-600 text-white font-bold text-lg rounded-xl shadow-md hover:bg-indigo-700 disabled:bg-slate-300 disabled:cursor-not-allowed transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  {isLoading ? `Analyzing... (${progress.current}/${progress.total})` : 'Rank Candidates'}
-                </button>
-                {isLoading && progress.total > 0 && (
-                  <div className="mt-4 w-full md:w-96">
-                    <div className="bg-slate-200 rounded-full h-2">
-                      <div 
-                        className="bg-indigo-600 h-2 rounded-full transition-all duration-300"
-                        style={{ width: `${(progress.current / progress.total) * 100}%` }}
-                      ></div>
+              <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                {criteriaDoc.criteria.map((c, idx) => (
+                  <div key={c.id} className="bg-white border rounded-lg p-3">
+                    <input
+                      className="w-full font-semibold text-slate-800 mb-1 outline-none"
+                      value={c.name}
+                      onChange={(e) => {
+                        const next = { ...criteriaDoc } as QuestionsDoc;
+                        next.criteria = next.criteria.map((cc, i) => i === idx ? { ...cc, name: e.target.value } : cc);
+                        setCriteriaDoc(next);
+                      }}
+                    />
+                    <textarea
+                      className="w-full text-sm text-slate-700 outline-none"
+                      value={c.question}
+                      onChange={(e) => {
+                        const next = { ...criteriaDoc } as QuestionsDoc;
+                        next.criteria = next.criteria.map((cc, i) => i === idx ? { ...cc, question: e.target.value } : cc);
+                        setCriteriaDoc(next);
+                      }}
+                    />
+                    <div className="mt-2 flex justify-end gap-2">
+                      <button
+                        className="text-xs text-red-600 hover:underline"
+                        onClick={() => {
+                          const next = { ...criteriaDoc } as QuestionsDoc;
+                          next.criteria = next.criteria.filter((_, i) => i !== idx);
+                          next.total_criteria = next.criteria.length;
+                          setCriteriaDoc(next);
+                        }}
+                      >Remove</button>
                     </div>
-                    <p className="text-sm text-slate-600 mt-2 text-center">
-                      Processing resume {progress.current} of {progress.total}
-                      {progress.current > 1 && (
-                        <span className="text-slate-500"> • ~{Math.ceil((progress.total - progress.current) * 4 / 60)} min remaining</span>
-                      )}
-                    </p>
                   </div>
-                )}
-                {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
+                ))}
               </div>
-            </>
+              <div className="mt-3">
+                <button
+                  className="text-sm px-3 py-1 border rounded hover:bg-slate-100"
+                  onClick={() => {
+                    if (!criteriaDoc) return;
+                    const next = { ...criteriaDoc } as QuestionsDoc;
+                    const newId = `custom_${Date.now()}`;
+                    next.criteria = [
+                      ...next.criteria,
+                      { id: newId, name: 'Custom criterion', question: 'Does the resume show ...?', rationale: '', expected_evidence: [], leniency_note: '', weight: 0, fail_examples: [], tags: [] }
+                    ];
+                    next.total_criteria = next.criteria.length;
+                    setCriteriaDoc(next);
+                  }}
+                >Add criterion</button>
+              </div>
+            </div>
           )}
 
-          {activeTab === 'criteria' && (
-            <>
-              <div className="p-8 bg-white rounded-2xl shadow-lg border border-slate-200">
-                <h2 className="text-2xl font-bold text-slate-700 mb-1">Step 1 — Paste the Job Description and (optional) HR notes</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                  <div>
-                    <label className="block text-sm text-slate-600 mb-1">Seniority</label>
-                    <select value={seniority} onChange={e=>setSeniority(e.target.value as any)} className="w-full border rounded px-3 py-2">
-                      {['intern','junior','mid','senior','lead','principal'].map(s=> <option key={s} value={s}>{s}</option>)}
-                    </select>
+          <div>
+            <ResumeUploader onFilesChange={setResumeFiles} disabled={isLoading} />
+          </div>
                   </div>
                   <div>
                     <label className="block text-sm text-slate-600 mb-1">How many criteria?</label>

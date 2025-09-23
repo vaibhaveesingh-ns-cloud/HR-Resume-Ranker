@@ -14,7 +14,7 @@ export default function ResumeUploader({ onFilesChange, disabled }: ResumeUpload
 
   const handleFileChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-      const newFiles = Array.from(event.target.files);
+      const newFiles = Array.from(event.target.files as FileList) as File[];
       setUploadedFiles(newFiles);
       onFilesChange(newFiles);
     }
@@ -27,7 +27,7 @@ export default function ResumeUploader({ onFilesChange, disabled }: ResumeUpload
   const handleDrop = (event: React.DragEvent<HTMLLabelElement>) => {
     event.preventDefault();
     if (event.dataTransfer.files) {
-      const newFiles = Array.from(event.dataTransfer.files);
+      const newFiles = Array.from(event.dataTransfer.files as FileList) as File[];
       setUploadedFiles(newFiles);
       onFilesChange(newFiles);
       if (fileInputRef.current) {
@@ -49,13 +49,14 @@ export default function ResumeUploader({ onFilesChange, disabled }: ResumeUpload
           <p className="mb-2 text-sm text-slate-500">
             <span className="font-semibold">Click to upload</span> or drag and drop
           </p>
-          <p className="text-xs text-slate-500">ZIP file only</p>
+          <p className="text-xs text-slate-500">Multiple files accepted: PDF, DOCX, TXT</p>
         </div>
         <input
           id="resume-upload"
           ref={fileInputRef}
           type="file"
-          accept=".zip"
+          accept=".pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"
+          multiple
           className="hidden"
           onChange={handleFileChange}
           disabled={disabled}
@@ -63,7 +64,7 @@ export default function ResumeUploader({ onFilesChange, disabled }: ResumeUpload
       </label>
       {uploadedFiles.length > 0 && (
         <div className="mt-4">
-          <h4 className="font-semibold text-slate-600">Selected file:</h4>
+          <h4 className="font-semibold text-slate-600">Selected files:</h4>
           <ul className="mt-2 space-y-2">
             {uploadedFiles.map((file) => (
               <li key={file.name} className="flex items-center text-sm text-slate-700 bg-slate-100 rounded-md p-2">

@@ -26,7 +26,7 @@ export interface QuestionsDoc {
   criteria: Criterion[];
 }
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8000';
+const API_BASE = (import.meta as any).env?.VITE_API_BASE || 'http://127.0.0.1:8000';
 
 export async function generateCriteria(req: GenerateCriteriaRequest): Promise<QuestionsDoc> {
   const res = await fetch(`${API_BASE}/criteria/generate`, {
@@ -53,7 +53,25 @@ export interface AnalyzeResponse {
     }>;
     yes_count: number;
     no_count: number;
-    majority_pass: boolean;
+    has_github: boolean;
+    github_url: string;
+    github_stats: {
+      username?: string;
+      public_repos?: number;
+      followers?: number;
+      following?: number;
+      total_stars?: number;
+      total_forks?: number;
+      recent_activity?: number;
+      profile_created?: string;
+      bio?: string;
+      company?: string;
+      location?: string;
+      blog?: string;
+    };
+    github_score: number;
+    group: 'strongly_consider' | 'potential_fit' | 'rejected';
+    group_reason: string;
   }>;
   timestamp: string;
 }
@@ -63,6 +81,7 @@ export async function analyzeResumes(params: {
   hr: string;
   criteriaDoc: QuestionsDoc;
   files: File[];
+  requireGithub?: boolean;
 }): Promise<AnalyzeResponse> {
   const form = new FormData();
   form.append('jd', params.jd || '');
@@ -70,6 +89,9 @@ export async function analyzeResumes(params: {
   form.append('criteria_json', JSON.stringify(params.criteriaDoc));
   for (const f of params.files) {
     form.append('resumes', f, f.name);
+  }
+  if (typeof params.requireGithub === 'boolean') {
+    form.append('require_github', String(params.requireGithub));
   }
 
   const res = await fetch(`${API_BASE}/analyze`, {
