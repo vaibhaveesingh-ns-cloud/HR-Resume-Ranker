@@ -1,0 +1,84 @@
+{
+  "results": [
+    {
+      "resume_id": "Resume_1.pdf",
+      "answers": [
+        {
+          "criterion_id": "proficient_in_programming",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python",
+            "Experience with AI projects using Python"
+          ]
+        },
+        {
+          "criterion_id": "curiosity",
+          "question": "Does the candidate express a proactive interest in learning and problem-solving?",
+          "answer": "yes",
+          "reasons": [
+            "Involved in Generative AI project",
+            "Developed innovative techniques for chatbot"
+          ]
+        },
+        {
+          "criterion_id": "complex_problem_solving",
+          "question": "Can the candidate demonstrate the ability to break down complex problems into manageable solutions?",
+          "answer": "yes",
+          "reasons": [
+            "Built a smart search system for medical queries",
+            "Automated classification with a CNN model"
+          ]
+        },
+        {
+          "criterion_id": "making_difference",
+          "question": "Has the candidate shown a commitment to enhancing user experience or workflows?",
+          "answer": "yes",
+          "reasons": [
+            "Developed a medical AI chatbot",
+            "Optimized delivery processes in internship"
+          ]
+        },
+        {
+          "criterion_id": "analytical_skills",
+          "question": "Does the candidate possess strong analytical skills essential for methodical problem-solving?",
+          "answer": "yes",
+          "reasons": [
+            "Used image processing techniques to improve model accuracy",
+            "Implemented efficient database queries"
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Is the candidate capable of effectively communicating technical ideas both verbally and in writing?",
+          "answer": "yes",
+          "reasons": [
+            "Communicated technical results through project documentation",
+            "Experience presenting software and system solutions"
+          ]
+        },
+        {
+          "criterion_id": "familiarity_with_ai",
+          "question": "Does the candidate have familiarity with machine learning, deep learning, or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Specialization in Machine Learning and Deep Learning",
+            "Worked with CNN and LLMs"
+          ]
+        },
+        {
+          "criterion_id": "experience_with_cutting_edge_tech",
+          "question": "Has the candidate engaged with cutting-edge AI technologies and tools?",
+          "answer": "yes",
+          "reasons": [
+            "Developed projects using LangChain and generative AI",
+            "Experimented with advanced NLP techniques"
+          ]
+        }
+      ],
+      "yes_count": 8,
+      "no_count": 0,
+      "majority_pass": true
+    }
+  ]
+}

@@ -70,6 +70,9 @@ export interface AnalyzeResponse {
       blog?: string;
     };
     github_score: number;
+    has_linkedin: boolean;
+    linkedin_url: string;
+    linkedin_candidates: string[];
     group: 'strongly_consider' | 'potential_fit' | 'rejected';
     group_reason: string;
   }>;
