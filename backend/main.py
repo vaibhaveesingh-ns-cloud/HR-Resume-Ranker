@@ -2,10 +2,7 @@ import os
 import json
 from datetime import datetime
 from typing import List, Dict, Any
-<<<<<<< HEAD
-=======
 import asyncio
->>>>>>> feature/apoorva-initial-upload
 
 from fastapi import FastAPI, UploadFile, File, Form, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -16,13 +13,6 @@ from models import QuestionsDoc
 from utils import (
     load_env,
     call_openai_json,
-<<<<<<< HEAD
-    extract_text_from_upload,
-    extract_github_links,
-    extract_pdf_links_from_bytes,
-    fetch_github_stats,
-    calculate_github_score,
-=======
     call_openai_json_async,
     extract_text_from_upload,
     extract_github_links,
@@ -32,7 +22,6 @@ from utils import (
     fetch_github_stats_async,
     calculate_github_score,
     slugify,
->>>>>>> feature/apoorva-initial-upload
 )
 
 # Ensure env and data dir
@@ -131,11 +120,7 @@ class CriteriaRequest(BaseModel):
 
 
 @app.post("/criteria/generate")
-<<<<<<< HEAD
-def generate_criteria(req: CriteriaRequest) -> Dict[str, Any]:
-=======
 async def generate_criteria(req: CriteriaRequest) -> Dict[str, Any]:
->>>>>>> feature/apoorva-initial-upload
     if not OPENAI_API_KEY:
         return {"error": "OPENAI_API_KEY not set"}
     prompt = PROMPT_CRITERIA.format(
@@ -144,11 +129,7 @@ async def generate_criteria(req: CriteriaRequest) -> Dict[str, Any]:
         jd=req.jd[:20000],
         hr=(req.hr if req.hr.strip() else "(none provided)")[:8000],
     )
-<<<<<<< HEAD
-    raw = call_openai_json(OPENAI_MODEL_CRITERIA, prompt, OPENAI_API_KEY)
-=======
     raw = await call_openai_json_async(OPENAI_MODEL_CRITERIA, prompt, OPENAI_API_KEY)
->>>>>>> feature/apoorva-initial-upload
     obj = json.loads(raw)
     qdoc = QuestionsDoc(**obj)
     return qdoc.model_dump()
@@ -160,11 +141,7 @@ async def analyze(
     hr: str = Form(""),
     criteria_json: str = Form(...),
     resumes: List[UploadFile] = File(...),
-<<<<<<< HEAD
-    require_github: bool = Form(True),
-=======
     require_github: bool = Form(False),
->>>>>>> feature/apoorva-initial-upload
 ) -> Dict[str, Any]:
     if not OPENAI_API_KEY:
         return {"error": "OPENAI_API_KEY not set"}
@@ -180,13 +157,6 @@ async def analyze(
     resumes_payload: List[Dict[str, str]] = []
     resume_text_lookup: Dict[str, str] = {}
     resume_bytes_lookup: Dict[str, bytes] = {}
-<<<<<<< HEAD
-    for f in resumes:
-        content = await f.read()
-        try:
-            text = extract_text_from_upload(f.filename, content)
-        except Exception:
-=======
     # Build payloads and mappings
     resume_id_map: Dict[str, str] = {}
     for f in resumes:
@@ -197,19 +167,11 @@ async def analyze(
             print(f"Successfully extracted text from {f.filename}. Length: {len(text)}")
         except Exception as e:
             print(f"!!! FAILED to extract text from {f.filename}: {e} !!!")
->>>>>>> feature/apoorva-initial-upload
             text = content.decode("utf-8", errors="ignore")
         text_limited = text[:20000]
         resumes_payload.append({"id": f.filename, "text": text_limited})
         resume_text_lookup[f.filename] = text_limited
         resume_bytes_lookup[f.filename] = content
-<<<<<<< HEAD
-
-    # Call OpenAI for matching
-    # Build prompt same as Streamlit's OpenAIResumeMatcher
-    def build_prompt() -> str:
-        return f"""
-=======
         # Normalized ID mapping for robust matching with model output
         resume_id_map[slugify(f.filename)] = f.filename
 
@@ -303,7 +265,6 @@ async def analyze(
 '''
         def build_prompt() -> str:
             return f"""
->>>>>>> feature/apoorva-initial-upload
 You are an expert technical recruiter.
 
 Evaluate each RESUME against each QUESTION using the provided JD and HR NOTES.
@@ -318,48 +279,6 @@ JD:
 HR NOTES:
 {hr}
 
-<<<<<<< HEAD
-QUESTIONS (array of objects {{id, question}}):
-{json.dumps(questions_payload, ensure_ascii=False)}
-
-RESUMES (array of objects {{id, text}}):
-{json.dumps(resumes_payload, ensure_ascii=False)}
-
-JSON SCHEMA TO OUTPUT
----------------------
-{{
-  "results": [
-    {{
-      "resume_id": "r1",
-      "answers": [
-        {{
-          "criterion_id": "<id from QUESTIONS>",
-          "question": "<question text>",
-          "answer": "yes" | "no",
-          "reasons": ["short reason 1", "short reason 2"]
-        }}
-      ],
-      "yes_count": 0,
-      "no_count": 0,
-      "majority_pass": true
-    }}
-  ]
-}}
-"""
-
-    prompt = build_prompt()
-    raw = call_openai_json(OPENAI_MODEL_MATCH, prompt, OPENAI_API_KEY)
-    out = json.loads(raw)
-
-    # Persist full result
-    ts = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
-    try:
-        path = os.path.join(DATA_DIR, f"results_{ts}.json")
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(out, f, indent=2, ensure_ascii=False)
-    except Exception:
-        pass
-=======
 QUESTIONS (array of objects with 'id' and 'question' keys):
 {json.dumps(questions_payload, ensure_ascii=False)}
 
@@ -387,50 +306,10 @@ JSON SCHEMA TO OUTPUT
         # No resumes to analyze with OpenAI
         openai_results = {"results": []}
         ts = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
->>>>>>> feature/apoorva-initial-upload
 
     # Compute grouping and GitHub detection per requirements
     results_out: List[Dict[str, Any]] = []
     total_q = len(questions_payload)
-<<<<<<< HEAD
-    for r in out.get("results", []):
-        rid = r.get("resume_id")
-        answers = r.get("answers", [])
-        yes_count = sum(1 for a in answers if str(a.get("answer", "")).lower() == "yes")
-        no_count = total_q - yes_count
-        text_src = resume_text_lookup.get(rid, "")
-        # Detect links from visible text
-        gh_text_links = extract_github_links(text_src)
-        # Detect links from embedded PDF hyperlinks if applicable
-        pdf_links: List[str] = []
-        try:
-            if isinstance(rid, str) and rid.lower().endswith('.pdf'):
-                raw_bytes = resume_bytes_lookup.get(rid, b"")
-                if raw_bytes:
-                    pdf_links = extract_pdf_links_from_bytes(raw_bytes)
-        except Exception:
-            pdf_links = []
-        gh_pdf_links = extract_github_links("\n".join(pdf_links)) if pdf_links else []
-        # Union candidates while preserving order preference (text first)
-        seen = set()
-        gh_links: List[str] = []
-        for url in gh_text_links + gh_pdf_links:
-            if url not in seen:
-                seen.add(url)
-                gh_links.append(url)
-        has_github = len(gh_links) > 0
-        github_url = gh_links[0] if has_github else ""
-
-        # Fetch GitHub stats if available
-        github_stats = {}
-        github_score = 0.0
-        if has_github:
-            try:
-                github_stats = fetch_github_stats(github_url)
-                github_score = calculate_github_score(github_stats)
-            except Exception as e:
-                print(f"Error fetching GitHub stats for {github_url}: {e}")
-=======
     # Collect GitHub stats results (only for resumes we started tasks for)
     github_stats_map: Dict[str, Dict[str, Any]] = {}
     if github_tasks:
@@ -456,7 +335,6 @@ JSON SCHEMA TO OUTPUT
         # Retrieve GitHub stats from async tasks map if available
         github_stats = github_stats_map.get(rid, {}) if has_github else {}
         github_score = calculate_github_score(github_stats) if github_stats else 0.0
->>>>>>> feature/apoorva-initial-upload
         # If stats could not be fetched (404 or invalid), treat as no valid GitHub
         if has_github and not github_stats:
             has_github = False
@@ -481,14 +359,11 @@ JSON SCHEMA TO OUTPUT
             group = "rejected"
             group_reason = "Rejected: fewer than half of the criteria were met."
 
-<<<<<<< HEAD
-=======
         # Add LinkedIn data
         linkedin_links = linkedin_links_map.get(rid, [])
         has_linkedin = len(linkedin_links) > 0
         linkedin_url = linkedin_links[0] if has_linkedin else ""
 
->>>>>>> feature/apoorva-initial-upload
         results_out.append({
             "resume_id": rid,
             "answers": answers,
@@ -499,18 +374,13 @@ JSON SCHEMA TO OUTPUT
             "github_candidates": gh_links,
             "github_stats": github_stats,
             "github_score": github_score,
-<<<<<<< HEAD
-=======
             "has_linkedin": has_linkedin,
             "linkedin_url": linkedin_url,
             "linkedin_candidates": linkedin_links,
->>>>>>> feature/apoorva-initial-upload
             "group": group,
             "group_reason": group_reason,
         })
 
-<<<<<<< HEAD
-=======
     # Process resumes without GitHub that were skipped from OpenAI analysis
     for resume_data in resumes_without_github:
         rid = resume_data["id"]
@@ -546,7 +416,6 @@ JSON SCHEMA TO OUTPUT
             "group_reason": "Rejected: GitHub missing and GitHub is required.",
         })
 
->>>>>>> feature/apoorva-initial-upload
     return {"results": results_out, "timestamp": ts}
 
 

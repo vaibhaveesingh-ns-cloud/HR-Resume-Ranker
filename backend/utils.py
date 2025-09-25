@@ -10,10 +10,7 @@ from pdfminer.high_level import extract_text as pdf_extract_text
 from docx import Document as DocxDocument
 from io import BytesIO
 from pypdf import PdfReader
-<<<<<<< HEAD
-=======
 import time
->>>>>>> feature/apoorva-initial-upload
 
 
 def load_env():
@@ -61,8 +58,6 @@ def call_openai_json(model: str, prompt: str, api_key: str) -> str:
     return r.json()["choices"][0]["message"]["content"]
 
 
-<<<<<<< HEAD
-=======
 async def call_openai_json_async(model: str, prompt: str, api_key: str) -> str:
     """Async variant of call_openai_json using httpx.AsyncClient."""
     url = "https://api.openai.com/v1/chat/completions"
@@ -82,7 +77,6 @@ async def call_openai_json_async(model: str, prompt: str, api_key: str) -> str:
         return data["choices"][0]["message"]["content"]
 
 
->>>>>>> feature/apoorva-initial-upload
 def extract_github_links(text: str) -> List[str]:
     """Extract GitHub profile links from free text.
     - Supports http/https, optional www
@@ -137,8 +131,6 @@ def extract_github_links(text: str) -> List[str]:
     return sorted(list(set(out)))
 
 
-<<<<<<< HEAD
-=======
 def extract_linkedin_links(text: str) -> List[str]:
     """Extract LinkedIn profile links from free text.
     - Supports http/https, optional www
@@ -190,7 +182,6 @@ def extract_linkedin_links(text: str) -> List[str]:
     return sorted(list(set(out)))
 
 
->>>>>>> feature/apoorva-initial-upload
 def extract_pdf_links_from_bytes(data: bytes) -> List[str]:
     """Extract URLs from PDF link annotations.
     Returns a list of raw URLs as found in annotations.
@@ -327,8 +318,6 @@ def calculate_github_score(stats: dict) -> float:
     score += completeness
     
     return min(round(score, 1), 100.0)
-<<<<<<< HEAD
-=======
 
 
 # -----------------------------
@@ -431,4 +420,3 @@ async def fetch_github_stats_async(github_url: str) -> dict:
     except Exception as e:
         print(f"Error fetching GitHub stats (async) for {github_url}: {e}")
         return {}
->>>>>>> feature/apoorva-initial-upload
