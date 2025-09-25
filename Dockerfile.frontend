@@ -6,7 +6,10 @@
 
 # Install dependencies
 COPY package.json package-lock.json* ./
-RUN npm ci || npm install
+# Avoid rollup native optional binary resolution issues on some platforms
+ENV ROLLUP_SKIP_NODEJS_NATIVE=1
+# Install without optional deps to avoid native optional packages
+RUN npm ci --no-optional || npm install --no-optional
 
 # Copy source
 COPY . .
