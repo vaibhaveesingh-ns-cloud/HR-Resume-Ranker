@@ -1,0 +1,84 @@
+{
+  "results": [
+    {
+      "resume_id": "Resume_1.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_experience",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python as listed in tech skills.",
+            "Experience with PLSQL, indicating database programming capabilities."
+          ]
+        },
+        {
+          "criterion_id": "curiosity",
+          "question": "Does the candidate show evidence of curiosity and a proactive approach to learning?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged in multiple projects in AI and NLP.",
+            "Completed courses on generative AI and machine learning."
+          ]
+        },
+        {
+          "criterion_id": "ownership",
+          "question": "Has the candidate taken ownership of projects or tasks in their past experiences?",
+          "answer": "yes",
+          "reasons": [
+            "Developed an AI chatbot and worked independently on a Generative AI project.",
+            "Implemented delivery instructions project, indicating ownership of delivery optimization."
+          ]
+        },
+        {
+          "criterion_id": "analytical_skills",
+          "question": "Can the candidate demonstrate strong analytical and problem-solving skills?",
+          "answer": "yes",
+          "reasons": [
+            "Built a CNN model with 98% accuracy for disease detection.",
+            "Optimized delivery processes through efficient query management."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Does the candidate exhibit effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Collaborative projects like medical AI chatbot indicate communication with stakeholders.",
+            "LinkedIn profile showcases professional presence."
+          ]
+        },
+        {
+          "criterion_id": "making_difference",
+          "question": "Has the candidate participated in projects aimed at making a difference in workflows or user experiences?",
+          "answer": "yes",
+          "reasons": [
+            "AI chatbot improves user interaction with medical queries.",
+            "Crop disease detection project reduces manual inspection time by 70%."
+          ]
+        },
+        {
+          "criterion_id": "familiarity_with_ai",
+          "question": "Is the candidate familiar with AI methodologies such as machine learning or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Specialization in machine learning and generative AI.",
+            "Experience with LLMs and deep learning techniques."
+          ]
+        },
+        {
+          "criterion_id": "team_experience",
+          "question": "Has the candidate shown experience working in a team environment?",
+          "answer": "yes",
+          "reasons": [
+            "Internship experience at SAC ISRO suggests collaboration.",
+            "Participated in group projects, enhancing team dynamics."
+          ]
+        }
+      ],
+      "yes_count": 8,
+      "no_count": 0,
+      "majority_pass": true
+    }
+  ]
+}
