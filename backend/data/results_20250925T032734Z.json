@@ -1,0 +1,404 @@
+{
+  "results": [
+    {
+      "resume_id": "AyushAditya_resume_25.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_experience",
+          "question": "Is the candidate proficient in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python and C/C++.",
+            "Experience in backend API development."
+          ]
+        },
+        {
+          "criterion_id": "curiosity",
+          "question": "Does the candidate demonstrate a proactive approach to learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Integrated advanced AI functionalities.",
+            "Engaged in multiple AI-related projects."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving",
+          "question": "Has the candidate shown strong analytical skills in previous projects or experiences?",
+          "answer": "yes",
+          "reasons": [
+            "Developed AI agent for game character design.",
+            "Implemented several automation solutions."
+          ]
+        },
+        {
+          "criterion_id": "ownership",
+          "question": "Does the candidate have experience taking ownership of projects or tasks?",
+          "answer": "yes",
+          "reasons": [
+            "Led projects like sentiment analysis platform.",
+            "Created impactful bots for games."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Can the candidate effectively communicate technical ideas, both verbally and in writing?",
+          "answer": "yes",
+          "reasons": [
+            "Presented research on AI integration.",
+            "Collaborated with over 80 teams."
+          ]
+        },
+        {
+          "criterion_id": "ai_familiarity",
+          "question": "Is the candidate familiar with machine learning, deep learning, or other AI methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Experience with LLMs and sentiment analysis.",
+            "Hands-on with deep learning tools."
+          ]
+        },
+        {
+          "criterion_id": "team_collaboration",
+          "question": "Does the candidate have experience working in a team or collaborative environment?",
+          "answer": "yes",
+          "reasons": [
+            "Collaborated with multiple teams at Scopely.",
+            "Cross-functional project involvement."
+          ]
+        },
+        {
+          "criterion_id": "innovation_interest",
+          "question": "Is the candidate interested in developing innovative solutions in the gaming industry?",
+          "answer": "yes",
+          "reasons": [
+            "Actively contributed to game development AI integrations.",
+            "Designed innovative AI-driven games."
+          ]
+        }
+      ],
+      "yes_count": 8,
+      "no_count": 0,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "CV_Vaibhavee (2).pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_experience",
+          "question": "Is the candidate proficient in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Skilled in Python and JavaScript.",
+            "Experience with web development frameworks."
+          ]
+        },
+        {
+          "criterion_id": "curiosity",
+          "question": "Does the candidate demonstrate a proactive approach to learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged in developing innovative projects.",
+            "Spearheaded club initiatives on cloud technologies."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving",
+          "question": "Has the candidate shown strong analytical skills in previous projects or experiences?",
+          "answer": "no",
+          "reasons": [
+            "Limited detailing of analytical outcomes in projects.",
+            "Focus on design rather than analytical achievements."
+          ]
+        },
+        {
+          "criterion_id": "ownership",
+          "question": "Does the candidate have experience taking ownership of projects or tasks?",
+          "answer": "yes",
+          "reasons": [
+            "Led design initiatives in clubs.",
+            "Developed research-focused projects."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Can the candidate effectively communicate technical ideas, both verbally and in writing?",
+          "answer": "yes",
+          "reasons": [
+            "Published research paper.",
+            "Managed social media content effectively."
+          ]
+        },
+        {
+          "criterion_id": "ai_familiarity",
+          "question": "Is the candidate familiar with machine learning, deep learning, or other AI methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Studied AI/ML frameworks extensively.",
+            "Developed AI-related projects."
+          ]
+        },
+        {
+          "criterion_id": "team_collaboration",
+          "question": "Does the candidate have experience working in a team or collaborative environment?",
+          "answer": "yes",
+          "reasons": [
+            "Worked with teams during internships.",
+            "Collaborated in research projects."
+          ]
+        },
+        {
+          "criterion_id": "innovation_interest",
+          "question": "Is the candidate interested in developing innovative solutions in the gaming industry?",
+          "answer": "no",
+          "reasons": [
+            "Projects focus on other industries.",
+            "Less emphasis on gaming-related innovations."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 2,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "RESUME_BHARTI_JOSHI.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_experience",
+          "question": "Is the candidate proficient in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python and web frameworks.",
+            "Experience with backend development."
+          ]
+        },
+        {
+          "criterion_id": "curiosity",
+          "question": "Does the candidate demonstrate a proactive approach to learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Developed various AI-driven tools.",
+            "Research experience in innovative AI solutions."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving",
+          "question": "Has the candidate shown strong analytical skills in previous projects or experiences?",
+          "answer": "yes",
+          "reasons": [
+            "Created detection algorithms with high accuracy.",
+            "Automated complex document processing tasks."
+          ]
+        },
+        {
+          "criterion_id": "ownership",
+          "question": "Does the candidate have experience taking ownership of projects or tasks?",
+          "answer": "yes",
+          "reasons": [
+            "Independently managed several AI projects.",
+            "Developed tools that improved workflows."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Can the candidate effectively communicate technical ideas, both verbally and in writing?",
+          "answer": "yes",
+          "reasons": [
+            "Presented a publication for audio detection.",
+            "Effectively communicated technical concepts in projects."
+          ]
+        },
+        {
+          "criterion_id": "ai_familiarity",
+          "question": "Is the candidate familiar with machine learning, deep learning, or other AI methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Focused on advanced LLM and AI integration.",
+            "Demonstrated understanding of various AI frameworks."
+          ]
+        },
+        {
+          "criterion_id": "team_collaboration",
+          "question": "Does the candidate have experience working in a team or collaborative environment?",
+          "answer": "yes",
+          "reasons": [
+            "Collaborated in intern roles.",
+            "Worked with cross-functional teams."
+          ]
+        },
+        {
+          "criterion_id": "innovation_interest",
+          "question": "Is the candidate interested in developing innovative solutions in the gaming industry?",
+          "answer": "yes",
+          "reasons": [
+            "Created AI tools for gaming analytics.",
+            "Participated in projects that enhance player experience."
+          ]
+        }
+      ],
+      "yes_count": 8,
+      "no_count": 0,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "resumelatest.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_experience",
+          "question": "Is the candidate proficient in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Skilled in Python, Java, and C++.",
+            "Experience with various technical frameworks."
+          ]
+        },
+        {
+          "criterion_id": "curiosity",
+          "question": "Does the candidate demonstrate a proactive approach to learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged in multiple innovative projects.",
+            "Aims to build technology for social good."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving",
+          "question": "Has the candidate shown strong analytical skills in previous projects or experiences?",
+          "answer": "yes",
+          "reasons": [
+            "Developed AI systems for real-time detection.",
+            "Conducted thorough analysis in research projects."
+          ]
+        },
+        {
+          "criterion_id": "ownership",
+          "question": "Does the candidate have experience taking ownership of projects or tasks?",
+          "answer": "yes",
+          "reasons": [
+            "Led multiple AI-driven projects individually.",
+            "Ownership of relevant technical implementations."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Can the candidate effectively communicate technical ideas, both verbally and in writing?",
+          "answer": "yes",
+          "reasons": [
+            "Presented findings on various AI topics.",
+            "Effective collaboration documented in projects."
+          ]
+        },
+        {
+          "criterion_id": "ai_familiarity",
+          "question": "Is the candidate familiar with machine learning, deep learning, or other AI methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Experience across a range of AI technologies.",
+            "Hands-on with various ML frameworks."
+          ]
+        },
+        {
+          "criterion_id": "team_collaboration",
+          "question": "Does the candidate have experience working in a team or collaborative environment?",
+          "answer": "yes",
+          "reasons": [
+            "Collaborated with multiple teams on projects.",
+            "Participated in group research initiatives."
+          ]
+        },
+        {
+          "criterion_id": "innovation_interest",
+          "question": "Is the candidate interested in developing innovative solutions in the gaming industry?",
+          "answer": "yes",
+          "reasons": [
+            "Designed applications focused on enhancing user experience.",
+            "Interests aligned with gamification in technology."
+          ]
+        }
+      ],
+      "yes_count": 8,
+      "no_count": 0,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Scopely-resume.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_experience",
+          "question": "Is the candidate proficient in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python, SQL, and Java.",
+            "Experience with various technical frameworks."
+          ]
+        },
+        {
+          "criterion_id": "curiosity",
+          "question": "Does the candidate demonstrate a proactive approach to learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged in projects exploring novel AI solutions.",
+            "Active in research internships and roles."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving",
+          "question": "Has the candidate shown strong analytical skills in previous projects or experiences?",
+          "answer": "yes",
+          "reasons": [
+            "Developed models achieving high accuracy.",
+            "Hands-on experience with real-world applications."
+          ]
+        },
+        {
+          "criterion_id": "ownership",
+          "question": "Does the candidate have experience taking ownership of projects or tasks?",
+          "answer": "yes",
+          "reasons": [
+            "Worked independently on AI applications.",
+            "Managed recent projects in research settings."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Can the candidate effectively communicate technical ideas, both verbally and in writing?",
+          "answer": "yes",
+          "reasons": [
+            "Focused on collaboration and clear documentation.",
+            "Presented findings during internships."
+          ]
+        },
+        {
+          "criterion_id": "ai_familiarity",
+          "question": "Is the candidate familiar with machine learning, deep learning, or other AI methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Experience in building AI models.",
+            "Applied various AI frameworks in projects."
+          ]
+        },
+        {
+          "criterion_id": "team_collaboration",
+          "question": "Does the candidate have experience working in a team or collaborative environment?",
+          "answer": "yes",
+          "reasons": [
+            "Collaborated on projects at DRDO and Calibre DTU.",
+            "Worked in methodologies that require teamwork."
+          ]
+        },
+        {
+          "criterion_id": "innovation_interest",
+          "question": "Is the candidate interested in developing innovative solutions in the gaming industry?",
+          "answer": "yes",
+          "reasons": [
+            "Involved in AI-driven projects for entertainment.",
+            "Research focused on gaming-related AI advancements."
+          ]
+        }
+      ],
+      "yes_count": 8,
+      "no_count": 0,
+      "majority_pass": true
+    }
+  ]
+}

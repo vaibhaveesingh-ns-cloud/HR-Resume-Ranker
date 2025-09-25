@@ -70,6 +70,12 @@ export interface AnalyzeResponse {
       blog?: string;
     };
     github_score: number;
+<<<<<<< HEAD
+=======
+    has_linkedin: boolean;
+    linkedin_url: string;
+    linkedin_candidates: string[];
+>>>>>>> feature/apoorva-initial-upload
     group: 'strongly_consider' | 'potential_fit' | 'rejected';
     group_reason: string;
   }>;

@@ -286,6 +286,7 @@ export default function App() {
 
         {isLoading && <Loader />}
 
+<<<<<<< HEAD
         {!isLoading && activeTab==='gemini' && hasResults && (
           <div className="mt-12">
             <ResultsDisplay rankedCandidates={rankedCandidates} rejectedCandidates={rejectedCandidates} />
@@ -295,6 +296,12 @@ export default function App() {
       {/* 
       <footer className="text-center py-6 text-slate-500 text-sm">
         <p>Powered by Gemini API and FastAPI + OpenAI</p>
+=======
+      </main>
+      {/* 
+      <footer className="text-center py-6 text-slate-500 text-sm">
+        <p>Powered by FastAPI + OpenAI</p>
+>>>>>>> feature/apoorva-initial-upload
       </footer>
     </div>
   );

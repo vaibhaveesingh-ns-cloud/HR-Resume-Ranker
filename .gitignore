@@ -1,17 +1,69 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
+=======
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Node.js
+node_modules/
+>>>>>>> feature/apoorva-initial-upload
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+<<<<<<< HEAD
 node_modules
 dist
 dist-ssr
 *.local
 
+=======
+# Build outputs
+dist/
+dist-ssr/
+*.local
+
+# Logs
+logs
+*.log
+
+>>>>>>> feature/apoorva-initial-upload
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -23,6 +75,7 @@ dist-ssr
 *.sln
 *.sw?
 
+<<<<<<< HEAD
 # Python (backend)
 __pycache__/
 *.py[cod]
@@ -49,3 +102,17 @@ backend/.env
 
 # Data artifacts (saved results and criteria)
 data/
+=======
+# Temporary files
+*.tmp
+*.temp
+temp/
+
+# OS generated files
+Thumbs.db
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+>>>>>>> feature/apoorva-initial-upload

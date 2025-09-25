@@ -1,0 +1,404 @@
+{
+  "results": [
+    {
+      "resume_id": "AyushAditya_resume_25.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_languages",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python.",
+            "Experienced with backend API development."
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies",
+          "question": "Has the candidate shown familiarity with machine learning, deep learning, or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Experience with deep learning and NLP.",
+            "Developed machine learning models in various projects."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Does the candidate provide examples of creative solutions to complex problems?",
+          "answer": "yes",
+          "reasons": [
+            "Engineered an AI agent for character design.",
+            "Created a sentiment analysis platform to streamline workflows."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Does the candidate demonstrate effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Presented insights during team collaborations.",
+            "Wrote documentation for developed APIs."
+          ]
+        },
+        {
+          "criterion_id": "ownership_taking",
+          "question": "Does the candidate provide instances of taking ownership of their work or projects?",
+          "answer": "yes",
+          "reasons": [
+            "Led development of an in-house platform.",
+            "Autonomously created a Push Notification Bot."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_proactive",
+          "question": "Does the candidate display a sense of curiosity and a proactive approach to learning?",
+          "answer": "yes",
+          "reasons": [
+            "Continuously working on cutting-edge AI technologies.",
+            "Implemented advanced analytics solutions."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_3d_modelling",
+          "question": "Does the candidate have experience or coursework in 3D modeling and animation?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged with models for character design in games.",
+            "Worked with computational techniques involving models."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_ai_technologies",
+          "question": "Has the candidate worked with technologies related to NLP or AI-driven systems?",
+          "answer": "yes",
+          "reasons": [
+            "Experience with LLM-based systems.",
+            "Developed AI-driven tools for different domains."
+          ]
+        }
+      ],
+      "yes_count": 8,
+      "no_count": 0,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "CV_Vaibhavee (2).pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_languages",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Languages: Python, C++.",
+            "Web Dev: JavaScript, HTML, CSS."
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies",
+          "question": "Has the candidate shown familiarity with machine learning, deep learning, or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Experience with TensorFlow, PyTorch, Scikit-Learn.",
+            "Worked on AI/ML frameworks and projects."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Does the candidate provide examples of creative solutions to complex problems?",
+          "answer": "no",
+          "reasons": [
+            "Limited specific examples provided.",
+            "Mostly focuses on coursework and certifications."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Does the candidate demonstrate effective verbal and written communication skills?",
+          "answer": "no",
+          "reasons": [
+            "No clear evidence of communication in projects or internships.",
+            "Focus mainly on technical skills."
+          ]
+        },
+        {
+          "criterion_id": "ownership_taking",
+          "question": "Does the candidate provide instances of taking ownership of their work or projects?",
+          "answer": "no",
+          "reasons": [
+            "Lacks examples where candidate led initiatives.",
+            "Experience described is more team-centric."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_proactive",
+          "question": "Does the candidate display a sense of curiosity and a proactive approach to learning?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged in multiple learning-related certifications.",
+            "Actively involved in projects."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_3d_modelling",
+          "question": "Does the candidate have experience or coursework in 3D modeling and animation?",
+          "answer": "no",
+          "reasons": [
+            "No coursework or projects related to 3D modeling mentioned.",
+            "Focus on AI and programming."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_ai_technologies",
+          "question": "Has the candidate worked with technologies related to NLP or AI-driven systems?",
+          "answer": "yes",
+          "reasons": [
+            "Worked on AI-related projects and frameworks.",
+            "Engaged in AI/ML internships."
+          ]
+        }
+      ],
+      "yes_count": 5,
+      "no_count": 3,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "RESUME_BHARTI_JOSHI.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_languages",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python and SQL.",
+            "Experience with FastAPI and React."
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies",
+          "question": "Has the candidate shown familiarity with machine learning, deep learning, or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Developed AI models for various applications.",
+            "Experience in fine-tuning deep learning models."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Does the candidate provide examples of creative solutions to complex problems?",
+          "answer": "yes",
+          "reasons": [
+            "Built a ticket analysis tool to improve workflows.",
+            "Developed document processing pipelines."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Does the candidate demonstrate effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Co-authored a publication on deepfake detection.",
+            "Presented at an international conference."
+          ]
+        },
+        {
+          "criterion_id": "ownership_taking",
+          "question": "Does the candidate provide instances of taking ownership of their work or projects?",
+          "answer": "yes",
+          "reasons": [
+            "Developed solutions independently during internships.",
+            "Implemented various projects on their own."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_proactive",
+          "question": "Does the candidate display a sense of curiosity and a proactive approach to learning?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged in multiple internships enhancing skills.",
+            "Took charge in various projects."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_3d_modelling",
+          "question": "Does the candidate have experience or coursework in 3D modeling and animation?",
+          "answer": "no",
+          "reasons": [
+            "No experience mentioned in 3D modeling.",
+            "Focus on AI and machine learning instead."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_ai_technologies",
+          "question": "Has the candidate worked with technologies related to NLP or AI-driven systems?",
+          "answer": "yes",
+          "reasons": [
+            "Built document processing and NLP systems.",
+            "Used various AI frameworks in projects."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 2,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "resumelatest.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_languages",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python, C++, and JavaScript.",
+            "Developed applications using Flask and Streamlit."
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies",
+          "question": "Has the candidate shown familiarity with machine learning, deep learning, or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Worked on various deep learning projects.",
+            "Utilized transformers and LLM APIs for AI solutions."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Does the candidate provide examples of creative solutions to complex problems?",
+          "answer": "yes",
+          "reasons": [
+            "Developed multiple AI solutions for real-time applications.",
+            "Engineered privacy firewalls and travel apps."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Does the candidate demonstrate effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Presented research findings publicly.",
+            "Engaged in collaborative projects."
+          ]
+        },
+        {
+          "criterion_id": "ownership_taking",
+          "question": "Does the candidate provide instances of taking ownership of their work or projects?",
+          "answer": "yes",
+          "reasons": [
+            "Led development on significant projects.",
+            "Managed end-to-end implementations."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_proactive",
+          "question": "Does the candidate display a sense of curiosity and a proactive approach to learning?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged in various workshops to upskill.",
+            "Conducted in-depth research on AI topics."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_3d_modelling",
+          "question": "Does the candidate have experience or coursework in 3D modeling and animation?",
+          "answer": "no",
+          "reasons": [
+            "No mention of experience in 3D modeling.",
+            "Focus primarily on AI and ML applications."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_ai_technologies",
+          "question": "Has the candidate worked with technologies related to NLP or AI-driven systems?",
+          "answer": "yes",
+          "reasons": [
+            "Built LLM-based applications.",
+            "Worked with AI-related transformations and models."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 2,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Scopely-resume.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_languages",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python, Java, and C++.",
+            "Utilized FastAPI and React in development."
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies",
+          "question": "Has the candidate shown familiarity with machine learning, deep learning, or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Developed deep learning models for various applications.",
+            "Conducted research in supervised and unsupervised learning."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Does the candidate provide examples of creative solutions to complex problems?",
+          "answer": "yes",
+          "reasons": [
+            "Developed automated systems for enhanced workflows.",
+            "Worked on emotion recognition systems for improved human interaction."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Does the candidate demonstrate effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Authored various technical documents.",
+            "Presented projects in university settings."
+          ]
+        },
+        {
+          "criterion_id": "ownership_taking",
+          "question": "Does the candidate provide instances of taking ownership of their work or projects?",
+          "answer": "yes",
+          "reasons": [
+            "Independently developed multiple projects.",
+            "Pioneered key initiatives during internships."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_proactive",
+          "question": "Does the candidate display a sense of curiosity and a proactive approach to learning?",
+          "answer": "yes",
+          "reasons": [
+            "Shows interest in exploring new technologies.",
+            "Engaged in a variety of research initiatives."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_3d_modelling",
+          "question": "Does the candidate have experience or coursework in 3D modeling and animation?",
+          "answer": "no",
+          "reasons": [
+            "No specific experience mentioned in 3D modeling.",
+            "Focus on AI-driven applications."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_ai_technologies",
+          "question": "Has the candidate worked with technologies related to NLP or AI-driven systems?",
+          "answer": "yes",
+          "reasons": [
+            "Utilized natural language processing techniques.",
+            "Worked on AI technologies in various projects."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 2,
+      "majority_pass": true
+    }
+  ]
+}

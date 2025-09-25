@@ -11,12 +11,73 @@ export default function SinglePage() {
   const [resumeFiles, setResumeFiles] = useState<File[]>([]);
   const [criteriaDoc, setCriteriaDoc] = useState<QuestionsDoc | null>(null);
   const [seniority, setSeniority] = useState<QuestionsDoc['seniority']>('intern');
+<<<<<<< HEAD
+=======
+  const [customSeniority, setCustomSeniority] = useState('');
+>>>>>>> feature/apoorva-initial-upload
   const [criteriaCount, setCriteriaCount] = useState<number>(8);
   const [requireGithub, setRequireGithub] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [analysis, setAnalysis] = useState<AnalyzeResponse | null>(null);
   const [expandedResumeId, setExpandedResumeId] = useState<string | null>(null);
+<<<<<<< HEAD
+=======
+  // Track total resumes during an analysis run so we can display progress info
+  const [totalDuringAnalysis, setTotalDuringAnalysis] = useState<number | null>(null);
+  // Group filtering state
+  const [visibleGroups, setVisibleGroups] = useState<Set<string>>(new Set(['strongly_consider', 'potential_fit', 'rejected']));
+
+  // Filtered results based on selected groups
+  const filteredResults = useMemo(() => {
+    if (!analysis) return [];
+    return analysis.results.filter(r => visibleGroups.has(r.group));
+  }, [analysis, visibleGroups]);
+
+  // Download filtered results as CSV
+  const handleDownloadCSV = useCallback(() => {
+    if (!filteredResults.length) return;
+    
+    const headers = ['Resume', 'Group', 'GitHub', 'LinkedIn', 'Criteria Met (%)', 'Yes Count', 'No Count', 'Group Reason'];
+    const rows = filteredResults.map(r => {
+      const total = r.yes_count + r.no_count;
+      const pct = total > 0 ? Math.round((r.yes_count / total) * 100) : 0;
+      return [
+        r.resume_id,
+        r.group === 'strongly_consider' ? 'Strongly Consider' : r.group === 'potential_fit' ? 'Potential Fit' : 'Rejected',
+        r.has_github ? 'Yes' : 'No',
+        (r.has_github && r.has_linkedin) ? 'Yes' : 'No',
+        `${pct}%`,
+        r.yes_count.toString(),
+        r.no_count.toString(),
+        r.group_reason
+      ];
+    });
+    
+    const csvContent = [headers, ...rows].map(row => 
+      row.map(cell => `"${cell.replace(/"/g, '""')}"`).join(',')
+    ).join('\n');
+    
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `resume_analysis_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }, [filteredResults]);
+
+  // Group counts for display
+  const groupCounts = useMemo(() => {
+    if (!analysis) return { strongly_consider: 0, potential_fit: 0, rejected: 0 };
+    return analysis.results.reduce((acc, r) => {
+      acc[r.group] = (acc[r.group] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+  }, [analysis]);
+>>>>>>> feature/apoorva-initial-upload
 
   const handleGenerateCriteria = useCallback(async () => {
     if (!jobDescription.trim()) {
@@ -26,7 +87,16 @@ export default function SinglePage() {
     setError(null);
     setIsLoading(true);
     try {
+<<<<<<< HEAD
       const doc = await generateCriteria({ jd: jobDescription, hr: hrNotes, n: criteriaCount, seniority });
+=======
+      const doc = await generateCriteria({ 
+        jd: jobDescription, 
+        hr: hrNotes, 
+        n: criteriaCount, 
+        seniority: customSeniority ? (customSeniority as any) : seniority 
+      });
+>>>>>>> feature/apoorva-initial-upload
       setCriteriaDoc(doc);
     } catch (err) {
       console.error(err);
@@ -34,7 +104,11 @@ export default function SinglePage() {
     } finally {
       setIsLoading(false);
     }
+<<<<<<< HEAD
   }, [jobDescription, hrNotes, criteriaCount, seniority]);
+=======
+  }, [jobDescription, hrNotes, criteriaCount, seniority, customSeniority]);
+>>>>>>> feature/apoorva-initial-upload
 
   const handleAnalyze = useCallback(async () => {
     if (!jobDescription.trim() || resumeFiles.length === 0) {
@@ -46,6 +120,10 @@ export default function SinglePage() {
       return;
     }
     setIsLoading(true);
+<<<<<<< HEAD
+=======
+    setTotalDuringAnalysis(resumeFiles.length);
+>>>>>>> feature/apoorva-initial-upload
     setError(null);
     setAnalysis(null);
     setExpandedResumeId(null);
@@ -95,6 +173,7 @@ export default function SinglePage() {
             <p className="text-slate-500 mb-6">Generate criteria, review/edit checklist, then upload resumes (multiple PDF/DOCX/TXT). GitHub requirement can be toggled for non-tech roles.</p>
             <div className="flex flex-col gap-6">
               <div className="flex flex-wrap items-end gap-4">
+<<<<<<< HEAD
                 <div>
                   <label className="block text-sm text-slate-600 mb-1">Seniority</label>
                   <select className="border rounded px-3 py-2" value={seniority} onChange={(e) => setSeniority(e.target.value as any)} disabled={isLoading}>
@@ -105,6 +184,46 @@ export default function SinglePage() {
                     <option value="lead">Lead</option>
                     <option value="principal">Principal</option>
                   </select>
+=======
+                <div className="flex gap-2">
+                  <div>
+                    <label className="block text-sm text-slate-600 mb-1">Seniority</label>
+                    <select 
+                      className="border rounded px-3 py-2" 
+                      value={customSeniority ? 'custom' : seniority} 
+                      onChange={(e) => {
+                        if (e.target.value === 'custom') {
+                          setCustomSeniority('Custom');
+                        } else {
+                          setSeniority(e.target.value as any);
+                          setCustomSeniority('');
+                        }
+                      }} 
+                      disabled={isLoading}
+                    >
+                      <option value="intern">Intern</option>
+                      <option value="junior">Junior</option>
+                      <option value="mid">Mid</option>
+                      <option value="senior">Senior</option>
+                      <option value="lead">Lead</option>
+                      <option value="principal">Principal</option>
+                      <option value="custom">Custom...</option>
+                    </select>
+                  </div>
+                  {customSeniority && (
+                    <div>
+                      <label className="block text-sm text-slate-600 mb-1">Custom Role</label>
+                      <input 
+                        type="text"
+                        className="border rounded px-3 py-2 w-32"
+                        value={customSeniority}
+                        onChange={(e) => setCustomSeniority(e.target.value)}
+                        placeholder="e.g., VP, CTO"
+                        disabled={isLoading}
+                      />
+                    </div>
+                  )}
+>>>>>>> feature/apoorva-initial-upload
                 </div>
                 <div>
                   <label className="block text-sm text-slate-600 mb-1"># Criteria</label>
@@ -179,6 +298,14 @@ export default function SinglePage() {
 
               <div>
                 <ResumeUploader onFilesChange={setResumeFiles} disabled={isLoading} />
+<<<<<<< HEAD
+=======
+                {resumeFiles.length > 0 && (
+                  <div className="mt-2 text-sm text-slate-600">
+                    📁 {resumeFiles.length} resume{resumeFiles.length !== 1 ? 's' : ''} selected
+                  </div>
+                )}
+>>>>>>> feature/apoorva-initial-upload
               </div>
 
               <div className="flex flex-col items-center">
@@ -190,6 +317,19 @@ export default function SinglePage() {
                   {isLoading ? 'Analyzing...' : 'Analyze & Shortlist'}
                 </button>
                 {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
+<<<<<<< HEAD
+=======
+                {isLoading && typeof totalDuringAnalysis === 'number' && (
+                  <div className="mt-4 w-full md:w-96">
+                    <div className="bg-slate-200 rounded-full h-2 overflow-hidden">
+                      <div className="bg-indigo-600 h-2 rounded-full animate-pulse" style={{ width: '25%' }} />
+                    </div>
+                    <p className="text-sm text-slate-600 mt-2">
+                      Analyzing {totalDuringAnalysis} resume{totalDuringAnalysis !== 1 ? 's' : ''}… Parsed 0/{totalDuringAnalysis}
+                    </p>
+                  </div>
+                )}
+>>>>>>> feature/apoorva-initial-upload
               </div>
             </div>
           </div>
@@ -198,21 +338,92 @@ export default function SinglePage() {
 
           {!isLoading && analysis && (
             <div className="mt-12">
+<<<<<<< HEAD
               <h2 className="text-2xl font-bold text-slate-800 mb-4">Shortlisting Summary</h2>
+=======
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold text-slate-800">Shortlisting Summary</h2>
+                <button
+                  onClick={() => {
+                    setAnalysis(null);
+                    setExpandedResumeId(null);
+                  }}
+                  className="px-4 py-2 bg-slate-600 text-white rounded hover:bg-slate-700 text-sm font-medium"
+                >
+                  🔄 Re-analyze
+                </button>
+              </div>
+              
+              {/* Group Filter Controls */}
+              <div className="mb-4 p-4 bg-slate-50 rounded-lg border">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="text-sm font-medium text-slate-700">Show Groups:</span>
+                  {[
+                    { key: 'strongly_consider', label: 'Strongly Consider', color: 'bg-green-100 text-green-700' },
+                    { key: 'potential_fit', label: 'Potential Fit', color: 'bg-yellow-100 text-yellow-800' },
+                    { key: 'rejected', label: 'Rejected', color: 'bg-red-100 text-red-700' }
+                  ].map(({ key, label, color }) => (
+                    <button
+                      key={key}
+                      onClick={() => {
+                        const newVisible = new Set(visibleGroups);
+                        if (newVisible.has(key)) {
+                          newVisible.delete(key);
+                        } else {
+                          newVisible.add(key);
+                        }
+                        setVisibleGroups(newVisible);
+                      }}
+                      className={`px-3 py-1 rounded text-sm font-medium transition-all ${
+                        visibleGroups.has(key) 
+                          ? `${color} border border-current` 
+                          : 'bg-white text-slate-500 border border-slate-300 hover:bg-slate-100'
+                      }`}
+                    >
+                      {label} ({groupCounts[key] || 0})
+                    </button>
+                  ))}
+                  <span className="text-xs text-slate-500 ml-2">
+                    Showing: {filteredResults.length} of {analysis.results.length} resumes
+                  </span>
+                  <button
+                    onClick={handleDownloadCSV}
+                    disabled={filteredResults.length === 0}
+                    className="ml-4 px-3 py-1 bg-indigo-600 text-white text-sm font-medium rounded hover:bg-indigo-700 disabled:bg-slate-300 disabled:cursor-not-allowed"
+                  >
+                    📊 Download CSV
+                  </button>
+                </div>
+              </div>
+
+              <div className="mb-3 text-sm text-slate-600">
+                Parsed {analysis.results.length}/{typeof totalDuringAnalysis === 'number' ? totalDuringAnalysis : analysis.results.length} resume{(analysis.results.length !== 1) ? 's' : ''}.
+              </div>
+>>>>>>> feature/apoorva-initial-upload
               <div className="overflow-x-auto">
                 <table className="min-w-full border border-slate-200 text-sm">
                   <thead className="bg-slate-100">
                     <tr>
                       <th className="p-2 text-left">Resume</th>
                       <th className="p-2 text-left">Group</th>
+<<<<<<< HEAD
                       <th className="p-2 text-left">Criteria Met</th>
                       <th className="p-2 text-left">GitHub</th>
                       <th className="p-2 text-left">GitHub Score</th>
+=======
+                      <th className="p-2 text-left">GitHub</th>
+                      <th className="p-2 text-left">LinkedIn</th>
+                      <th className="p-2 text-left">Criteria Met</th>
+>>>>>>> feature/apoorva-initial-upload
                       <th className="p-2 text-left">Details</th>
                     </tr>
                   </thead>
                   <tbody>
+<<<<<<< HEAD
                     {analysis.results.map((r) => {
+=======
+                    {filteredResults.map((r) => {
+>>>>>>> feature/apoorva-initial-upload
                       const total = r.yes_count + r.no_count;
                       const pct = total > 0 ? Math.round((r.yes_count / total) * 100) : 0;
                       const groupLabel = r.group === 'strongly_consider' ? 'Strongly Consider' : r.group === 'potential_fit' ? 'Potential Fit' : 'Rejected';
@@ -227,6 +438,7 @@ export default function SinglePage() {
                             } title={r.group_reason}>{groupLabel}</span>
                           </td>
                           <td className="p-2">
+<<<<<<< HEAD
                             <div className="w-48 bg-slate-200 h-3 rounded">
                               <div className="bg-indigo-600 h-3 rounded" style={{ width: `${pct}%` }}></div>
                             </div>
@@ -235,11 +447,16 @@ export default function SinglePage() {
                           <td className="p-2">
                             {r.has_github ? (
                               <a className="text-indigo-600 hover:underline" href={r.github_url} target="_blank" rel="noreferrer">GitHub</a>
+=======
+                            {r.has_github ? (
+                              <a className="text-indigo-600 hover:underline" href={r.github_url} target="_blank" rel="noreferrer">Yes</a>
+>>>>>>> feature/apoorva-initial-upload
                             ) : (
                               <span className="text-slate-500">No</span>
                             )}
                           </td>
                           <td className="p-2">
+<<<<<<< HEAD
                             {r.has_github ? (
                               <div className="flex items-center gap-2">
                                 <div className="w-16 bg-slate-200 h-2 rounded">
@@ -252,6 +469,21 @@ export default function SinglePage() {
                             )}
                           </td>
                           <td className="p-2">
+=======
+                            {r.has_github && r.has_linkedin ? (
+                              <a className="text-blue-600 hover:underline" href={r.linkedin_url} target="_blank" rel="noreferrer">Yes</a>
+                            ) : (
+                              <span className="text-slate-500">No</span>
+                            )}
+                          </td>
+                          <td className="p-2">
+                            <div className="w-48 bg-slate-200 h-3 rounded">
+                              <div className="bg-indigo-600 h-3 rounded" style={{ width: `${pct}%` }}></div>
+                            </div>
+                            <div className="text-xs text-slate-600 mt-1">{r.yes_count} / {total} yes</div>
+                          </td>
+                          <td className="p-2">
+>>>>>>> feature/apoorva-initial-upload
                             <button className="text-indigo-700 hover:underline" onClick={() => setExpandedResumeId(expandedResumeId === r.resume_id ? null : r.resume_id)}>
                               {expandedResumeId === r.resume_id ? 'Hide' : 'View'}
                             </button>
@@ -271,6 +503,7 @@ export default function SinglePage() {
                     <h3 className="text-xl font-bold text-slate-800">{r.resume_id}</h3>
                     <p className="text-slate-600 mt-1">{r.group_reason}</p>
                     
+<<<<<<< HEAD
                     {r.has_github && r.github_stats && (
                       <div className="mt-4 p-4 bg-purple-50 rounded-lg border border-purple-200">
                         <h4 className="font-semibold text-purple-800 mb-2">GitHub Profile Analysis</h4>
@@ -279,6 +512,35 @@ export default function SinglePage() {
                             <div className="text-purple-600 font-medium">Overall Score</div>
                             <div className="text-lg font-bold text-purple-800">{r.github_score}/100</div>
                           </div>
+=======
+                    <div className="mt-4 flex gap-4">
+                      {r.has_github && (
+                        <div className="flex-1 p-3 bg-indigo-50 rounded-lg border border-indigo-200">
+                          <h4 className="font-semibold text-indigo-800 mb-2">GitHub Profile</h4>
+                          <div>
+                            <a className="text-indigo-600 hover:underline font-medium" href={r.github_url} target="_blank" rel="noreferrer">
+                              View Profile →
+                            </a>
+                          </div>
+                        </div>
+                      )}
+                      {r.has_github && r.has_linkedin && (
+                        <div className="flex-1 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                          <h4 className="font-semibold text-blue-800 mb-2">LinkedIn Profile</h4>
+                          <div>
+                            <a className="text-blue-600 hover:underline font-medium" href={r.linkedin_url} target="_blank" rel="noreferrer">
+                              View Profile →
+                            </a>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {r.has_github && r.github_stats && (
+                      <div className="mt-4 p-4 bg-purple-50 rounded-lg border border-purple-200">
+                        <h4 className="font-semibold text-purple-800 mb-2">GitHub Statistics</h4>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+>>>>>>> feature/apoorva-initial-upload
                           <div>
                             <div className="text-purple-600 font-medium">Public Repos</div>
                             <div className="text-lg font-bold text-purple-800">{r.github_stats.public_repos || 0}</div>

@@ -1,0 +1,197 @@
+{
+  "role_summary": "Scopely is seeking an Intern - AI Engineer to contribute to various AI initiatives in game development and analytics.",
+  "seniority": "intern",
+  "total_criteria": 10,
+  "criteria": [
+    {
+      "id": "github_link_mandatory",
+      "name": "GitHub Link Required",
+      "question": "Does the resume include a GitHub link?",
+      "rationale": "A GitHub link is essential for assessing coding skills and project experience.",
+      "expected_evidence": [
+        "GitHub profile",
+        "projects"
+      ],
+      "leniency_note": "No leniency allowed; absence leads to automatic rejection.",
+      "weight": 0.15,
+      "fail_examples": [
+        "No GitHub link provided",
+        "Link to a personal website only"
+      ],
+      "tags": [
+        "skills"
+      ]
+    },
+    {
+      "id": "python_proficiency",
+      "name": "Proficiency in Python",
+      "question": "Does the resume demonstrate strong proficiency in Python through projects?",
+      "rationale": "Python is a core language for AI engineering, and proficiency is crucial.",
+      "expected_evidence": [
+        "project descriptions",
+        "code snippets"
+      ],
+      "leniency_note": "Projects or coursework can demonstrate proficiency.",
+      "weight": 0.15,
+      "fail_examples": [
+        "Only mentions Python without projects",
+        "No relevant experience"
+      ],
+      "tags": [
+        "skills"
+      ]
+    },
+    {
+      "id": "ai_library_experience",
+      "name": "Experience with AI Libraries",
+      "question": "Has the candidate used at least one AI library (e.g., TensorFlow, PyTorch)?",
+      "rationale": "Familiarity with AI libraries is essential for contributing to AI initiatives.",
+      "expected_evidence": [
+        "project descriptions",
+        "specific tools used"
+      ],
+      "leniency_note": "Exposure through coursework or personal projects is acceptable.",
+      "weight": 0.1,
+      "fail_examples": [
+        "No mention of AI libraries",
+        "Only mentions libraries without usage"
+      ],
+      "tags": [
+        "skills"
+      ]
+    },
+    {
+      "id": "ml_model_exposure",
+      "name": "Exposure to ML Models",
+      "question": "Does the resume indicate exposure to Machine Learning models?",
+      "rationale": "Understanding ML models is important for the role's responsibilities.",
+      "expected_evidence": [
+        "project details",
+        "academic courses"
+      ],
+      "leniency_note": "Could include coursework or projects without formal experience.",
+      "weight": 0.1,
+      "fail_examples": [
+        "No mention of any ML models",
+        "Only generic mention without specifics"
+      ],
+      "tags": [
+        "skills"
+      ]
+    },
+    {
+      "id": "understanding_ai_fundamentals",
+      "name": "Understanding AI Fundamentals",
+      "question": "Does the candidate demonstrate an understanding of Generative AI and ML fundamentals?",
+      "rationale": "Knowledge of AI fundamentals is critical to driving innovative solutions.",
+      "expected_evidence": [
+        "project descriptions",
+        "coursework"
+      ],
+      "leniency_note": "Understanding can be shown through projects or self-study.",
+      "weight": 0.1,
+      "fail_examples": [
+        "No mention of AI or ML concepts",
+        "Only buzzwords used without context"
+      ],
+      "tags": [
+        "skills"
+      ]
+    },
+    {
+      "id": "ai_project_evidence",
+      "name": "Evidence of AI Projects",
+      "question": "Are there projects listed that validate the candidate's proficiency in AI?",
+      "rationale": "Concrete evidence of projects supports claims of skills and knowledge.",
+      "expected_evidence": [
+        "project portfolio",
+        "web links"
+      ],
+      "leniency_note": "Projects can be from coursework or personal initiative.",
+      "weight": 0.1,
+      "fail_examples": [
+        "No projects listed",
+        "Only generic descriptions of contributions"
+      ],
+      "tags": [
+        "impact"
+      ]
+    },
+    {
+      "id": "ownership_in_problems",
+      "name": "Ownership of Problem-Solving",
+      "question": "Does the resume suggest ownership and independent work in problem-solving?",
+      "rationale": "The role requires taking initiatives and solving complex problems creatively.",
+      "expected_evidence": [
+        "specific examples of challenges faced",
+        "projects"
+      ],
+      "leniency_note": "Internships or group projects can showcase contributions.",
+      "weight": 0.1,
+      "fail_examples": [
+        "No examples of ownership or initiative",
+        "Only describes collective work"
+      ],
+      "tags": [
+        "ownership"
+      ]
+    },
+    {
+      "id": "communication_skills",
+      "name": "Effective Communication Skills",
+      "question": "Does the candidate demonstrate effective verbal and written communication skills?",
+      "rationale": "Communication is key for collaborating and sharing technical ideas.",
+      "expected_evidence": [
+        "presentation experience",
+        "writing samples"
+      ],
+      "leniency_note": "Can include informal communication examples.",
+      "weight": 0.1,
+      "fail_examples": [
+        "Only vague mention of communication",
+        "No roles involving communication"
+      ],
+      "tags": [
+        "communication"
+      ]
+    },
+    {
+      "id": "curiosity_and_learning",
+      "name": "Curiosity and Proactive Learning",
+      "question": "Does the resume reflect curiosity and a proactive approach to learning?",
+      "rationale": "A curious mindset is essential for innovation in technology and AI.",
+      "expected_evidence": [
+        "evidence of continuous learning",
+        "self-initiated projects"
+      ],
+      "leniency_note": "Extracurricular activities can demonstrate curiosity.",
+      "weight": 0.05,
+      "fail_examples": [
+        "No mention of learning outside formal education",
+        "Only passive experience listed"
+      ],
+      "tags": [
+        "ownership"
+      ]
+    },
+    {
+      "id": "ai_ethics_and_responsibility",
+      "name": "Commitment to Ethical AI",
+      "question": "Does the resume show an awareness of the ethical impacts of AI?",
+      "rationale": "Awareness of ethical considerations is increasingly important in AI roles.",
+      "expected_evidence": [
+        "relevant coursework",
+        "discussions on ethics"
+      ],
+      "leniency_note": "General interest in ethical AI can be acceptable.",
+      "weight": 0.05,
+      "fail_examples": [
+        "No mention of ethics",
+        "Only focuses on technical skills"
+      ],
+      "tags": [
+        "impact"
+      ]
+    }
+  ]
+}

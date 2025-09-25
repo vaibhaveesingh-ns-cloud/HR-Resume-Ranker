@@ -10,10 +10,14 @@
   },
   "dependencies": {
     "react-dom": "^19.1.1",
+<<<<<<< HEAD
     "react": "^19.1.1",
     "@google/genai": "^1.20.0",
     "jszip": "^3.10.1",
     "pdfjs-dist": "^4.4.168"
+=======
+    "react": "^19.1.1"
+>>>>>>> feature/apoorva-initial-upload
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

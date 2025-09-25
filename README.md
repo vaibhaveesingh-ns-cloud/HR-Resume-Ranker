@@ -15,6 +15,10 @@ View your app in AI Studio: https://ai.studio/apps/drive/1NQH-K2yiaXt25ckCgQjJZP
 
 1. Install dependencies:
    `npm install`
+<<<<<<< HEAD
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+=======
+2. Set the `OPENAI_API_KEY` in [.env](.env) to your OpenAI API key
+>>>>>>> feature/apoorva-initial-upload
 3. Run the app:
    `npm run dev`

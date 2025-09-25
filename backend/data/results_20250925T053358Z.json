@@ -1,0 +1,164 @@
+{
+  "results": [
+    {
+      "resume_id": "AyushAditya_resume_25.pdf",
+      "answers": [
+        {
+          "criterion_id": "proficient_in_programming",
+          "question": "Is the candidate proficient in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Skilled in Python and C++.",
+            "Experience with backend API development using Python."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate demonstrate a desire to learn and ask questions?",
+          "answer": "yes",
+          "reasons": [
+            "Proactive in developing AI solutions.",
+            "Worked on diverse projects indicating eagerness to learn."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Has the candidate shown strong analytical and problem-solving skills?",
+          "answer": "yes",
+          "reasons": [
+            "Proven ability to turn complex data into actionable solutions.",
+            "Successfully handled complex AI implementations."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Has the candidate taken ownership of projects or tasks independently?",
+          "answer": "yes",
+          "reasons": [
+            "Independently integrated AI systems for internal workflows.",
+            "Engineered character design AI agent in a game."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Can the candidate communicate technical ideas effectively, both verbally and in writing?",
+          "answer": "yes",
+          "reasons": [
+            "Presented projects and demos during internship.",
+            "Documented various AI initiatives at work."
+          ]
+        },
+        {
+          "criterion_id": "familiarity_with_ai",
+          "question": "Is the candidate familiar with AI methodologies like machine learning or deep learning?",
+          "answer": "yes",
+          "reasons": [
+            "Experience with machine learning and deep learning frameworks.",
+            "Developed multiple AI-driven solutions."
+          ]
+        },
+        {
+          "criterion_id": "project_experience",
+          "question": "Has the candidate completed projects relevant to AI and game development?",
+          "answer": "yes",
+          "reasons": [
+            "Developed AI-driven battle simulator.",
+            "Created multiple AI applications in gaming context."
+          ]
+        },
+        {
+          "criterion_id": "enthusiasm_for_games",
+          "question": "Does the candidate express a passion for gaming and understand its cultural impact?",
+          "answer": "yes",
+          "reasons": [
+            "Experience working on game-related projects.",
+            "Integration of AI in games shows enthusiasm."
+          ]
+        }
+      ],
+      "yes_count": 8,
+      "no_count": 0,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "CV_Vaibhavee (2).pdf",
+      "answers": [
+        {
+          "criterion_id": "proficient_in_programming",
+          "question": "Is the candidate proficient in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python and JavaScript.",
+            "Skills in multiple programming languages mentioned."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate demonstrate a desire to learn and ask questions?",
+          "answer": "yes",
+          "reasons": [
+            "Worked on research and design initiatives allowing for inquiry.",
+            "Engaged in various learning projects."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Has the candidate shown strong analytical and problem-solving skills?",
+          "answer": "yes",
+          "reasons": [
+            "Developed a spam detection algorithm indicating analytical skills.",
+            "Worked on network simulation resolving complex problems."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Has the candidate taken ownership of projects or tasks independently?",
+          "answer": "yes",
+          "reasons": [
+            "Spearheaded design initiatives in various clubs.",
+            "Led research projects showcasing independence."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Can the candidate communicate technical ideas effectively, both verbally and in writing?",
+          "answer": "yes",
+          "reasons": [
+            "Published a research paper, indicating strong written communication.",
+            "Organized workshops that require verbal communication skills."
+          ]
+        },
+        {
+          "criterion_id": "familiarity_with_ai",
+          "question": "Is the candidate familiar with AI methodologies like machine learning or deep learning?",
+          "answer": "yes",
+          "reasons": [
+            "Familiar with frameworks such as TensorFlow and PyTorch.",
+            "Engaged in AI-related projects."
+          ]
+        },
+        {
+          "criterion_id": "project_experience",
+          "question": "Has the candidate completed projects relevant to AI and game development?",
+          "answer": "yes",
+          "reasons": [
+            "Developed a Pokémon MCP project related to gaming.",
+            "Created an application to assist with DSA concepts."
+          ]
+        },
+        {
+          "criterion_id": "enthusiasm_for_games",
+          "question": "Does the candidate express a passion for gaming and understand its cultural impact?",
+          "answer": "yes",
+          "reasons": [
+            "Worked on a fun MCP project simulating Pokémon battles.",
+            "Projects indicate interest in gaming context."
+          ]
+        }
+      ],
+      "yes_count": 8,
+      "no_count": 0,
+      "majority_pass": true
+    }
+  ]
+}

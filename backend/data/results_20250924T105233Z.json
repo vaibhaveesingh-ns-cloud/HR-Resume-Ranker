@@ -1,0 +1,638 @@
+{
+  "results": [
+    {
+      "resume_id": "Resume_1.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_proficiency",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python and SQL.",
+            "Experience with LangChain and FAISS."
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies_experience",
+          "question": "Has the candidate shown familiarity with machine learning or other AI methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Experience developing chatbots using NLP.",
+            "Worked with LLMs and generative AI."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Does the candidate demonstrate effective verbal and written communication skills?",
+          "answer": "no",
+          "reasons": [
+            "No clear evidence of effective communication in projects."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate exhibit a proactive approach to learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged in diverse projects using cutting-edge AI technologies."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Does the candidate demonstrate strong analytical and problem-solving abilities?",
+          "answer": "yes",
+          "reasons": [
+            "Developed models with 98% accuracy for real-world applications.",
+            "Optimized workflows to enhance efficiency."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Has the candidate taken ownership of projects or tasks independently?",
+          "answer": "yes",
+          "reasons": [
+            "Independently developed multiple AI applications.",
+            "Led projects from conception to execution."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_cutting_edge_tech",
+          "question": "Has the candidate explored cutting-edge technologies relevant to AI, such as autonomous agents or AI avatars?",
+          "answer": "yes",
+          "reasons": [
+            "Experience with LLMs and generative AI in projects.",
+            "Built a CNN model for image classification."
+          ]
+        },
+        {
+          "criterion_id": "desire_to_make_a_difference",
+          "question": "Does the candidate express a desire to contribute to meaningful projects that enhance player experience?",
+          "answer": "yes",
+          "reasons": [
+            "Focus on developing AI for improving user experience.",
+            "Projects aimed at enhancing interaction."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 1,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_2.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_proficiency",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Generative AI with strong programming background.",
+            "Technologies include Next.js and Firebase."
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies_experience",
+          "question": "Has the candidate shown familiarity with machine learning or other AI methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Specializes in Generative AI and LLM Engineering.",
+            "Experience with AI model fine-tuning and performance improvements."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Does the candidate demonstrate effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Proven ability to collaborate with teams.",
+            "Described experiences in a clear manner."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate exhibit a proactive approach to learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged in ongoing learning about AI models.",
+            "Built a prototype to validate AI concepts."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Does the candidate demonstrate strong analytical and problem-solving abilities?",
+          "answer": "yes",
+          "reasons": [
+            "Applied problem-solving skills to e-commerce functionalities.",
+            "Improved application performance by 30%."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Has the candidate taken ownership of projects or tasks independently?",
+          "answer": "yes",
+          "reasons": [
+            "Demonstrated ownership in developing a document assistant.",
+            "Managed project goals effectively."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_cutting_edge_tech",
+          "question": "Has the candidate explored cutting-edge technologies relevant to AI, such as autonomous agents or AI avatars?",
+          "answer": "yes",
+          "reasons": [
+            "Experience with AI models and algorithms.",
+            "Worked on generative AI-based applications."
+          ]
+        },
+        {
+          "criterion_id": "desire_to_make_a_difference",
+          "question": "Does the candidate express a desire to contribute to meaningful projects that enhance player experience?",
+          "answer": "yes",
+          "reasons": [
+            "Focused on improving AI model performance.",
+            "Collaborated on AI projects with user benefits."
+          ]
+        }
+      ],
+      "yes_count": 8,
+      "no_count": 0,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_3.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_proficiency",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Well-versed in Python and JavaScript for various projects.",
+            "Used Flask and REST APIs effectively."
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies_experience",
+          "question": "Has the candidate shown familiarity with machine learning or other AI methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Worked with NLP, RAG, and fine-tuning techniques.",
+            "Built and deployed multiple AI solutions."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Does the candidate demonstrate effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Clear articulation of complex concepts in past projects.",
+            "Documented processes for internal knowledge sharing."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate exhibit a proactive approach to learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Eager to experiment with new technologies in AI.",
+            "Engaged in multiple innovative projects."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Does the candidate demonstrate strong analytical and problem-solving abilities?",
+          "answer": "yes",
+          "reasons": [
+            "Built scalable models with a focus on performance.",
+            "Implemented solutions that enhanced system functionality."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Has the candidate taken ownership of projects or tasks independently?",
+          "answer": "yes",
+          "reasons": [
+            "Independently developed various AI applications.",
+            "Took charge of chatbot design and development."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_cutting_edge_tech",
+          "question": "Has the candidate explored cutting-edge technologies relevant to AI, such as autonomous agents or AI avatars?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in transformers and generative AI technologies.",
+            "Contributed to AI model optimization projects."
+          ]
+        },
+        {
+          "criterion_id": "desire_to_make_a_difference",
+          "question": "Does the candidate express a desire to contribute to meaningful projects that enhance player experience?",
+          "answer": "yes",
+          "reasons": [
+            "Focus on responsible AI practices.",
+            "Developing tech solutions for improved user interaction."
+          ]
+        }
+      ],
+      "yes_count": 8,
+      "no_count": 0,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_4.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_proficiency",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python and Java, developed multiple projects.",
+            "Experience with FastAPI and Next.js."
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies_experience",
+          "question": "Has the candidate shown familiarity with machine learning or other AI methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Developed RAG systems and AI CRMs.",
+            "Hands-on experience with LLMs and model fine-tuning."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Does the candidate demonstrate effective verbal and written communication skills?",
+          "answer": "no",
+          "reasons": [
+            "Not much evidence of documented communication skills."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate exhibit a proactive approach to learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged with diverse AI technologies in projects.",
+            "Demonstrated eagerness in learning and applying new concepts."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Does the candidate demonstrate strong analytical and problem-solving abilities?",
+          "answer": "yes",
+          "reasons": [
+            "Boosted answer accuracy significantly in AI projects.",
+            "Improved engagement through effective tech solutions."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Has the candidate taken ownership of projects or tasks independently?",
+          "answer": "yes",
+          "reasons": [
+            "Independently led AI project developments.",
+            "Designed dynamic systems demonstrating leadership."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_cutting_edge_tech",
+          "question": "Has the candidate explored cutting-edge technologies relevant to AI, such as autonomous agents or AI avatars?",
+          "answer": "yes",
+          "reasons": [
+            "Developed AI models using RAG and conversational AI frameworks.",
+            "Worked with advanced technologies in AI development."
+          ]
+        },
+        {
+          "criterion_id": "desire_to_make_a_difference",
+          "question": "Does the candidate express a desire to contribute to meaningful projects that enhance player experience?",
+          "answer": "yes",
+          "reasons": [
+            "Focused on improving AI interactions and engagement.",
+            "Worked on projects that streamline user workflows."
+          ]
+        }
+      ],
+      "yes_count": 7,
+      "no_count": 1,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_5.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_proficiency",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Experience in Python, HTML, and JavaScript programming.",
+            "Knowledge of full-stack development."
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies_experience",
+          "question": "Has the candidate shown familiarity with machine learning or other AI methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Hands-on experience with LangChain and RAG systems.",
+            "Proficient in generative AI and building intelligent solutions."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Does the candidate demonstrate effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Describes contributions and experiences clearly.",
+            "Collaborated on projects requiring communication skills."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate exhibit a proactive approach to learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged in continuous learning through various projects.",
+            "Participated in hackathons and workshops."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Does the candidate demonstrate strong analytical and problem-solving abilities?",
+          "answer": "yes",
+          "reasons": [
+            "Improved decision-making efficiency through data analysis.",
+            "Successfully implemented ML pipelines."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Has the candidate taken ownership of projects or tasks independently?",
+          "answer": "no",
+          "reasons": [
+            "Limited evidence of owning complete projects independently."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_cutting_edge_tech",
+          "question": "Has the candidate explored cutting-edge technologies relevant to AI, such as autonomous agents or AI avatars?",
+          "answer": "yes",
+          "reasons": [
+            "Developed multi-agent systems and RAG applications.",
+            "Worked on AI solutions in collaborative environments."
+          ]
+        },
+        {
+          "criterion_id": "desire_to_make_a_difference",
+          "question": "Does the candidate express a desire to contribute to meaningful projects that enhance player experience?",
+          "answer": "yes",
+          "reasons": [
+            "Projects aimed at improving efficiency and user experience.",
+            "Engaged in user-centric AI applications."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 1,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_6.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_proficiency",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Skilled in Python and LLM APIs.",
+            "Experience with various AI workflows and data pipelines."
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies_experience",
+          "question": "Has the candidate shown familiarity with machine learning or other AI methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Hands-on experience with NLP and model performance monitoring.",
+            "Built AI chatbots with RAG architecture."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Does the candidate demonstrate effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Detailed documentation of AI projects.",
+            "Clear explanations of complex AI concepts."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate exhibit a proactive approach to learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Participated in various courses to enhance skills.",
+            "Actively seeking new AI technologies to implement."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Does the candidate demonstrate strong analytical and problem-solving abilities?",
+          "answer": "yes",
+          "reasons": [
+            "Experience in evaluating model performance and optimizing solutions.",
+            "Built ETL workflows for automation."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Has the candidate taken ownership of projects or tasks independently?",
+          "answer": "yes",
+          "reasons": [
+            "Led AI chatbot project independently.",
+            "Designed and deployed scalable solutions."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_cutting_edge_tech",
+          "question": "Has the candidate explored cutting-edge technologies relevant to AI, such as autonomous agents or AI avatars?",
+          "answer": "yes",
+          "reasons": [
+            "Worked on LLM-powered projects and RAG systems.",
+            "Utilized various AI frameworks in development."
+          ]
+        },
+        {
+          "criterion_id": "desire_to_make_a_difference",
+          "question": "Does the candidate express a desire to contribute to meaningful projects that enhance player experience?",
+          "answer": "yes",
+          "reasons": [
+            "Focused on improving user accessibility in AI designs.",
+            "Engaged in socially beneficial AI projects."
+          ]
+        }
+      ],
+      "yes_count": 8,
+      "no_count": 0,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_7.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_proficiency",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python; developed projects using JavaScript.",
+            "Experience in building complex applications in AI."
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies_experience",
+          "question": "Has the candidate shown familiarity with machine learning or other AI methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Demonstrated expertise in RAG and generative AI.",
+            "Developed AI solutions using prompt engineering."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Does the candidate demonstrate effective verbal and written communication skills?",
+          "answer": "no",
+          "reasons": [
+            "Limited information on collaborative projects and communication."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate exhibit a proactive approach to learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged in various innovative AI projects.",
+            "Actively learning about emerging technologies."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Does the candidate demonstrate strong analytical and problem-solving abilities?",
+          "answer": "yes",
+          "reasons": [
+            "Developed practical AI solutions for real-world problems.",
+            "Implemented AI tools effectively."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Has the candidate taken ownership of projects or tasks independently?",
+          "answer": "no",
+          "reasons": [
+            "Not much evidence of independent project management."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_cutting_edge_tech",
+          "question": "Has the candidate explored cutting-edge technologies relevant to AI, such as autonomous agents or AI avatars?",
+          "answer": "yes",
+          "reasons": [
+            "Created projects using various AI frameworks and tools.",
+            "Focused on building intelligent user solutions."
+          ]
+        },
+        {
+          "criterion_id": "desire_to_make_a_difference",
+          "question": "Does the candidate express a desire to contribute to meaningful projects that enhance player experience?",
+          "answer": "yes",
+          "reasons": [
+            "Passionate about deploying user-centric AI applications.",
+            "Demonstrated commitment to enhancing user interactions."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 2,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_8.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_proficiency",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Knowledgeable in Python, JavaScript, and SQL.",
+            "Experience in developing applications using various languages."
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies_experience",
+          "question": "Has the candidate shown familiarity with machine learning or other AI methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Built AI applications focusing on generative AI processes.",
+            "Worked with RAG architectures in multiple projects."
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Does the candidate demonstrate effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Described experiences and project work clearly.",
+            "Demonstrated collaboration skills in project settings."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate exhibit a proactive approach to learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Eagerly engaged in learning about AI and related technologies.",
+            "Participated in relevant workshops and training."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Does the candidate demonstrate strong analytical and problem-solving abilities?",
+          "answer": "yes",
+          "reasons": [
+            "Developed innovative solutions using machine learning methodologies.",
+            "Focused on enhancing user experience through AI."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Has the candidate taken ownership of projects or tasks independently?",
+          "answer": "yes",
+          "reasons": [
+            "Demonstrated ownership in multiple AI projects.",
+            "Led AI systems development independently."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_cutting_edge_tech",
+          "question": "Has the candidate explored cutting-edge technologies relevant to AI, such as autonomous agents or AI avatars?",
+          "answer": "yes",
+          "reasons": [
+            "Built complex systems that utilize generative AI and prompt engineering.",
+            "Focused on developing AI solutions using advanced methods."
+          ]
+        },
+        {
+          "criterion_id": "desire_to_make_a_difference",
+          "question": "Does the candidate express a desire to contribute to meaningful projects that enhance player experience?",
+          "answer": "yes",
+          "reasons": [
+            "Set a vision towards creating user-focused AI applications.",
+            "Engaged in projects that improve user interactions."
+          ]
+        }
+      ],
+      "yes_count": 8,
+      "no_count": 0,
+      "majority_pass": true
+    }
+  ]
+}

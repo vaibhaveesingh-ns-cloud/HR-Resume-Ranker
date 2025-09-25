@@ -10,6 +10,10 @@ from pdfminer.high_level import extract_text as pdf_extract_text
 from docx import Document as DocxDocument
 from io import BytesIO
 from pypdf import PdfReader
+<<<<<<< HEAD
+=======
+import time
+>>>>>>> feature/apoorva-initial-upload
 
 
 def load_env():
@@ -57,6 +61,28 @@ def call_openai_json(model: str, prompt: str, api_key: str) -> str:
     return r.json()["choices"][0]["message"]["content"]
 
 
+<<<<<<< HEAD
+=======
+async def call_openai_json_async(model: str, prompt: str, api_key: str) -> str:
+    """Async variant of call_openai_json using httpx.AsyncClient."""
+    url = "https://api.openai.com/v1/chat/completions"
+    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+    body = {
+        "model": model,
+        "response_format": {"type": "json_object"},
+        "messages": [
+            {"role": "system", "content": "You are an exacting hiring evaluator. Output strictly valid JSON."},
+            {"role": "user", "content": prompt},
+        ],
+    }
+    async with httpx.AsyncClient(timeout=120) as client:
+        resp = await client.post(url, headers=headers, json=body)
+        resp.raise_for_status()
+        data = resp.json()
+        return data["choices"][0]["message"]["content"]
+
+
+>>>>>>> feature/apoorva-initial-upload
 def extract_github_links(text: str) -> List[str]:
     """Extract GitHub profile links from free text.
     - Supports http/https, optional www
@@ -111,6 +137,60 @@ def extract_github_links(text: str) -> List[str]:
     return sorted(list(set(out)))
 
 
+<<<<<<< HEAD
+=======
+def extract_linkedin_links(text: str) -> List[str]:
+    """Extract LinkedIn profile links from free text.
+    - Supports http/https, optional www
+    - Handles trailing punctuation ),.;:
+    - Extracts profile URLs and returns canonical LinkedIn profile URLs
+    Returns a de-duplicated list of profile URLs like https://linkedin.com/in/<username>
+    """
+    if not text:
+        return []
+
+    profiles: set[str] = set()
+    
+    def _clean(segment: str) -> str:
+        # strip trailing punctuation commonly stuck to URLs
+        return segment.rstrip(').,;:\'\"')
+
+    # 1) Full LinkedIn URLs with protocol (http/https) and optional www
+    # Matches: https://linkedin.com/in/username, https://www.linkedin.com/in/username
+    for m in re.findall(r"https?://(?:www\.)?linkedin\.com/in/([A-Za-z0-9._-]+)(?:/|\b)", text, flags=re.IGNORECASE):
+        m = _clean(m)
+        if len(m) > 2:
+            profiles.add(m)
+
+    # 2) Domain without protocol (with optional www)
+    # Matches: linkedin.com/in/username, www.linkedin.com/in/username
+    for m in re.findall(r"\b(?:www\.)?linkedin\.com/in/([A-Za-z0-9._-]+)(?:/|\b)", text, flags=re.IGNORECASE):
+        m = _clean(m)
+        if len(m) > 2:
+            profiles.add(m)
+
+    # 3) Username mention patterns
+    # Explicit "linkedin: username" or "LinkedIn: username"
+    for m in re.findall(r"linkedin:\s*([A-Za-z0-9._-]+)", text, flags=re.IGNORECASE):
+        m = _clean(m)
+        if len(m) > 2:
+            profiles.add(m)
+    
+    # Explicit "@username on linkedin" or "@username linkedin"
+    for m in re.findall(r"@([A-Za-z0-9._-]+)\s+(?:on\s+)?linkedin\b", text, flags=re.IGNORECASE):
+        m = _clean(m)
+        if len(m) > 2:
+            profiles.add(m)
+
+    # Build canonical profile URLs
+    out: List[str] = []
+    for u in profiles:
+        url = f"https://linkedin.com/in/{u}"
+        out.append(url)
+    return sorted(list(set(out)))
+
+
+>>>>>>> feature/apoorva-initial-upload
 def extract_pdf_links_from_bytes(data: bytes) -> List[str]:
     """Extract URLs from PDF link annotations.
     Returns a list of raw URLs as found in annotations.
@@ -247,3 +327,108 @@ def calculate_github_score(stats: dict) -> float:
     score += completeness
     
     return min(round(score, 1), 100.0)
+<<<<<<< HEAD
+=======
+
+
+# -----------------------------
+# Async GitHub fetch with TTL cache
+# -----------------------------
+
+_GH_CACHE: dict[str, tuple[float, dict]] = {}
+_GH_CACHE_TTL_SECONDS = 24 * 60 * 60  # 1 day
+
+
+def _gh_cache_get(username: str) -> dict:
+    now = time.time()
+    item = _GH_CACHE.get(username)
+    if not item:
+        return {}
+    ts, data = item
+    if now - ts > _GH_CACHE_TTL_SECONDS:
+        # expired
+        try:
+            del _GH_CACHE[username]
+        except Exception:
+            pass
+        return {}
+    return data
+
+
+def _gh_cache_set(username: str, data: dict) -> None:
+    _GH_CACHE[username] = (time.time(), data)
+
+
+async def fetch_github_stats_async(github_url: str) -> dict:
+    """Async GitHub stats fetcher with simple in-memory TTL cache.
+    Returns dict with stats or empty dict if failed.
+    """
+    if not github_url or not github_url.startswith('https://github.com/'):
+        return {}
+
+    try:
+        parts = github_url.replace('https://github.com/', '').split('/')
+        if not parts or not parts[0]:
+            return {}
+        username = parts[0]
+
+        cached = _gh_cache_get(username)
+        if cached:
+            return cached
+
+        headers = {}
+        token = os.getenv('GITHUB_TOKEN', '').strip()
+        if token:
+            headers["Authorization"] = f"Bearer {token}"
+            headers["Accept"] = "application/vnd.github+json"
+
+        async with httpx.AsyncClient(timeout=15, headers=headers) as client:
+            user_resp = await client.get(f"https://api.github.com/users/{username}")
+            if user_resp.status_code != 200:
+                return {}
+            user_data = user_resp.json()
+
+            repos_resp = await client.get(
+                f"https://api.github.com/users/{username}/repos?per_page=100&sort=updated"
+            )
+            repos_data = repos_resp.json() if repos_resp.status_code == 200 else []
+
+        total_stars = sum(repo.get('stargazers_count', 0) for repo in repos_data)
+        total_forks = sum(repo.get('forks_count', 0) for repo in repos_data)
+        public_repos = user_data.get('public_repos', 0)
+        followers = user_data.get('followers', 0)
+        following = user_data.get('following', 0)
+
+        from datetime import datetime, timedelta
+        cutoff = datetime.now() - timedelta(days=365)
+        recent_repos = 0
+        for repo in repos_data:
+            if repo.get('updated_at'):
+                try:
+                    updated = datetime.fromisoformat(repo['updated_at'].replace('Z', '+00:00'))
+                    if updated > cutoff:
+                        recent_repos += 1
+                except Exception:
+                    continue
+
+        data = {
+            'username': username,
+            'public_repos': public_repos,
+            'followers': followers,
+            'following': following,
+            'total_stars': total_stars,
+            'total_forks': total_forks,
+            'recent_activity': recent_repos,
+            'profile_created': user_data.get('created_at', ''),
+            'bio': user_data.get('bio', ''),
+            'company': user_data.get('company', ''),
+            'location': user_data.get('location', ''),
+            'blog': user_data.get('blog', ''),
+        }
+
+        _gh_cache_set(username, data)
+        return data
+    except Exception as e:
+        print(f"Error fetching GitHub stats (async) for {github_url}: {e}")
+        return {}
+>>>>>>> feature/apoorva-initial-upload

@@ -1,0 +1,164 @@
+{
+  "results": [
+    {
+      "resume_id": "AyushAditya_resume_25.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_experience",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Experience with Python and C++.",
+            "Used Python in various AI projects."
+          ]
+        },
+        {
+          "criterion_id": "curiosity",
+          "question": "Does the candidate express a strong desire to learn and ask questions about their work?",
+          "answer": "yes",
+          "reasons": [
+            "Proven ability to turn complex data into actionable solutions.",
+            "Participated in research and developed new systems."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Does the candidate showcase strong analytical and problem-solving skills?",
+          "answer": "yes",
+          "reasons": [
+            "Engineered AI systems that enhance user engagement.",
+            "Automated workflows demonstrating analytical approach."
+          ]
+        },
+        {
+          "criterion_id": "team_collaboration",
+          "question": "Has the candidate demonstrated effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Collaborated with 80+ teams.",
+            "Worked with cross-functional teams in AI functionalities."
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies",
+          "question": "Is the candidate familiar with machine learning, deep learning, or reinforcement learning methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Experience in deep learning, NLP, and ML models.",
+            "Developed ML endpoints for diagnostic use cases."
+          ]
+        },
+        {
+          "criterion_id": "prototyping_experience",
+          "question": "Does the candidate have experience in designing and prototyping AI systems?",
+          "answer": "yes",
+          "reasons": [
+            "Designed AI agent for character design.",
+            "Developed various ML systems and tools."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_initiative",
+          "question": "Does the candidate demonstrate a sense of ownership and initiative in their work?",
+          "answer": "yes",
+          "reasons": [
+            "Took initiative in creating AI-driven solutions.",
+            "Implemented self-started projects to automate workflows."
+          ]
+        },
+        {
+          "criterion_id": "cutting_edge_exploration",
+          "question": "Has the candidate engaged with or shown interest in exploring cutting-edge AI technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged with MCP in project development.",
+            "Explored AI-driven interactions in gaming development."
+          ]
+        }
+      ],
+      "yes_count": 8,
+      "no_count": 0,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "CV_Vaibhavee (2).pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_experience",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python and JavaScript.",
+            "Experience in web development using JavaScript."
+          ]
+        },
+        {
+          "criterion_id": "curiosity",
+          "question": "Does the candidate express a strong desire to learn and ask questions about their work?",
+          "answer": "no",
+          "reasons": [
+            "Limited information on initiative taken for learning.",
+            "Focus on completed projects rather than exploration."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Does the candidate showcase strong analytical and problem-solving skills?",
+          "answer": "yes",
+          "reasons": [
+            "Developed a tool for identifying spam accounts in social media.",
+            "Worked on network simulation for cybersecurity."
+          ]
+        },
+        {
+          "criterion_id": "team_collaboration",
+          "question": "Has the candidate demonstrated effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Experience in organizing workshops and events.",
+            "Coordinated among technical teams."
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies",
+          "question": "Is the candidate familiar with machine learning, deep learning, or reinforcement learning methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Experience with AI/ML frameworks such as TensorFlow and PyTorch.",
+            "Involved in research related to social media analytics."
+          ]
+        },
+        {
+          "criterion_id": "prototyping_experience",
+          "question": "Does the candidate have experience in designing and prototyping AI systems?",
+          "answer": "no",
+          "reasons": [
+            "Projects listed lack clear prototyping experience.",
+            "Focus more on implementation rather than design."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_initiative",
+          "question": "Does the candidate demonstrate a sense of ownership and initiative in their work?",
+          "answer": "yes",
+          "reasons": [
+            "Led various projects and workshops.",
+            "Initiated research and organized club activities."
+          ]
+        },
+        {
+          "criterion_id": "cutting_edge_exploration",
+          "question": "Has the candidate engaged with or shown interest in exploring cutting-edge AI technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Developed a project using MCP.",
+            "Engaged with AWS and cloud technologies."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 2,
+      "majority_pass": true
+    }
+  ]
+}
