@@ -665,7 +665,7 @@ export default function SinglePage() {
         </div>
       </main>
       <footer className="text-center py-6 text-slate-500 text-sm">
-        <p>FastAPI + OpenAI backend • One-page HR shortlisting tool</p>
+
       </footer>
     </div>
   );
