@@ -8,8 +8,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
 
-from models import QuestionsDoc
-from utils import (
+from .models import QuestionsDoc
+from .utils import (
     load_env,
     call_openai_json,
     extract_text_from_upload,
@@ -29,9 +29,14 @@ OPENAI_MODEL_CRITERIA = os.getenv("OPENAI_MODEL_CRITERIA", "gpt-4o-mini")
 OPENAI_MODEL_MATCH = os.getenv("OPENAI_MODEL_MATCH", "gpt-4o-mini")
 
 app = FastAPI(title="HR Resume Ranker API", version="1.0.0")
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -124,10 +129,15 @@ def generate_criteria(req: CriteriaRequest) -> Dict[str, Any]:
         jd=req.jd[:20000],
         hr=(req.hr if req.hr.strip() else "(none provided)")[:8000],
     )
-    raw = call_openai_json(OPENAI_MODEL_CRITERIA, prompt, OPENAI_API_KEY)
-    obj = json.loads(raw)
-    qdoc = QuestionsDoc(**obj)
-    return qdoc.model_dump()
+    try:
+        raw = call_openai_json(OPENAI_MODEL_CRITERIA, prompt, OPENAI_API_KEY)
+        obj = json.loads(raw)
+        qdoc = QuestionsDoc(**obj)
+        return qdoc.model_dump()
+    except TimeoutError as e:
+        return {"error": f"Criteria generation timed out: {e}"}
+    except Exception as e:
+        return {"error": f"Criteria generation failed: {e}"}
 
 
 @app.post("/analyze")
@@ -210,8 +220,13 @@ JSON SCHEMA TO OUTPUT
 """
 
     prompt = build_prompt()
-    raw = call_openai_json(OPENAI_MODEL_MATCH, prompt, OPENAI_API_KEY)
-    out = json.loads(raw)
+    try:
+        raw = call_openai_json(OPENAI_MODEL_MATCH, prompt, OPENAI_API_KEY)
+        out = json.loads(raw)
+    except TimeoutError as e:
+        return {"error": f"Analysis timed out: {e}"}
+    except Exception as e:
+        return {"error": f"Analysis failed: {e}"}
 
     # Persist full result
     ts = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")

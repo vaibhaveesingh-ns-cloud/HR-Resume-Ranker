@@ -52,9 +52,25 @@ def call_openai_json(model: str, prompt: str, api_key: str) -> str:
             {"role": "user", "content": prompt},
         ],
     }
-    r = httpx.post(url, headers=headers, json=body, timeout=120)
-    r.raise_for_status()
-    return r.json()["choices"][0]["message"]["content"]
+    # Allow configuration of timeout via env, default 60s
+    try:
+        timeout_s = float(os.getenv("OPENAI_TIMEOUT", "60"))
+    except Exception:
+        timeout_s = 60.0
+
+    try:
+        r = httpx.post(url, headers=headers, json=body, timeout=timeout_s)
+        r.raise_for_status()
+        return r.json()["choices"][0]["message"]["content"]
+    except httpx.TimeoutException:
+        raise TimeoutError(f"OpenAI request timed out after {int(timeout_s)}s")
+    except httpx.HTTPStatusError as e:
+        # Surface useful error message if available
+        try:
+            err = e.response.json()
+        except Exception:
+            err = {"detail": e.response.text}
+        raise RuntimeError(f"OpenAI HTTP {e.response.status_code}: {err}")
 
 
 def extract_github_links(text: str) -> List[str]:
