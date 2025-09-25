@@ -1,7 +1,7 @@
 # Frontend Dockerfile: Build Vite app and serve with Nginx
 
-  # --- Build stage ---
-  FROM node:20 AS build
+# --- Build stage ---
+FROM node:20 AS build
   WORKDIR /app
 
 # Install dependencies
@@ -23,7 +23,7 @@ ENV VITE_API_BASE=${VITE_API_BASE}
 RUN ROLLUP_SKIP_NODEJS_NATIVE=1 npm run build
 
 # --- Runtime stage ---
-  FROM nginx:alpine AS runtime
+FROM nginx:alpine AS runtime
 
 # Copy Nginx config with /api proxy to backend
 COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf

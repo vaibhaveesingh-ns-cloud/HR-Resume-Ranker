@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3.8'
 
 services:
   backend:
@@ -17,7 +17,7 @@ services:
       - "8000:8000"  # expose backend (optional in production if front proxies it)
     volumes:
       - ./backend/data:/app/backend/data
-      - ./backend/vectorstore:/app/backend/vectorstore
+      # - ./backend/vectorstore:/app/backend/vectorstore
     restart: unless-stopped
 
   frontend:
@@ -26,7 +26,6 @@ services:
       dockerfile: Dockerfile
       args:
         - VITE_API_BASE=/api
-    platform: linux/amd64
     container_name: hr-frontend
     depends_on:
       - backend
