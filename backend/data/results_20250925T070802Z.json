@@ -1,0 +1,945 @@
+{
+  "results": [
+    {
+      "resume_id": "Resume_1.pdf",
+      "answers": [
+        {
+          "criterion_id": "proficient_in_programming",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python, SQL, PLSQL, and C++.",
+            "Experience with frameworks like TensorFlow and LangChain."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate show evidence of being curious and proactive in learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Worked on cutting-edge technologies like LLMs and Generative AI.",
+            "Completed relevant certifications in machine learning and AI."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Can the candidate demonstrate strong analytical and problem-solving skills?",
+          "answer": "yes",
+          "reasons": [
+            "Built a CNN model with 98% accuracy for potato disease detection.",
+            "Optimized delivery processes in a previous internship."
+          ]
+        },
+        {
+          "criterion_id": "effective_communication",
+          "question": "Does the candidate exhibit effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Presented projects like Medical AI Chatbot, demonstrating clear communication.",
+            "Documentation of prompt templates for knowledge sharing."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Does the candidate demonstrate the ability to take ownership and work independently?",
+          "answer": "yes",
+          "reasons": [
+            "Worked independently on projects like Medical AI Chatbot.",
+            "Designed and developed LLM pipelines with minimal supervision."
+          ]
+        },
+        {
+          "criterion_id": "familiarity_with_ai",
+          "question": "Is the candidate familiar with AI methodologies such as machine learning or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Specialization in machine learning, deep learning, and NLP.",
+            "Used AI techniques in various projects."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_3d",
+          "question": "Does the candidate have any experience or coursework in 3D modeling or animation?",
+          "answer": "no",
+          "reasons": [
+            "No direct reference to coursework or experience in 3D modeling."
+          ]
+        },
+        {
+          "criterion_id": "interest_in_game_development",
+          "question": "Does the candidate express a genuine interest in game development and enhancing player experiences?",
+          "answer": "no",
+          "reasons": [
+            "Focused on AI applications and healthcare solutions, no mention of game development."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 2,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_4.pdf",
+      "answers": [
+        {
+          "criterion_id": "proficient_in_programming",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python and JavaScript.",
+            "Worked with various technologies including FastAPI, Docker, and PostgreSQL."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate show evidence of being curious and proactive in learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Developed innovative projects like AI copilot and multi-agent systems.",
+            "Shows ongoing engagement with AI and cloud technologies."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Can the candidate demonstrate strong analytical and problem-solving skills?",
+          "answer": "yes",
+          "reasons": [
+            "Engineered a Q&A system reducing documentation lookup time by 70%.",
+            "Developed solutions that significantly improved accuracy and efficiency."
+          ]
+        },
+        {
+          "criterion_id": "effective_communication",
+          "question": "Does the candidate exhibit effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Developed detailed documentation for projects.",
+            "Collaborated with legal staff and product teams effectively."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Does the candidate demonstrate the ability to take ownership and work independently?",
+          "answer": "yes",
+          "reasons": [
+            "Designed and deployed complex systems independently.",
+            "Handled end-to-end project management for significant upgrades."
+          ]
+        },
+        {
+          "criterion_id": "familiarity_with_ai",
+          "question": "Is the candidate familiar with AI methodologies such as machine learning or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged in AI/ML projects extensively.",
+            "Developed systems leveraging AI methodologies such as RAG."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_3d",
+          "question": "Does the candidate have any experience or coursework in 3D modeling or animation?",
+          "answer": "no",
+          "reasons": [
+            "No mention of specific experience or coursework in 3D modeling."
+          ]
+        },
+        {
+          "criterion_id": "interest_in_game_development",
+          "question": "Does the candidate express a genuine interest in game development and enhancing player experiences?",
+          "answer": "yes",
+          "reasons": [
+            "Developed AI-driven RPG platforms, showcasing a keen interest in game mechanics and player engagement.",
+            "Implemented interactive elements in projects that enhance user experiences."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 2,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_5.pdf",
+      "answers": [
+        {
+          "criterion_id": "proficient_in_programming",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Skilled in Python, JavaScript, and various relevant frameworks and libraries.",
+            "Built multiple LLM-powered applications using Python."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate show evidence of being curious and proactive in learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Hands-on projects demonstrate active learning in AI and full-stack development.",
+            "Continues to engage in diverse AI-focused coursework."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Can the candidate demonstrate strong analytical and problem-solving skills?",
+          "answer": "yes",
+          "reasons": [
+            "Created an emotion prediction model with optimized architecture.",
+            "Achieved significant performance improvements in various AI models."
+          ]
+        },
+        {
+          "criterion_id": "effective_communication",
+          "question": "Does the candidate exhibit effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Delivered projects with thorough documentation.",
+            "Worked in collaborative settings to improve project outcomes."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Does the candidate demonstrate the ability to take ownership and work independently?",
+          "answer": "yes",
+          "reasons": [
+            "Managed the development of LLM applications independently.",
+            "Demonstrated initiative in developing and deploying AI solutions."
+          ]
+        },
+        {
+          "criterion_id": "familiarity_with_ai",
+          "question": "Is the candidate familiar with AI methodologies such as machine learning or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Focus on LLMs and generative AI solutions in projects.",
+            "In-depth understanding of machine learning techniques."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_3d",
+          "question": "Does the candidate have any experience or coursework in 3D modeling or animation?",
+          "answer": "no",
+          "reasons": [
+            "No specific mention of 3D modeling or animation experience."
+          ]
+        },
+        {
+          "criterion_id": "interest_in_game_development",
+          "question": "Does the candidate express a genuine interest in game development and enhancing player experiences?",
+          "answer": "no",
+          "reasons": [
+            "Projects are focused on AI applications, no specific interest in game development mentioned."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 2,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_6.pdf",
+      "answers": [
+        {
+          "criterion_id": "proficient_in_programming",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Skilled in Python, R, and SQL, with experience in building scalable AI workflows.",
+            "Developed various AI solutions using modern frameworks."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate show evidence of being curious and proactive in learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Built innovative AI chatbot solutions and actively engaged in projects involving LLMs.",
+            "Exhibits continuous learning in AI and NLP technologies."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Can the candidate demonstrate strong analytical and problem-solving skills?",
+          "answer": "yes",
+          "reasons": [
+            "Developed a chatbot with real-time responses, showcasing effective problem-solving.",
+            "Collaborated on optimizing AI model performance."
+          ]
+        },
+        {
+          "criterion_id": "effective_communication",
+          "question": "Does the candidate exhibit effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Documented workflows and LLM tuning processes for internal teams.",
+            "Communicated effectively with cross-functional teams."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Does the candidate demonstrate the ability to take ownership and work independently?",
+          "answer": "yes",
+          "reasons": [
+            "Independently designed and deployed AI chatbot solutions.",
+            "Took initiative in crafting process improvements."
+          ]
+        },
+        {
+          "criterion_id": "familiarity_with_ai",
+          "question": "Is the candidate familiar with AI methodologies such as machine learning or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Hands-on experience in NLP and RAG technologies.",
+            "Applied various AI methodologies in projects."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_3d",
+          "question": "Does the candidate have any experience or coursework in 3D modeling or animation?",
+          "answer": "no",
+          "reasons": [
+            "No reference to experiences or projects involving 3D modeling."
+          ]
+        },
+        {
+          "criterion_id": "interest_in_game_development",
+          "question": "Does the candidate express a genuine interest in game development and enhancing player experiences?",
+          "answer": "no",
+          "reasons": [
+            "Focus on AI applications without specific interest in gaming or player enhancement."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 2,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_7.pdf",
+      "answers": [
+        {
+          "criterion_id": "proficient_in_programming",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python, Java, and other relevant technologies.",
+            "Experience in utilizing Python and JavaScript for projects."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate show evidence of being curious and proactive in learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Built a variety of AI applications showing proactive learning.",
+            "Engaged with multiple AI tools and frameworks."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Can the candidate demonstrate strong analytical and problem-solving skills?",
+          "answer": "yes",
+          "reasons": [
+            "Developed context-aware chatbots showcasing analytical skills.",
+            "Integrated complex algorithms for improved performance."
+          ]
+        },
+        {
+          "criterion_id": "effective_communication",
+          "question": "Does the candidate exhibit effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Communicated effectively in project teams.",
+            "Documented various AI systems and their functionalities."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Does the candidate demonstrate the ability to take ownership and work independently?",
+          "answer": "yes",
+          "reasons": [
+            "Independently developed various AI solutions.",
+            "Took initiative to manage personal projects."
+          ]
+        },
+        {
+          "criterion_id": "familiarity_with_ai",
+          "question": "Is the candidate familiar with AI methodologies such as machine learning or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Extensively worked with AI methodologies in personal and professional projects.",
+            "Focused on generative AI and intelligent solutions."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_3d",
+          "question": "Does the candidate have any experience or coursework in 3D modeling or animation?",
+          "answer": "yes",
+          "reasons": [
+            "Experienced with Blender for game design.",
+            "Worked on immersive VR projects."
+          ]
+        },
+        {
+          "criterion_id": "interest_in_game_development",
+          "question": "Does the candidate express a genuine interest in game development and enhancing player experiences?",
+          "answer": "yes",
+          "reasons": [
+            "Developed a classic Flappy Bird clone in Unity.",
+            "Worked on immersive game projects as part of studies."
+          ]
+        }
+      ],
+      "yes_count": 8,
+      "no_count": 0,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_8.pdf",
+      "answers": [
+        {
+          "criterion_id": "proficient_in_programming",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python and JavaScript as programming languages.",
+            "Worked with multiple relevant frameworks and tools."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate show evidence of being curious and proactive in learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged in projects displaying continuous learning.",
+            "Actively researches and applies new technologies."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Can the candidate demonstrate strong analytical and problem-solving skills?",
+          "answer": "yes",
+          "reasons": [
+            "Created innovative AI-based solutions for various use cases.",
+            "Analyzed extensive data for optimization."
+          ]
+        },
+        {
+          "criterion_id": "effective_communication",
+          "question": "Does the candidate exhibit effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Demonstrated effective communication through collaborative projects.",
+            "Documented technical details for audience understanding."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Does the candidate demonstrate the ability to take ownership and work independently?",
+          "answer": "yes",
+          "reasons": [
+            "Developed projects independently showcasing initiative.",
+            "Successfully managed work timelines and deliverables."
+          ]
+        },
+        {
+          "criterion_id": "familiarity_with_ai",
+          "question": "Is the candidate familiar with AI methodologies such as machine learning or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Extensive involvement in AI projects.",
+            "Experience with various AI techniques and methodologies."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_3d",
+          "question": "Does the candidate have any experience or coursework in 3D modeling or animation?",
+          "answer": "yes",
+          "reasons": [
+            "Had coursework including AR/VR and 3D Game Development.",
+            "Experience gained through practical work in 3D modeling."
+          ]
+        },
+        {
+          "criterion_id": "interest_in_game_development",
+          "question": "Does the candidate express a genuine interest in game development and enhancing player experiences?",
+          "answer": "yes",
+          "reasons": [
+            "Demonstrated interest in gaming technology and development.",
+            "Engaged in projects involving game mechanics."
+          ]
+        }
+      ],
+      "yes_count": 8,
+      "no_count": 0,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_9.pdf",
+      "answers": [
+        {
+          "criterion_id": "proficient_in_programming",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Skilled in Python, Java, and SQL.",
+            "Utilized these languages in several projects, showcasing proficiency."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate show evidence of being curious and proactive in learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Projects display a wide range of exploration in AI and machine learning.",
+            "Engages in continuous learning through various resources."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Can the candidate demonstrate strong analytical and problem-solving skills?",
+          "answer": "yes",
+          "reasons": [
+            "Developed solutions for domain-specific queries using innovative techniques.",
+            "Built complex AI workflows for improved efficiency."
+          ]
+        },
+        {
+          "criterion_id": "effective_communication",
+          "question": "Does the candidate exhibit effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Documented project work effectively.",
+            "Communicated with teams during collaborative ventures."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Does the candidate demonstrate the ability to take ownership and work independently?",
+          "answer": "yes",
+          "reasons": [
+            "Demonstrated initiative in developing several independent projects.",
+            "Managed projects from conception to deployment."
+          ]
+        },
+        {
+          "criterion_id": "familiarity_with_ai",
+          "question": "Is the candidate familiar with AI methodologies such as machine learning or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Experience with various AI-driven projects.",
+            "Familiar with machine learning concepts and their implementation."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_3d",
+          "question": "Does the candidate have any experience or coursework in 3D modeling or animation?",
+          "answer": "no",
+          "reasons": [
+            "No direct mention of 3D modeling or relevant coursework."
+          ]
+        },
+        {
+          "criterion_id": "interest_in_game_development",
+          "question": "Does the candidate express a genuine interest in game development and enhancing player experiences?",
+          "answer": "no",
+          "reasons": [
+            "Focus primarily on AI and machine learning, without explicit interest in game development."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 2,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_10.pdf",
+      "answers": [
+        {
+          "criterion_id": "proficient_in_programming",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python, with work in various AI projects.",
+            "Experience in deploying applications using JavaScript frameworks."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate show evidence of being curious and proactive in learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Regularly engaged in projects requiring learning of new technologies.",
+            "Completed various courses focusing on AI and machine learning."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Can the candidate demonstrate strong analytical and problem-solving skills?",
+          "answer": "yes",
+          "reasons": [
+            "Implemented solutions for real-time data extraction and analysis.",
+            "Built systems to enhance document parsing and retrieval."
+          ]
+        },
+        {
+          "criterion_id": "effective_communication",
+          "question": "Does the candidate exhibit effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Effectively communicated project details in multiple contexts.",
+            "Maintained clear documentation of project components."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Does the candidate demonstrate the ability to take ownership and work independently?",
+          "answer": "yes",
+          "reasons": [
+            "Took initiative in developing complete application solutions.",
+            "Managed projects from start to finish, demonstrating independence."
+          ]
+        },
+        {
+          "criterion_id": "familiarity_with_ai",
+          "question": "Is the candidate familiar with AI methodologies such as machine learning or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Worked on projects utilizing machine learning methodologies.",
+            "Implemented AI APIs for complex technical solutions."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_3d",
+          "question": "Does the candidate have any experience or coursework in 3D modeling or animation?",
+          "answer": "no",
+          "reasons": [
+            "No mention of projects or coursework in 3D modeling."
+          ]
+        },
+        {
+          "criterion_id": "interest_in_game_development",
+          "question": "Does the candidate express a genuine interest in game development and enhancing player experiences?",
+          "answer": "no",
+          "reasons": [
+            "No references to game development or projects related to enhancing player experiences."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 2,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_11.pdf",
+      "answers": [
+        {
+          "criterion_id": "proficient_in_programming",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in various programming languages including Python and JavaScript.",
+            "Used these languages in multiple projects effectively."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate show evidence of being curious and proactive in learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged actively in various projects, demonstrating learning proficiency.",
+            "Participated in a range of internships related to AI and full-stack development."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Can the candidate demonstrate strong analytical and problem-solving skills?",
+          "answer": "yes",
+          "reasons": [
+            "Built complex generative applications leveraging LLMs.",
+            "Demonstrated capability in developing effective technical solutions."
+          ]
+        },
+        {
+          "criterion_id": "effective_communication",
+          "question": "Does the candidate exhibit effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Communicated technical concepts clearly in various projects.",
+            "Used effective documentation for collaborative tools."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Does the candidate demonstrate the ability to take ownership and work independently?",
+          "answer": "yes",
+          "reasons": [
+            "Managed several projects independently, showcasing ownership.",
+            "Took responsibility for overseeing project execution."
+          ]
+        },
+        {
+          "criterion_id": "familiarity_with_ai",
+          "question": "Is the candidate familiar with AI methodologies such as machine learning or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Experience with generative AI and NLP methodologies in projects.",
+            "Continuous learning and application of AI concepts."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_3d",
+          "question": "Does the candidate have any experience or coursework in 3D modeling or animation?",
+          "answer": "no",
+          "reasons": [
+            "No specific experience mentioned in 3D modeling or related domains."
+          ]
+        },
+        {
+          "criterion_id": "interest_in_game_development",
+          "question": "Does the candidate express a genuine interest in game development and enhancing player experiences?",
+          "answer": "no",
+          "reasons": [
+            "Focus primarily on AI and data science without aspects of game development."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 2,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_12.pdf",
+      "answers": [
+        {
+          "criterion_id": "proficient_in_programming",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Strong skills in Python and Java, utilized in diverse projects.",
+            "Engaged in AI-related programming tasks effectively."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate show evidence of being curious and proactive in learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Dives into various aspects of AI and machine learning.",
+            "Has a clear background in exploring LLMs and associated technologies."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Can the candidate demonstrate strong analytical and problem-solving skills?",
+          "answer": "yes",
+          "reasons": [
+            "Developed solutions for complex tasks with high accuracy.",
+            "Applied machine learning techniques successfully in multiple projects."
+          ]
+        },
+        {
+          "criterion_id": "effective_communication",
+          "question": "Does the candidate exhibit effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Clear communication of project objectives and outcomes.",
+            "Maintained effective documentation practices."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Does the candidate demonstrate the ability to take ownership and work independently?",
+          "answer": "yes",
+          "reasons": [
+            "Managed several intricate projects independently.",
+            "Took initiative in various research endeavors."
+          ]
+        },
+        {
+          "criterion_id": "familiarity_with_ai",
+          "question": "Is the candidate familiar with AI methodologies such as machine learning or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Involvement in numerous AI and LLM projects.",
+            "Shows deep understanding of AI methodologies."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_3d",
+          "question": "Does the candidate have any experience or coursework in 3D modeling or animation?",
+          "answer": "no",
+          "reasons": [
+            "No indicated experience or coursework specific to 3D modeling."
+          ]
+        },
+        {
+          "criterion_id": "interest_in_game_development",
+          "question": "Does the candidate express a genuine interest in game development and enhancing player experiences?",
+          "answer": "no",
+          "reasons": [
+            "Focus primarily on AI research without mention of game-related interests or projects."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 2,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_14.pdf",
+      "answers": [
+        {
+          "criterion_id": "proficient_in_programming",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Skilled in Python, and experience with React.js for web development.",
+            "Worked on multiple relevant AI projects."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate show evidence of being curious and proactive in learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Actively engaged in various learning experiences.",
+            "Demonstrated growth through applications in AI and ML."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Can the candidate demonstrate strong analytical and problem-solving skills?",
+          "answer": "yes",
+          "reasons": [
+            "Developed AI models that optimize performance significantly.",
+            "Engaged in solving complex tasks effectively."
+          ]
+        },
+        {
+          "criterion_id": "effective_communication",
+          "question": "Does the candidate exhibit effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Documented various technical projects clearly.",
+            "Communicated effectively in team environments."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Does the candidate demonstrate the ability to take ownership and work independently?",
+          "answer": "yes",
+          "reasons": [
+            "Managed and executed multiple independent projects successfully.",
+            "Took ownership of AI solutions from start to finish."
+          ]
+        },
+        {
+          "criterion_id": "familiarity_with_ai",
+          "question": "Is the candidate familiar with AI methodologies such as machine learning or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged in numerous AI development projects.",
+            "Deep understanding of generative AI and LLM methodologies."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_3d",
+          "question": "Does the candidate have any experience or coursework in 3D modeling or animation?",
+          "answer": "no",
+          "reasons": [
+            "No relevant coursework or projects in 3D modeling mentioned."
+          ]
+        },
+        {
+          "criterion_id": "interest_in_game_development",
+          "question": "Does the candidate express a genuine interest in game development and enhancing player experiences?",
+          "answer": "no",
+          "reasons": [
+            "Focus on AI and data science without specific references to game development."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 2,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_15.pdf",
+      "answers": [
+        {
+          "criterion_id": "proficient_in_programming",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python and SQL, with multiple applications in projects.",
+            "Experience with various programming languages and frameworks."
+          ]
+        },
+        {
+          "criterion_id": "curiosity_and_learning",
+          "question": "Does the candidate show evidence of being curious and proactive in learning new technologies?",
+          "answer": "yes",
+          "reasons": [
+            "Engaged in various certifications and courses related to AI.",
+            "Continues to learn and apply new AI methodologies."
+          ]
+        },
+        {
+          "criterion_id": "problem_solving_skills",
+          "question": "Can the candidate demonstrate strong analytical and problem-solving skills?",
+          "answer": "yes",
+          "reasons": [
+            "Developed a job-matching AI assistant demonstrating analytical skills.",
+            "Applied machine learning techniques successfully in various projects."
+          ]
+        },
+        {
+          "criterion_id": "effective_communication",
+          "question": "Does the candidate exhibit effective verbal and written communication skills?",
+          "answer": "yes",
+          "reasons": [
+            "Clear communication of project objectives and methodologies.",
+            "Maintained comprehensive documentation during projects."
+          ]
+        },
+        {
+          "criterion_id": "ownership_and_independence",
+          "question": "Does the candidate demonstrate the ability to take ownership and work independently?",
+          "answer": "yes",
+          "reasons": [
+            "Managed and developed projects independently.",
+            "Assumed responsibility for project outcomes."
+          ]
+        },
+        {
+          "criterion_id": "familiarity_with_ai",
+          "question": "Is the candidate familiar with AI methodologies such as machine learning or reinforcement learning?",
+          "answer": "yes",
+          "reasons": [
+            "Extensive experience in AI and machine learning through internships.",
+            "Familiar with various AI methodologies and concepts."
+          ]
+        },
+        {
+          "criterion_id": "experience_with_3d",
+          "question": "Does the candidate have any experience or coursework in 3D modeling or animation?",
+          "answer": "no",
+          "reasons": [
+            "No practical experience or coursework involving 3D modeling."
+          ]
+        },
+        {
+          "criterion_id": "interest_in_game_development",
+          "question": "Does the candidate express a genuine interest in game development and enhancing player experiences?",
+          "answer": "no",
+          "reasons": [
+            "Focus primarily on AI research with no direct mention of game development work."
+          ]
+        }
+      ],
+      "yes_count": 6,
+      "no_count": 2,
+      "majority_pass": true
+    }
+  ]
+}

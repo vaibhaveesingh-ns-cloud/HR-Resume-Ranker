@@ -55,6 +55,7 @@ export interface AnalyzeResponse {
     no_count: number;
     has_github: boolean;
     github_url: string;
+    github_candidates: string[];
     github_stats: {
       username?: string;
       public_repos?: number;
