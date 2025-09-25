@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: hr-backend
+    environment:
+      # Provide your keys/secrets via env or an external .env file
+      # OPENAI_API_KEY: ${OPENAI_API_KEY}
+      # GITHUB_TOKEN: ${GITHUB_TOKEN}
+      PYTHONUNBUFFERED: "1"
+    ports:
+      - "8000:8000"  # expose backend (optional in production if front proxies it)
+    volumes:
+      - ./backend/data:/app/backend/data
+      - ./backend/vectorstore:/app/backend/vectorstore
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+      args:
+        - VITE_API_BASE=/api
+    container_name: hr-frontend
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    restart: unless-stopped
+
+# named volumes (none required; using bind mounts for data persistence)
+volumes: {}
