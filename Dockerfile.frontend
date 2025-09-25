@@ -5,11 +5,13 @@
   WORKDIR /app
 
 # Install dependencies
-COPY package.json package-lock.json* ./
+COPY package.json ./
 # Avoid rollup native optional binary resolution issues on some platforms
 ENV ROLLUP_SKIP_NODEJS_NATIVE=1
-# Install without optional deps to avoid native optional packages
-RUN npm ci --no-optional || npm install --no-optional
+# Ensure npm ignores optional deps entirely
+ENV npm_config_optional=false
+# Install without using lockfile (prevents host-arch-pinned optional deps)
+RUN npm install --no-package-lock --no-optional
 
 # Copy source
 COPY . .
