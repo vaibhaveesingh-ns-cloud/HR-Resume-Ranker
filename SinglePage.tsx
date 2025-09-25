@@ -23,10 +23,17 @@ export default function SinglePage() {
   // Group filtering state
   const [visibleGroups, setVisibleGroups] = useState<Set<string>>(new Set(['strongly_consider', 'potential_fit', 'rejected']));
 
-  // Filtered results based on selected groups
+  // Unique results (dedupe by resume_id), then filter by selected groups
   const filteredResults = useMemo(() => {
-    if (!analysis) return [];
-    return analysis.results.filter(r => visibleGroups.has(r.group));
+    if (!analysis) return [] as AnalyzeResponse['results'];
+    const seen = new Set<string>();
+    const unique: AnalyzeResponse['results'] = [];
+    for (const r of analysis.results) {
+      if (seen.has(r.resume_id)) continue;
+      seen.add(r.resume_id);
+      unique.push(r);
+    }
+    return unique.filter(r => visibleGroups.has(r.group));
   }, [analysis, visibleGroups]);
 
   // Download criteria as JSON
@@ -108,13 +115,17 @@ export default function SinglePage() {
     URL.revokeObjectURL(url);
   }, [filteredResults]);
 
-  // Group counts for display
+  // Group counts computed from unique results
   const groupCounts = useMemo(() => {
-    if (!analysis) return { strongly_consider: 0, potential_fit: 0, rejected: 0 };
-    return analysis.results.reduce((acc, r) => {
-      acc[r.group] = (acc[r.group] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>);
+    if (!analysis) return { strongly_consider: 0, potential_fit: 0, rejected: 0 } as Record<string, number>;
+    const seen = new Set<string>();
+    const counts: Record<string, number> = { strongly_consider: 0, potential_fit: 0, rejected: 0 };
+    for (const r of analysis.results) {
+      if (seen.has(r.resume_id)) continue;
+      seen.add(r.resume_id);
+      counts[r.group] = (counts[r.group] || 0) + 1;
+    }
+    return counts;
   }, [analysis]);
 
   const handleGenerateCriteria = useCallback(async () => {
@@ -349,7 +360,11 @@ export default function SinglePage() {
                               onChange={(e) => {
                                 const newFiles = Array.from(e.target.files || []);
                                 if (newFiles.length > 0) {
-                                  setResumeFiles(prev => [...prev, ...newFiles]);
+                                  setResumeFiles((prev: File[]) => {
+                                    const existing = new Set(prev.map(f => f.name));
+                                    const unique = newFiles.filter(f => !existing.has(f.name));
+                                    return unique.length ? [...prev, ...unique] : prev;
+                                  });
                                 }
                                 e.target.value = '';
                               }}
@@ -452,7 +467,12 @@ export default function SinglePage() {
                     </button>
                   ))}
                   <span className="text-xs text-slate-500 ml-2">
-                    Showing: {filteredResults.length} of {analysis.results.length} resumes
+                    Showing: {filteredResults.length} of {(() => {
+                      if (!analysis) return 0;
+                      const seen = new Set<string>();
+                      for (const r of analysis.results) seen.add(r.resume_id);
+                      return seen.size;
+                    })()} resumes
                   </span>
                   <button
                     onClick={handleDownloadCSV}
@@ -465,7 +485,13 @@ export default function SinglePage() {
               </div>
 
               <div className="mb-3 text-sm text-slate-600">
-                Parsed {analysis.results.length}/{typeof totalDuringAnalysis === 'number' ? totalDuringAnalysis : analysis.results.length} resume{(analysis.results.length !== 1) ? 's' : ''}.
+                {(() => {
+                  const seen = new Set<string>();
+                  for (const r of analysis.results) seen.add(r.resume_id);
+                  const uniqueCount = seen.size;
+                  const totalCount = typeof totalDuringAnalysis === 'number' ? totalDuringAnalysis : uniqueCount;
+                  return `Parsed ${uniqueCount}/${totalCount} resume${uniqueCount !== 1 ? 's' : ''}.`;
+                })()}
               </div>
               <div className="overflow-x-auto">
                 <table className="min-w-full border border-slate-200 text-sm">
