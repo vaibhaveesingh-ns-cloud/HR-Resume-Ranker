@@ -8,10 +8,9 @@
 COPY package.json ./
 # Avoid rollup native optional binary resolution issues on some platforms
 ENV ROLLUP_SKIP_NODEJS_NATIVE=1
-# Ensure npm ignores optional deps entirely
-ENV npm_config_optional=false
-# Install without using lockfile (prevents host-arch-pinned optional deps)
-RUN npm install --no-package-lock --no-optional
+# Install and generate a fresh lockfile for the container's platform (allows optional deps)
+RUN npm install --no-package-lock \
+ && npm install -D rollup@4.17.2
 
 # Copy source
 COPY . .
@@ -20,8 +19,8 @@ COPY . .
 ARG VITE_API_BASE=/api
 ENV VITE_API_BASE=${VITE_API_BASE}
 
-# Build static site
-RUN npm run build
+# Build static site (ensure JS fallback during this step)
+RUN ROLLUP_SKIP_NODEJS_NATIVE=1 npm run build
 
 # --- Runtime stage ---
   FROM nginx:alpine AS runtime
