@@ -1,5 +1,0 @@
-{
-  "name": "HR AI Resume Ranker",
-  "description": "An HR tool for ranking candidates by uploading a job description and multiple resumes. The tool uses AI to analyze the resumes, requires a GitHub profile for qualification, and provides a ranked list of suitable candidates.",
-  "requestFramePermissions": []
-}

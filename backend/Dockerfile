@@ -17,11 +17,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app/backend
 
 # Install Python dependencies first (better layer caching)
-COPY backend/requirements.txt /app/backend/requirements.txt
+COPY requirements.txt /app/backend/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy backend source
-COPY backend/ /app/backend/
+COPY . /app/backend/
 
 # Expose FastAPI port
 EXPOSE 8000
