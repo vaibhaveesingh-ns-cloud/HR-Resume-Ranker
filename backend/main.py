@@ -27,6 +27,15 @@ os.makedirs(DATA_DIR, exist_ok=True)
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "").strip()
 OPENAI_MODEL_CRITERIA = os.getenv("OPENAI_MODEL_CRITERIA", "gpt-4o-mini")
 OPENAI_MODEL_MATCH = os.getenv("OPENAI_MODEL_MATCH", "gpt-4o-mini")
+# Limits to keep prompts within safe size to avoid timeouts (tunable via env)
+try:
+    MAX_RESUME_CHARS = int(os.getenv("MAX_RESUME_CHARS", "8000"))
+except Exception:
+    MAX_RESUME_CHARS = 8000
+try:
+    MAX_TOTAL_RESUME_CHARS = int(os.getenv("MAX_TOTAL_RESUME_CHARS", "40000"))
+except Exception:
+    MAX_TOTAL_RESUME_CHARS = 40000
 
 app = FastAPI(title="HR Resume Ranker API", version="1.0.0")
 origins = [
@@ -162,13 +171,24 @@ async def analyze(
     resumes_payload: List[Dict[str, str]] = []
     resume_text_lookup: Dict[str, str] = {}
     resume_bytes_lookup: Dict[str, bytes] = {}
+    total_chars = 0
     for f in resumes:
         content = await f.read()
         try:
             text = extract_text_from_upload(f.filename, content)
         except Exception:
             text = content.decode("utf-8", errors="ignore")
-        text_limited = text[:20000]
+        # Enforce per-resume and total character budgets to keep prompt small
+        text_limited = text[:MAX_RESUME_CHARS]
+        if MAX_TOTAL_RESUME_CHARS > 0:
+            remaining = MAX_TOTAL_RESUME_CHARS - total_chars
+            if remaining <= 0:
+                # Skip adding more text to prompt budget, but still keep bytes for PDF link extraction later
+                text_limited = ""
+            else:
+                if len(text_limited) > remaining:
+                    text_limited = text_limited[:remaining]
+        total_chars += len(text_limited)
         resumes_payload.append({"id": f.filename, "text": text_limited})
         resume_text_lookup[f.filename] = text_limited
         resume_bytes_lookup[f.filename] = content
