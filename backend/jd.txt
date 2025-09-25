@@ -1,0 +1,30 @@
+Scopely is looking for an Intern - AI Engineer to join our Scopely team in Bangalore! 
+At Scopely, we care deeply about what we do and want to inspire play, every day - whether in our 
+work environments alongside our talented colleagues, or through our deep connections with our 
+communities of players. We are a global team of game lovers who are developing, publishing and 
+innovating the mobile games industry, connecting millions of people around the world daily. 
+What You’ll Do  
+• Contribute to AI initiatives in Conversational Analytics, Conversational Knowledge Bases, and 
+QA Automation 
+• Design and prototype AI systems that enhance game development, analytics, and player 
+experience 
+• Explore and experiment with cutting-edge technologies including: 
+o MCP (Model Context Protocol) — creating structured systems to manage AI model 
+context across use cases 
+o Autonomous Agents — developing AI-driven entities capable of decision-making and 
+interaction 
+o AI Avatars / NPCs, 3D modelling and animation pipelines 
+• Present research, insights, and demos that shape the direction of AI at Scopely 
+What We’re Looking For 
+• Proficient in programming languages such as Python, JS, or similar 
+• You’re endlessly curious, proactive in learning, and not afraid to ask “why?” 
+• You take ownership, work independently, and break down complex problems with creative 
+solutions 
+• You care about making a difference — whether that’s streamlining a workflow or creating 
+tech that enhances game experience 
+• Strong analytical and problem-solving skills, with the ability to approach complex challenges 
+methodically 
+• Effective verbal and written communication skills for collaborating and sharing technical 
+ideas 
+• Bonus: Familiarity with machine learning, deep learning, reinforcement learning, or other AI 
+methodologies

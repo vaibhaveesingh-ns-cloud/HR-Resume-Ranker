@@ -55,6 +55,7 @@ export interface AnalyzeResponse {
     no_count: number;
     has_github: boolean;
     github_url: string;
+    github_candidates: string[];
     github_stats: {
       username?: string;
       public_repos?: number;
@@ -70,6 +71,9 @@ export interface AnalyzeResponse {
       blog?: string;
     };
     github_score: number;
+    has_linkedin: boolean;
+    linkedin_url: string;
+    linkedin_candidates: string[];
     group: 'strongly_consider' | 'potential_fit' | 'rejected';
     group_reason: string;
   }>;

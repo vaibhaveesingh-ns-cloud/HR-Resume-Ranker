@@ -1,0 +1,244 @@
+{
+  "results": [
+    {
+      "resume_id": "Resume_1.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_languages",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python",
+            "Experience with PLSQL and basic C++"
+          ]
+        },
+        {
+          "criterion_id": "curiosity",
+          "question": "Does the candidate express a desire to learn and ask insightful questions?",
+          "answer": "yes",
+          "reasons": [
+            "Shows interest in optimizing LLM-based pipelines",
+            "Engaged in a generative AI project"
+          ]
+        },
+        {
+          "criterion_id": "independent_work",
+          "question": "Has the candidate demonstrated the ability to work independently on projects?",
+          "answer": "yes",
+          "reasons": [
+            "Worked independently on a chatbot interpreter",
+            "Developed multiple AI projects on GitHub"
+          ]
+        },
+        {
+          "criterion_id": "problem_solving",
+          "question": "Does the candidate show strong analytical and problem-solving skills in their experience?",
+          "answer": "yes",
+          "reasons": [
+            "Created solutions for atmospheric queries",
+            "Optimized delivery processes in previous internships"
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Can the candidate effectively communicate technical ideas verbally and in writing?",
+          "answer": "yes",
+          "reasons": [
+            "Developed AI chatbot which requires clear communication",
+            "Documented projects on GitHub"
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies",
+          "question": "Is the candidate familiar with machine learning or other AI methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Experience with large language models (LLMs)",
+            "Knowledge of CNNs and deep learning techniques"
+          ]
+        },
+        {
+          "criterion_id": "team_diversity",
+          "question": "Does the candidate show a commitment to diversity and inclusion in their experience or statement?",
+          "answer": "no",
+          "reasons": [
+            "No explicit mention of diversity initiatives",
+            "Experience focus is primarily on technical skills"
+          ]
+        },
+        {
+          "criterion_id": "ai_systems_experience",
+          "question": "Has the candidate contributed to the development or prototyping of AI systems?",
+          "answer": "yes",
+          "reasons": [
+            "Developed a chatbot for satellite data",
+            "Created a medical AI chatbot project"
+          ]
+        }
+      ],
+      "yes_count": 7,
+      "no_count": 1,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_2.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_languages",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in JavaScript (React)",
+            "Experience in developing AI models using Python"
+          ]
+        },
+        {
+          "criterion_id": "curiosity",
+          "question": "Does the candidate express a desire to learn and ask insightful questions?",
+          "answer": "yes",
+          "reasons": [
+            "Demonstrated proactive engagement in AI model performance",
+            "Designed prototypes for advanced AI systems"
+          ]
+        },
+        {
+          "criterion_id": "independent_work",
+          "question": "Has the candidate demonstrated the ability to work independently on projects?",
+          "answer": "yes",
+          "reasons": [
+            "Contributed to creating a generative AI document assistant",
+            "Managed project milestones independently"
+          ]
+        },
+        {
+          "criterion_id": "problem_solving",
+          "question": "Does the candidate show strong analytical and problem-solving skills in their experience?",
+          "answer": "yes",
+          "reasons": [
+            "Implemented features in an e-commerce site to solve user problems",
+            "Optimized performance of AI models"
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Can the candidate effectively communicate technical ideas verbally and in writing?",
+          "answer": "yes",
+          "reasons": [
+            "Collaborated with cross-functional teams",
+            "Involved in API integration and project documentation"
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies",
+          "question": "Is the candidate familiar with machine learning or other AI methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Experienced in Retrival-Augmented Generation (RAG)",
+            "Proficient in LLM Engineering and Model Fine-Tuning"
+          ]
+        },
+        {
+          "criterion_id": "team_diversity",
+          "question": "Does the candidate show a commitment to diversity and inclusion in their experience or statement?",
+          "answer": "no",
+          "reasons": [
+            "No references to diversity commitments in projects",
+            "Focus remains on technical accomplishments"
+          ]
+        },
+        {
+          "criterion_id": "ai_systems_experience",
+          "question": "Has the candidate contributed to the development or prototyping of AI systems?",
+          "answer": "yes",
+          "reasons": [
+            "Developed a generative AI document assistant",
+            "Designed an LLM-powered chatbot"
+          ]
+        }
+      ],
+      "yes_count": 7,
+      "no_count": 1,
+      "majority_pass": true
+    },
+    {
+      "resume_id": "Resume_3.pdf",
+      "answers": [
+        {
+          "criterion_id": "programming_languages",
+          "question": "Does the candidate demonstrate proficiency in programming languages such as Python or JavaScript?",
+          "answer": "yes",
+          "reasons": [
+            "Proficient in Python and JavaScript",
+            "Experience with several programming languages listed"
+          ]
+        },
+        {
+          "criterion_id": "curiosity",
+          "question": "Does the candidate express a desire to learn and ask insightful questions?",
+          "answer": "yes",
+          "reasons": [
+            "Developed complex models requiring continuous learning",
+            "Focused on responsible AI practices, showcasing curiosity around ethics"
+          ]
+        },
+        {
+          "criterion_id": "independent_work",
+          "question": "Has the candidate demonstrated the ability to work independently on projects?",
+          "answer": "yes",
+          "reasons": [
+            "Self-managed development of several AI projects",
+            "Worked independently on prompt engineering"
+          ]
+        },
+        {
+          "criterion_id": "problem_solving",
+          "question": "Does the candidate show strong analytical and problem-solving skills in their experience?",
+          "answer": "yes",
+          "reasons": [
+            "Implemented monitoring for AI model drift",
+            "Created prompt evaluation frameworks to enhance model performance"
+          ]
+        },
+        {
+          "criterion_id": "communication_skills",
+          "question": "Can the candidate effectively communicate technical ideas verbally and in writing?",
+          "answer": "yes",
+          "reasons": [
+            "Detailed documentation of AI projects",
+            "Collaborated on AI frameworks requiring communication"
+          ]
+        },
+        {
+          "criterion_id": "ai_methodologies",
+          "question": "Is the candidate familiar with machine learning or other AI methodologies?",
+          "answer": "yes",
+          "reasons": [
+            "Deep knowledge of generative AI and LLMs",
+            "Experience with responsibility AI frameworks"
+          ]
+        },
+        {
+          "criterion_id": "team_diversity",
+          "question": "Does the candidate show a commitment to diversity and inclusion in their experience or statement?",
+          "answer": "no",
+          "reasons": [
+            "No reference to diversity efforts in projects",
+            "Focus primarily on technical details"
+          ]
+        },
+        {
+          "criterion_id": "ai_systems_experience",
+          "question": "Has the candidate contributed to the development or prototyping of AI systems?",
+          "answer": "yes",
+          "reasons": [
+            "Developed an LLM-powered chatbot",
+            "Created frameworks for model evaluation and monitoring"
+          ]
+        }
+      ],
+      "yes_count": 7,
+      "no_count": 1,
+      "majority_pass": true
+    }
+  ]
+}
